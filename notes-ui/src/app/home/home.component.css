@@ -1,0 +1,12 @@
+.home-channel-notes {
+  display: flex;
+  height: 93%;
+}
+
+.home-channel {
+  flex: 2;
+}
+
+.home-notes {
+  flex: 10;
+}
