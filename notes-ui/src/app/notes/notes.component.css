@@ -1,3 +1,33 @@
 .notes {
-  float: left;
+  height: 100%;
+  overflow: auto;
+}
+
+.message {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-style: solid;
+  border: 2px;
+  border-radius: 5px;
+}
+
+.box {
+  width: 180px;
+  height: 180px;
+  background: #d9dbda;
+  margin: 20px 50px;
+}
+
+.inner-border {
+  border: 20px solid #d9dbda;
+  box-shadow: inset 0px 0px 0px 10px #969696;
+  box-sizing: border-box;
+}
+
+.inner-outline {
+  outline: 10px solid lightblue;
+  outline-offset: -30px;
 }

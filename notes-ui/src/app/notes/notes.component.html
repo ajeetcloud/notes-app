@@ -1,5 +1,7 @@
-<div class="notes">
-  <li>Sample</li>
-  <li>Content</li>
-  <li>Here</li>
+<div class="notes" (scroll)="onScroll($event)">
+  <div *ngFor="let note of notes; index as i;">
+    <div class="box inner-border" [id]="note.messageId">
+      {{note.message}}
+    </div>
+  </div>
 </div>
