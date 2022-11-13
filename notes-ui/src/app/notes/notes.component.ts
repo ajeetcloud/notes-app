@@ -1,5 +1,6 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {note} from "../types/message";
+import {NgScrollbar} from "ngx-scrollbar";
 
 @Component({
   selector: 'notes',
@@ -8,6 +9,7 @@ import {note} from "../types/message";
 })
 export class NotesComponent implements OnInit, AfterViewInit {
 
+  @ViewChild(NgScrollbar) scrollable: NgScrollbar;
   searchValue: string = '';
   notes: note[] = [];
 
@@ -16,17 +18,24 @@ export class NotesComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    const lastNoteElement = document.getElementById("1015") || null;
-    if (lastNoteElement) {
-      lastNoteElement.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-        inline: "nearest"
-      });
-    }
+    const lastNoteElement = document.getElementById("999") || null;
+    /*    if (lastNoteElement) {
+          lastNoteElement.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+            inline: "nearest"
+          });
+        }*/
+
+    this.scrollable.scrollTo({bottom: 0, duration: 0});
   }
 
   constructor() {
+  }
+
+  reachedTop() {
+    console.log("reached top of scroll");
+    this.notes = [...this.getMoreMessages1(), ...this.notes];
   }
 
   onScroll(event: any) {
@@ -84,7 +93,25 @@ export class NotesComponent implements OnInit, AfterViewInit {
   getMoreMessages(): note[] {
     return [
       {messageId: 1001, message: 'hello'},
+      {messageId: 10011, message: 'hello'},
+      {messageId: 10012, message: 'hello'},
+      {messageId: 10013, message: 'hello'},
+      {messageId: 10013, message: 'hello'},
+      {messageId: 10014, message: 'hello'},
+      {messageId: 10016, message: 'hello'},
+      {messageId: 10017, message: 'hello'},
+      {messageId: 10018, message: 'hello'},
+      {messageId: 10019, message: 'hello'},
+      {messageId: 1001, message: 'hello'},
       {messageId: 1002, message: 'hi'},
+      {messageId: 10021, message: 'hi'},
+      {messageId: 10022, message: 'hi'},
+      {messageId: 10023, message: 'hi'},
+      {messageId: 10024, message: 'hi'},
+      {messageId: 10025, message: 'hi'},
+      {messageId: 10026, message: 'hi'},
+      {messageId: 10027, message: 'hi'},
+      {messageId: 10028, message: 'hi'},
       {messageId: 1003, message: 'new'},
       {messageId: 1004, message: 'message'},
       {messageId: 1005, message: 'lets'},
@@ -97,7 +124,10 @@ export class NotesComponent implements OnInit, AfterViewInit {
       {messageId: 1012, message: 'happens'},
       {messageId: 1013, message: 'now'},
       {messageId: 1014, message: 'that'},
-      {messageId: 1015, message: 'rendering'},
+      {
+        messageId: 999,
+        message: 'rendering the sample code if just way too random the quick fox alsways jumps rendering the sample code if just way too random the quick fox alsways jumps rendering the sample code if just way too random the quick fox alsways jumps rendering the sample code if just way too random the quick fox alsways jumps rendering the sample code if just way too random the quick fox alsways jumpsrendering the sample code if just way too random the quick fox alsways jumpsrendering the sample code if just way too random the quick fox alsways jumpsrendering the sample code if just way too random the quick fox alsways jumpsrendering the sample code if just way too random the quick fox alsways jumpsrendering the sample code if just way too random the quick fox alsways jumpsrendering the sample code if just way too random the quick fox alsways jumpsrendering the sample code if just way too random the quick fox alsways jumpsrendering the sample code if just way too random the quick fox alsways jumpsrendering the sample code if just way too random the quick fox alsways jumpsrendering the sample code if just way too random the quick fox alsways jumpsrendering the sample code if just way too random the quick fox alsways jumpsrendering the sample code if just way too random the quick fox alsways jumpsrendering the sample code if just way too random the quick fox alsways jumpsrendering the sample code if just way too random the quick fox alsways jumpsrendering the sample code if just way too random the quick fox alsways jumps'
+      },
     ];
   }
 

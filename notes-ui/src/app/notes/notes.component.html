@@ -1,7 +1,15 @@
-<div class="notes" (scroll)="onScroll($event)">
-  <div *ngFor="let note of notes; index as i;">
-    <div class="box inner-border" [id]="note.messageId">
-      {{note.message}}
+<ng-scrollbar
+  [autoHeightDisabled]="false"
+  (reachedTop)="reachedTop()"
+  [reachedOffset]="200"
+  class="notes">
+  <div scrollViewport *ngFor="let note of notes; index as i;let last =  last">
+    <mat-divider class="divider"></mat-divider>
+    <div class="message-container" [id]="note.messageId">
+      <div><img src="assets/images/avatar.png" class="avatar"></div>
+      <div class="content"><strong>Ajeet</strong>
+        <br> {{note.message}}
+      </div>
     </div>
   </div>
-</div>
+</ng-scrollbar>

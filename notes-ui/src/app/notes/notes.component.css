@@ -1,5 +1,5 @@
 .notes {
-  height: 100%;
+  height: 90%;
   overflow: auto;
 }
 
@@ -15,19 +15,34 @@
 }
 
 .box {
-  width: 180px;
-  height: 180px;
-  background: #d9dbda;
-  margin: 20px 50px;
+  height: auto;
 }
 
 .inner-border {
-  border: 20px solid #d9dbda;
-  box-shadow: inset 0px 0px 0px 10px #969696;
-  box-sizing: border-box;
+
 }
 
 .inner-outline {
   outline: 10px solid lightblue;
   outline-offset: -30px;
 }
+
+.message-container {
+  display: flex;
+  min-height: 70px;
+  margin: 10px 20px 10px 20px;
+}
+
+.divider {
+  margin: 10px 0;
+}
+
+.avatar {
+  border-radius: 5px;
+  width: 36px;
+}
+
+.content {
+  padding-left: 16px;
+}
+

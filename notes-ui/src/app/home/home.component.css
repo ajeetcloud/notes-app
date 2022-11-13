@@ -7,6 +7,15 @@
   flex: 2;
 }
 
-.home-notes {
+.notes-container {
   flex: 10;
+  height: 83%;
+}
+
+.home-notes {
+  height: 70%;
+}
+
+.create-note {
+  min-height: 30%;
 }

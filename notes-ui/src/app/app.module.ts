@@ -12,6 +12,11 @@ import {FormsModule} from '@angular/forms';
 import {MatIconModule} from '@angular/material/icon';
 import {ChannelComponent} from "./channel/channel.component";
 import {NotesComponent} from "./notes/notes.component";
+import {NgScrollbarModule} from "ngx-scrollbar";
+import {NgScrollbarReachedModule} from "ngx-scrollbar/reached-event";
+import {MatDividerModule} from "@angular/material/divider";
+import {CreateNoteComponent} from "./create-note/create.note.component";
+import {MatCardModule} from "@angular/material/card";
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent, pathMatch: 'full'},
@@ -25,16 +30,21 @@ const appRoutes: Routes = [
     SearchComponent,
     ChannelComponent,
     NotesComponent,
+    CreateNoteComponent,
   ],
   imports: [
     MatSliderModule,
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
+    MatCardModule,
+    MatDividerModule,
     BrowserModule,
     FormsModule,
+    NgScrollbarModule,
     BrowserAnimationsModule,
     [RouterModule.forRoot(appRoutes)],
+    NgScrollbarReachedModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
