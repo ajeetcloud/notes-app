@@ -13,6 +13,6 @@
         <property name="show_sql">true</property>
         <property name="hbm2ddl.auto">update</property>
         <property name="hibernate.current_session_context_class">thread</property>
-        <mapping class="com.notes.model.Notes"/>
+        <mapping class="com.notes.model.Note"/>
     </session-factory>
 </hibernate-configuration>

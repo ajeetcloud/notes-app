@@ -20,13 +20,15 @@ public class HibernateUtil<T> {
         getSessionFactory().close();
     }
 
-    public static <T> void save(T t, Session session) {
+    public static <T> void save(T t) {
+        Session session = getSessionFactory().getCurrentSession();
         session.beginTransaction();
         session.save(t);
         session.getTransaction().commit();
     }
 
-    public static <T> void update(T t, Session session) {
+    public static <T> void update(T t) {
+        Session session = getSessionFactory().getCurrentSession();
         session.beginTransaction();
         session.update(t);
         session.getTransaction().commit();
