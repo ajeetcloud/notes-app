@@ -1,4 +1,6 @@
 import {Component, OnInit} from "@angular/core";
+import {NewNote, Note} from "../types/types";
+import {NotesService} from "../service/notes.service";
 
 
 @Component({
@@ -8,10 +10,26 @@ import {Component, OnInit} from "@angular/core";
 })
 export class CreateNoteComponent implements OnInit {
 
-  constructor() {
+  note = '';
+
+  constructor(private notesService: NotesService) {
   }
 
   ngOnInit(): void {
+  }
+
+  saveNote() {
+    const newNote: NewNote = {
+      notebookId: 101,
+      note: this.note
+    }
+    this.notesService.saveNote(newNote)
+      .subscribe((note: Note) => {
+        if (note.noteId) {
+          this.notesService.setNoteSubject(note);
+          this.note = '';
+        }
+      });
   }
 }
 

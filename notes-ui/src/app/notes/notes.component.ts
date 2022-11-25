@@ -16,6 +16,7 @@ export class NotesComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.populateNotes();
+    this.onCreateNote();
   }
 
   ngAfterViewInit(): void {
@@ -30,6 +31,12 @@ export class NotesComponent implements OnInit, AfterViewInit {
       .subscribe((notes: Note[]) => {
         this.notes = notes;
       });
+  }
+
+  onCreateNote() {
+    this.notesService.getNoteSubject().subscribe((note: Note) => {
+      this.notes.push(note);
+    });
   }
 
   reachedTop() {

@@ -3,6 +3,8 @@
     <mat-form-field appearance="outline" class="mat-form">
       <mat-label>Enter your note...</mat-label>
       <textarea matInput
+                [(ngModel)]="note"
+                (keydown.enter)="saveNote()"
                 cdkTextareaAutosize
                 #autosize="cdkTextareaAutosize"
                 cdkAutosizeMinRows="2"
