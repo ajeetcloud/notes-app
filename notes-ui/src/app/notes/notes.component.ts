@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {Note} from "../types/types";
 import {NgScrollbar} from "ngx-scrollbar";
-import {HttpClient} from '@angular/common/http';
+import {NotesService} from "../service/notes.service";
 
 @Component({
   selector: 'notes',
@@ -22,17 +22,14 @@ export class NotesComponent implements OnInit, AfterViewInit {
     this.scrollable.scrollTo({bottom: 0, duration: 0});
   }
 
-  constructor(private http: HttpClient) {
-  }
-
-  getNotes() {
-    return this.http.get<Note[]>("http://localhost:8080/notes/");
+  constructor(private notesService: NotesService) {
   }
 
   populateNotes() {
-    this.getNotes().subscribe((notes: Note[]) => {
-      this.notes = notes;
-    });
+    this.notesService.getNotes()
+      .subscribe((notes: Note[]) => {
+        this.notes = notes;
+      });
   }
 
   reachedTop() {
