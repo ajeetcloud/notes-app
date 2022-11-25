@@ -5,10 +5,10 @@
   class="notes">
   <div scrollViewport *ngFor="let note of notes; index as i;let last =  last">
     <mat-divider class="divider"></mat-divider>
-    <div class="message-container" [id]="note.messageId">
+    <div class="message-container" [id]="note.noteId">
       <div><img src="assets/images/avatar.png" class="avatar"></div>
       <div class="content"><strong>Ajeet</strong>
-        <br> {{note.message}}
+        <br> {{note.note}}
       </div>
     </div>
   </div>

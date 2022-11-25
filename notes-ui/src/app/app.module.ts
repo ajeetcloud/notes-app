@@ -17,6 +17,7 @@ import {NgScrollbarReachedModule} from "ngx-scrollbar/reached-event";
 import {MatDividerModule} from "@angular/material/divider";
 import {CreateNoteComponent} from "./create-note/create.note.component";
 import {MatCardModule} from "@angular/material/card";
+import {HttpClientModule} from '@angular/common/http';
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent, pathMatch: 'full'},
@@ -41,6 +42,7 @@ const appRoutes: Routes = [
     MatDividerModule,
     BrowserModule,
     FormsModule,
+    HttpClientModule,
     NgScrollbarModule,
     BrowserAnimationsModule,
     [RouterModule.forRoot(appRoutes)],

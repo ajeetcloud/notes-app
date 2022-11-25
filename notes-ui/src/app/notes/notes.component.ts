@@ -1,6 +1,7 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import {note} from "../types/message";
+import {Note} from "../types/types";
 import {NgScrollbar} from "ngx-scrollbar";
+import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'notes',
@@ -11,38 +12,39 @@ export class NotesComponent implements OnInit, AfterViewInit {
 
   @ViewChild(NgScrollbar) scrollable: NgScrollbar;
   searchValue: string = '';
-  notes: note[] = [];
+  notes: Note[] = [];
 
   ngOnInit(): void {
-    this.notes = this.getMoreMessages();
+    this.populateNotes();
   }
 
   ngAfterViewInit(): void {
-    const lastNoteElement = document.getElementById("999") || null;
-    /*    if (lastNoteElement) {
-          lastNoteElement.scrollIntoView({
-            behavior: "smooth",
-            block: "start",
-            inline: "nearest"
-          });
-        }*/
-
     this.scrollable.scrollTo({bottom: 0, duration: 0});
   }
 
-  constructor() {
+  constructor(private http: HttpClient) {
+  }
+
+  getNotes() {
+    return this.http.get<Note[]>("http://localhost:8080/notes/");
+  }
+
+  populateNotes() {
+    this.getNotes().subscribe((notes: Note[]) => {
+      this.notes = notes;
+    });
   }
 
   reachedTop() {
     console.log("reached top of scroll");
-    this.notes = [...this.getMoreMessages1(), ...this.notes];
+    this.notes = [...this.getMorenotes1(), ...this.notes];
   }
 
   onScroll(event: any) {
     if (event.target.scrollTop == 0) {
       console.log("top reached");
       this.sleep(2000);
-      this.notes = [...this.getMoreMessages1(), ...this.notes];
+      this.notes = [...this.getMorenotes1(), ...this.notes];
     }
   }
 
@@ -54,80 +56,39 @@ export class NotesComponent implements OnInit, AfterViewInit {
     } while (currentDate - date < milliseconds);
   }
 
-  getMoreMessages1(): note[] {
+  getMorenotes1(): Note[] {
     return [
-      {messageId: 1016, message: '1016'},
-      {messageId: 1017, message: '1017'},
-      {messageId: 1018, message: '1018'},
-      {messageId: 1019, message: '1019'},
-      {messageId: 1020, message: '1020'},
-      {messageId: 1021, message: '1021'},
-      {messageId: 1022, message: '1022'},
-      {messageId: 1023, message: '1023'},
-      {messageId: 1024, message: '1024'},
-      {messageId: 1025, message: '1025'},
-      {messageId: 1026, message: '1026'},
-      {messageId: 1027, message: '1027'},
-      {messageId: 1028, message: '1028'},
-      {messageId: 1029, message: '1029'},
-      {messageId: 1030, message: '1030'},
-      {messageId: 1031, message: '1031'},
-      {messageId: 1032, message: '1032'},
-      {messageId: 1033, message: '1033'},
-      {messageId: 1034, message: '1034'},
-      {messageId: 1035, message: '1035'},
-      {messageId: 1036, message: '1036'},
-      {messageId: 1037, message: '1037'},
-      {messageId: 1038, message: '1038'},
-      {messageId: 1039, message: '1039'},
-      {messageId: 1040, message: '1040'},
-      {messageId: 1041, message: '1041'},
-      {messageId: 1042, message: '1042'},
-      {messageId: 1043, message: '1043'},
-      {messageId: 1044, message: '1044'},
-      {messageId: 1045, message: '1045'},
-      {messageId: 1046, message: '1046'},
-    ];
-  }
-
-  getMoreMessages(): note[] {
-    return [
-      {messageId: 1001, message: 'hello'},
-      {messageId: 10011, message: 'hello'},
-      {messageId: 10012, message: 'hello'},
-      {messageId: 10013, message: 'hello'},
-      {messageId: 10013, message: 'hello'},
-      {messageId: 10014, message: 'hello'},
-      {messageId: 10016, message: 'hello'},
-      {messageId: 10017, message: 'hello'},
-      {messageId: 10018, message: 'hello'},
-      {messageId: 10019, message: 'hello'},
-      {messageId: 1001, message: 'hello'},
-      {messageId: 1002, message: 'hi'},
-      {messageId: 10021, message: 'hi'},
-      {messageId: 10022, message: 'hi'},
-      {messageId: 10023, message: 'hi'},
-      {messageId: 10024, message: 'hi'},
-      {messageId: 10025, message: 'hi'},
-      {messageId: 10026, message: 'hi'},
-      {messageId: 10027, message: 'hi'},
-      {messageId: 10028, message: 'hi'},
-      {messageId: 1003, message: 'new'},
-      {messageId: 1004, message: 'message'},
-      {messageId: 1005, message: 'lets'},
-      {messageId: 1006, message: 'add'},
-      {messageId: 1007, message: 'more'},
-      {messageId: 1008, message: 'message'},
-      {messageId: 1009, message: 'lets'},
-      {messageId: 1010, message: 'see'},
-      {messageId: 1011, message: 'what'},
-      {messageId: 1012, message: 'happens'},
-      {messageId: 1013, message: 'now'},
-      {messageId: 1014, message: 'that'},
-      {
-        messageId: 999,
-        message: 'rendering the sample code if just way too random the quick fox alsways jumps rendering the sample code if just way too random the quick fox alsways jumps rendering the sample code if just way too random the quick fox alsways jumps rendering the sample code if just way too random the quick fox alsways jumps rendering the sample code if just way too random the quick fox alsways jumpsrendering the sample code if just way too random the quick fox alsways jumpsrendering the sample code if just way too random the quick fox alsways jumpsrendering the sample code if just way too random the quick fox alsways jumpsrendering the sample code if just way too random the quick fox alsways jumpsrendering the sample code if just way too random the quick fox alsways jumpsrendering the sample code if just way too random the quick fox alsways jumpsrendering the sample code if just way too random the quick fox alsways jumpsrendering the sample code if just way too random the quick fox alsways jumpsrendering the sample code if just way too random the quick fox alsways jumpsrendering the sample code if just way too random the quick fox alsways jumpsrendering the sample code if just way too random the quick fox alsways jumpsrendering the sample code if just way too random the quick fox alsways jumpsrendering the sample code if just way too random the quick fox alsways jumpsrendering the sample code if just way too random the quick fox alsways jumpsrendering the sample code if just way too random the quick fox alsways jumps'
-      },
+      {noteId: 1016, note: '1016'},
+      {noteId: 1017, note: '1017'},
+      {noteId: 1018, note: '1018'},
+      {noteId: 1019, note: '1019'},
+      {noteId: 1020, note: '1020'},
+      {noteId: 1021, note: '1021'},
+      {noteId: 1022, note: '1022'},
+      {noteId: 1023, note: '1023'},
+      {noteId: 1024, note: '1024'},
+      {noteId: 1025, note: '1025'},
+      {noteId: 1026, note: '1026'},
+      {noteId: 1027, note: '1027'},
+      {noteId: 1028, note: '1028'},
+      {noteId: 1029, note: '1029'},
+      {noteId: 1030, note: '1030'},
+      {noteId: 1031, note: '1031'},
+      {noteId: 1032, note: '1032'},
+      {noteId: 1033, note: '1033'},
+      {noteId: 1034, note: '1034'},
+      {noteId: 1035, note: '1035'},
+      {noteId: 1036, note: '1036'},
+      {noteId: 1037, note: '1037'},
+      {noteId: 1038, note: '1038'},
+      {noteId: 1039, note: '1039'},
+      {noteId: 1040, note: '1040'},
+      {noteId: 1041, note: '1041'},
+      {noteId: 1042, note: '1042'},
+      {noteId: 1043, note: '1043'},
+      {noteId: 1044, note: '1044'},
+      {noteId: 1045, note: '1045'},
+      {noteId: 1046, note: '1046'},
     ];
   }
 
