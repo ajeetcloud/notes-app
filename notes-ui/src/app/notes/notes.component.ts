@@ -1,18 +1,20 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Note} from "../types/types";
 import {NgScrollbar} from "ngx-scrollbar";
 import {NotesService} from "../service/notes.service";
+import {Subject, takeUntil} from "rxjs";
 
 @Component({
   selector: 'notes',
   templateUrl: './notes.component.html',
   styleUrls: ['./notes.component.css'],
 })
-export class NotesComponent implements OnInit, AfterViewInit {
+export class NotesComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChild(NgScrollbar) scrollable: NgScrollbar;
   searchValue: string = '';
   notes: Note[] = [];
+  private destroyed = new Subject<void>();
 
   ngOnInit(): void {
     this.populateNotes();
@@ -28,6 +30,7 @@ export class NotesComponent implements OnInit, AfterViewInit {
 
   populateNotes() {
     this.notesService.getNotes()
+      .pipe(takeUntil(this.destroyed))
       .subscribe((notes: Note[]) => {
         this.notes = notes;
       });
@@ -94,6 +97,11 @@ export class NotesComponent implements OnInit, AfterViewInit {
       {noteId: 1045, note: '1045'},
       {noteId: 1046, note: '1046'},
     ];
+  }
+
+  ngOnDestroy() {
+    this.destroyed.next();
+    this.destroyed.complete();
   }
 
 }

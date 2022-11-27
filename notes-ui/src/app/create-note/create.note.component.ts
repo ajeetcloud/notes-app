@@ -1,6 +1,7 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, OnDestroy, OnInit} from "@angular/core";
 import {NewNote, Note} from "../types/types";
 import {NotesService} from "../service/notes.service";
+import {Subject, takeUntil} from "rxjs";
 
 
 @Component({
@@ -8,9 +9,10 @@ import {NotesService} from "../service/notes.service";
   templateUrl: './create.note.component.html',
   styleUrls: ['./create.note.component.css'],
 })
-export class CreateNoteComponent implements OnInit {
+export class CreateNoteComponent implements OnInit, OnDestroy {
 
   note = '';
+  private destroyed = new Subject<void>();
 
   constructor(private notesService: NotesService) {
   }
@@ -24,12 +26,18 @@ export class CreateNoteComponent implements OnInit {
       note: this.note
     }
     this.notesService.saveNote(newNote)
+      .pipe(takeUntil(this.destroyed))
       .subscribe((note: Note) => {
         if (note.noteId) {
           this.notesService.setNoteSubject(note);
           this.note = '';
         }
       });
+  }
+
+  ngOnDestroy() {
+    this.destroyed.next();
+    this.destroyed.complete();
   }
 }
 
