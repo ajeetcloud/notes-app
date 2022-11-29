@@ -15,6 +15,13 @@ import java.util.List;
 @Service
 public class NotesService {
 
+    public List<Note> getPaginatedNotes() {
+        int pageSize = 20;
+        
+        return null;
+    }
+
+
     public List<Note> getAllNotes() {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
