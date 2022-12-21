@@ -8,6 +8,7 @@ import {Component, OnInit} from '@angular/core';
 export class ChannelComponent implements OnInit {
 
   searchValue: string = '';
+  notebooks: string[] = ['general', 'hood', 'my creds', 'random'];
 
   ngOnInit(): void {
   }

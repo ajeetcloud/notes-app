@@ -19,3 +19,7 @@
 .create-note {
   min-height: 30%;
 }
+
+.notes-content {
+  width: 100%;
+}

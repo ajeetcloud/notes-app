@@ -1,31 +1,96 @@
-import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {
+  AfterContentChecked,
+  AfterViewInit,
+  Component,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  Renderer2,
+  ViewChild
+} from '@angular/core';
 import {Note} from "../types/types";
-import {NgScrollbar} from "ngx-scrollbar";
 import {NotesService} from "../service/notes.service";
 import {Subject, takeUntil} from "rxjs";
+import {ViewportScroller} from "@angular/common";
+import {Router} from "@angular/router";
+import {NgScrollbar} from "ngx-scrollbar";
 
 @Component({
   selector: 'notes',
   templateUrl: './notes.component.html',
   styleUrls: ['./notes.component.css'],
 })
-export class NotesComponent implements OnInit, AfterViewInit, OnDestroy {
+export class NotesComponent implements OnInit, AfterViewInit, OnDestroy, AfterContentChecked {
+  throttle = 300;
+  scrollDistance = 1;
+  scrollUpDistance = 2;
+  direction = "";
+  modalOpen = false;
+  counter = 0;
+  @ViewChild('scrollMe') private myScrollContainer: ElementRef;
 
-  @ViewChild(NgScrollbar) scrollable: NgScrollbar;
   searchValue: string = '';
   notes: Note[] = [];
   private destroyed = new Subject<void>();
+  @ViewChild('scrollable') scrollable: NgScrollbar;
 
   ngOnInit(): void {
-    this.populateNotes();
+    // this.populateNotes();
     this.onCreateNote();
   }
 
   ngAfterViewInit(): void {
-    this.scrollable.scrollTo({bottom: 0, duration: 0});
+    this.populateNotes();
+    //this.sleep(2000);
+    this.scrollToBottom();
+    // @ts-ignore
+    /*const lastNoteElement = document.getElementById("1025") || null;
+    if (lastNoteElement) {
+      lastNoteElement.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+        inline: "nearest"
+      });
+    }*/
   }
 
-  constructor(private notesService: NotesService) {
+  constructor(private notesService: NotesService, private renderer: Renderer2, private scroller: ViewportScroller, private router: Router,
+  ) {
+  }
+
+  ngAfterContentChecked() {
+
+    const lastNoteElement = document.getElementById("1025") || null;
+    if (this.myScrollContainer && this.myScrollContainer.nativeElement) {
+
+      console.log("inside better logic");
+      this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
+    }
+    if (lastNoteElement && this.counter == 0) {
+      console.log("inside logic");
+      lastNoteElement.scrollIntoView({
+        behavior: "auto", // or smooth
+        block: "start",
+        inline: "nearest"
+      });
+      this.counter++;
+    }
+
+
+    if (this.scrollable) {
+      //this.scrollable.scrollToElement("#1025");
+    }
+    // this.scrollable.scrollToElement("1025");
+    /* if (lastNoteElement) {
+       lastNoteElement.scrollIntoView({
+         behavior: "smooth",
+         block: "start",
+         inline: "nearest"
+       });
+     }*/
+    /*if (this.myScrollContainer && this.myScrollContainer.nativeElement) {
+      this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
+    }*/
   }
 
   populateNotes() {
@@ -33,7 +98,53 @@ export class NotesComponent implements OnInit, AfterViewInit, OnDestroy {
       .pipe(takeUntil(this.destroyed))
       .subscribe((notes: Note[]) => {
         this.notes = notes;
+        this.notes = [...this.notes]
+        // this.scrollToBottom()
       });
+  }
+
+  onScrollUp() {
+    console.log("Reached Event");
+  }
+
+  scrollToBottom(): void {
+    try {
+      console.log("go to bottom");
+      // this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
+    } catch (err) {
+    }
+  }
+
+  getHeight() {
+    if (this.myScrollContainer && this.myScrollContainer.nativeElement) {
+      // return this.myScrollContainer.nativeElement.scrollHeight;
+    }
+
+  }
+
+  onScrollDown() {
+    console.log("Down");
+    //this.notes = [...this.notes, ...this.notes];
+    this.notes = this.notes.slice();
+    this.notes.unshift({noteId: 123, note: 'hello'});
+    this.notes.unshift({noteId: 123, note: 'hello'});
+    this.notes.unshift({noteId: 123, note: 'hello'});
+    this.notes.unshift({noteId: 123, note: 'hello'});
+    this.notes.unshift({noteId: 123, note: 'hello'});
+    this.notes.unshift({noteId: 123, note: 'hello'});
+    this.notes.unshift({noteId: 123, note: 'hello'});
+    this.notes.unshift({noteId: 123, note: 'hello'});
+    this.notes.unshift({noteId: 123, note: 'hello'});
+    this.notes.unshift({noteId: 123, note: 'hello'});
+    this.notes.unshift({noteId: 123, note: 'hello'});
+    this.notes.unshift({noteId: 123, note: 'hello'});
+    this.notes.unshift({noteId: 123, note: 'hello'});
+    this.notes.unshift({noteId: 123, note: 'hello'});
+    this.notes.unshift({noteId: 123, note: 'hello'});
+    this.notes.unshift({noteId: 123, note: 'hello'});
+    this.notes.unshift({noteId: 123, note: 'hello'});
+    this.notes.unshift({noteId: 123, note: 'hello'});
+    //this.notes.slice().unshift(...this.notes);
   }
 
   onCreateNote() {
@@ -44,16 +155,21 @@ export class NotesComponent implements OnInit, AfterViewInit, OnDestroy {
 
   reachedTop() {
     console.log("reached top of scroll");
-    this.notes = [...this.getMorenotes1(), ...this.notes];
+    this.notes = this.notes.slice();
+    this.notes.unshift({noteId: 123, note: 'hello'});
+    this.notes.unshift({noteId: 123, note: 'hello'});
+    this.notes.unshift({noteId: 123, note: 'hello'});
+    this.notes.unshift({noteId: 123, note: 'hello'});
+    //this.notes = [...this.notes, ...this.notes];
   }
 
-  onScroll(event: any) {
-    if (event.target.scrollTop == 0) {
-      console.log("top reached");
-      this.sleep(2000);
-      this.notes = [...this.getMorenotes1(), ...this.notes];
-    }
-  }
+  /*  onScroll(event: any) {
+      if (event.target.scrollTop == 0) {
+        console.log("top reached");
+        this.sleep(2000);
+        this.notes = [...this.getMorenotes1(), ...this.notes];
+      }
+    }*/
 
   sleep(milliseconds: number) {
     const date = Date.now();

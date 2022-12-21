@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from "@angular/core";
+import {Component, ElementRef, OnDestroy, OnInit, Renderer2, ViewChild} from "@angular/core";
 import {NewNote, Note} from "../types/types";
 import {NotesService} from "../service/notes.service";
 import {Subject, takeUntil} from "rxjs";
@@ -13,8 +13,9 @@ export class CreateNoteComponent implements OnInit, OnDestroy {
 
   note = '';
   private destroyed = new Subject<void>();
+  @ViewChild('pRef', {static: false}) pRef: ElementRef;
 
-  constructor(private notesService: NotesService) {
+  constructor(private notesService: NotesService, private renderer: Renderer2) {
   }
 
   ngOnInit(): void {
@@ -33,6 +34,11 @@ export class CreateNoteComponent implements OnInit, OnDestroy {
           this.note = '';
         }
       });
+  }
+
+  setHeight() {
+    console.log(this.pRef.nativeElement.scrollHeight);
+    this.renderer.setStyle(this.pRef.nativeElement, 'height', `${this.pRef.nativeElement.scrollHeight}px`);
   }
 
   ngOnDestroy() {

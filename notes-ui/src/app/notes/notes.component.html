@@ -1,15 +1,140 @@
-<ng-scrollbar
-  [autoHeightDisabled]="false"
-  (reachedTop)="reachedTop()"
-  [reachedOffset]="200"
-  class="notes">
-  <div scrollViewport *ngFor="let note of notes; index as i;let last =  last">
-    <mat-divider class="divider"></mat-divider>
-    <div class="message-container" [id]="note.noteId">
-      <div><img src="assets/images/avatar.png" class="avatar"></div>
-      <div class="content"><strong>Ajeet</strong>
-        <br> {{note.note}}
+<main class="main is-visible" data-dropzone-area="">
+  <div class="container h-100">
+    <div class="d-flex flex-column h-100 position-relative">
+      <!-- Chat: Header -->
+      <div class="chat-header border-bottom py-4 py-lg-7">
+        <div class="row align-items-center">
+          <!-- Content -->
+          <div class="col-8 col-xl-12">
+            <div class="row align-items-center text-center text-xl-start">
+              <!-- Title -->
+              <div class="col-12 col-xl-6">
+                <div class="row align-items-center gx-5">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
+
+
+      <!-- Chat: Content -->
+      <!-- <ng-container *ngFor="let note of notes">-->
+      <div class="chat-body hide-scrollbar flex-1 h-100">
+
+        <!-- Message -->
+        <ng-scrollbar #scrollMe
+                      visibility="hover"
+                      [autoHeightDisabled]="false"
+                      (reachedTop)="reachedTop()"
+                      [reachedOffset]="200">
+          <div scrollViewport *ngFor="let note of notes">
+            <div class="message">
+              <div class="message-inner">
+                <div class="message-body">
+                  <div class="message-content">
+                    <div id="{{note.noteId}}" class="message-text">
+                      <div class="message-time">
+                        8:45 pm
+                      </div>
+                      <p class="message-content">{{note.note}}</p>
+                    </div>
+                    <!-- Dropdown -->
+                    <div class="message-action">
+                      <div class="dropdown">
+                        <a class="icon text-muted" href="chat-group.html#" role="button" data-bs-toggle="dropdown"
+                           aria-expanded="false">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                               fill="none"
+                               stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                               class="feather feather-more-vertical">
+                            <circle cx="12" cy="12" r="1"></circle>
+                            <circle cx="12" cy="5" r="1"></circle>
+                            <circle cx="12" cy="19" r="1"></circle>
+                          </svg>
+                        </a>
+
+                        <ul class="dropdown-menu">
+                          <li>
+                            <a class="dropdown-item d-flex align-items-center" href="chat-group.html#">
+                              <span class="me-auto">Edit</span>
+                              <div class="icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                     stroke-linejoin="round" class="feather feather-edit-3">
+                                  <path d="M12 20h9"></path>
+                                  <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+                                </svg>
+                              </div>
+                            </a>
+                          </li>
+                          <li>
+                            <a class="dropdown-item d-flex align-items-center" href="chat-group.html#">
+                              <span class="me-auto">Reply</span>
+                              <div class="icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                     stroke-linejoin="round" class="feather feather-corner-up-left">
+                                  <polyline points="9 14 4 9 9 4"></polyline>
+                                  <path d="M20 20v-7a4 4 0 0 0-4-4H4"></path>
+                                </svg>
+                              </div>
+                            </a>
+                          </li>
+                          <li>
+                            <hr class="dropdown-divider">
+                          </li>
+                          <li>
+                            <a class="dropdown-item d-flex align-items-center text-danger" href="chat-group.html#">
+                              <span class="me-auto">Delete</span>
+                              <div class="icon">
+                                <!--<i class="material-icons">delete</i>-->
+
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                     stroke-linejoin="round" class="feather feather-trash-2">
+                                  <polyline points="3 6 5 6 21 6"></polyline>
+                                  <path
+                                    d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                  <line x1="10" y1="11" x2="10" y2="17"></line>
+                                  <line x1="14" y1="11" x2="14" y2="17"></line>
+                                </svg>
+                              </div>
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="message-footer">
+                  <!-- <mat-divider></mat-divider>-->
+                </div>
+              </div>
+            </div>
+            <div class="message-divider">
+              <div class="date-separator">
+                <div class="line">
+                  <mat-divider></mat-divider>
+                </div>
+                <div class="text mat-typography chip">Friday, Sep 20</div>
+                <div class="line">
+                  <mat-divider></mat-divider>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-scrollbar>
+
+
+      </div>
+      <!-- Chat: Content -->
+      <!-- </ng-container>-->
+      <!-- Chat: Footer -->
+      <create-note></create-note>
+      <!-- Chat: Footer -->
     </div>
+
   </div>
-</ng-scrollbar>
+</main>

@@ -46,3 +46,56 @@
   padding-left: 16px;
 }
 
+.chat-body {
+
+
+  margin-bottom: 80px;
+}
+
+.chat-content {
+  padding-bottom: 6.5rem !important;
+}
+
+.message-divider {
+  margin: 0;
+}
+
+.message {
+  margin-bottom: 0;
+
+
+  margin-right: 12px;
+}
+
+.date-separator {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.line {
+  flex: 1;
+}
+
+.text {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.chip {
+  border: 1px solid rgba(0, 0, 0, .12);
+  border-radius: 24px;
+  color: rgba(97, 96, 97, 1)
+}
+
+.message-time {
+  color: rgba(97, 96, 97, 1)
+}
+
+.message-content {
+  color: rgba(29, 28, 29, 1)
+}
+
+
