@@ -6,6 +6,7 @@ import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -16,9 +17,30 @@ import java.util.List;
 public class NotesService {
 
     public List<Note> getPaginatedNotes() {
+        int pageNumber = 1;
         int pageSize = 20;
-        
-        return null;
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+
+        CriteriaQuery<Long> countQuery = criteriaBuilder
+                .createQuery(Long.class);
+        countQuery.select(criteriaBuilder
+                .count(countQuery.from(Note.class)));
+        Long count = session.createQuery(countQuery)
+                .getSingleResult();
+
+        CriteriaQuery<Note> criteriaQuery = criteriaBuilder
+                .createQuery(Note.class);
+        Root<Note> from = criteriaQuery.from(Note.class);
+        CriteriaQuery<Note> select = criteriaQuery.select(from);
+        TypedQuery<Note> typedQuery = session.createQuery(select);
+
+        typedQuery.setFirstResult((pageNumber - 1) * pageSize);
+        typedQuery.setMaxResults(pageSize);
+        List<Note> results = typedQuery.getResultList();
+        session.getTransaction().commit();
+        return results;
     }
 
 

@@ -14,4 +14,7 @@ public interface NotesApi {
 
     @PostMapping("/")
     Note createNote(@RequestBody Note note);
+
+    @GetMapping("/pages")
+    List<Note> getPaginatedNotes();
 }
