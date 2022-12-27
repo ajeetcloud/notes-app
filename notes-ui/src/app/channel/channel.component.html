@@ -9,7 +9,7 @@
           <div class="container py-8">
             <!-- Title -->
             <div class="mb-8">
-              <h2 class="fw-bold m-0">Chats</h2>
+              <h2 class="fw-bold m-0">My Notes</h2>
             </div>
 
             <!-- Search -->
@@ -31,11 +31,17 @@
                 </div>
               </form>
               <div class="notebooks">
-                Notebooks
-                <div *ngFor="let notebook of notebooks">
-                  <div>
-                    {{notebook}}
-                  </div>
+                <h2 class="fw-bold m-0 notebook-header">Notebooks
+                  <mat-icon fontIcon="add" class="add-notebook" (click)="addNotebook()"></mat-icon>
+                </h2>
+                <div class="notebooks-container">
+                  <ng-container *ngFor="let notebook of notebooks">
+                    <div class="notebook">
+                      <mat-icon fontIcon="book"></mat-icon>
+                      {{notebook}}
+                      <mat-icon fontIcon="edit" class="edit-notebook" (click)="addNotebook()"></mat-icon>
+                    </div>
+                  </ng-container>
                 </div>
               </div>
             </div>

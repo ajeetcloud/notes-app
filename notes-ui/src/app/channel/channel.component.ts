@@ -11,9 +11,13 @@ export class ChannelComponent implements OnInit {
   notebooks: string[] = ['general', 'hood', 'my creds', 'random'];
 
   ngOnInit(): void {
+    this.notebooks = [...this.notebooks, ...this.notebooks, ...this.notebooks, ...this.notebooks, ...this.notebooks, ...this.notebooks, ...this.notebooks, ...this.notebooks, ...this.notebooks, ...this.notebooks, ...this.notebooks, ...this.notebooks, ...this.notebooks, ...this.notebooks];
   }
 
   constructor() {
   }
 
+  addNotebook() {
+    console.log("add notebook");
+  }
 }

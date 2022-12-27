@@ -3,3 +3,48 @@
   color: white;
   height: 100%;
 }
+
+.notebook-header {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-right: 10px;
+  padding-left: 10px;
+}
+
+.add-notebook {
+  cursor: pointer;
+  float: right;
+}
+
+.add-notebook:hover {
+  background-color: lightgrey;
+  border-radius: 20px;
+}
+
+.notebook {
+  color: rgba(29, 28, 29, 1);
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  cursor: pointer;
+}
+
+.notebook:hover {
+  background-color: lightgrey;
+  border-radius: 5px;
+}
+
+.edit-notebook {
+  float: right;
+  font-size: 20px;
+  display: none;
+}
+
+.notebook:hover .edit-notebook {
+  display: block;
+}
+
+.mat-icon {
+  vertical-align: middle;
+}
