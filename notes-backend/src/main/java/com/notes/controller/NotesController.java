@@ -2,11 +2,13 @@ package com.notes.controller;
 
 import com.notes.api.NotesApi;
 import com.notes.model.Note;
+import com.notes.model.NotePage;
 import com.notes.service.NotesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class NotesController implements NotesApi {
@@ -26,8 +28,7 @@ public class NotesController implements NotesApi {
     }
 
     @Override
-    public List<Note> getPaginatedNotes() {
-        return notesService.getPaginatedNotes();
+    public NotePage getPaginatedNotes(int pageNo, Optional<Integer> pageSize) {
+        return notesService.getPaginatedNotes(pageNo, pageSize.orElseGet(() -> 20));
     }
-
 }

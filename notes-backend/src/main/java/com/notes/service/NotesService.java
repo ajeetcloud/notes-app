@@ -1,6 +1,7 @@
 package com.notes.service;
 
 import com.notes.model.Note;
+import com.notes.model.NotePage;
 import com.notes.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
@@ -16,9 +17,7 @@ import java.util.List;
 @Service
 public class NotesService {
 
-    public List<Note> getPaginatedNotes() {
-        int pageNumber = 1;
-        int pageSize = 20;
+    public NotePage getPaginatedNotes(int pageNo, int pageSize) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
         CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
@@ -36,13 +35,28 @@ public class NotesService {
         CriteriaQuery<Note> select = criteriaQuery.select(from);
         TypedQuery<Note> typedQuery = session.createQuery(select);
 
-        typedQuery.setFirstResult((pageNumber - 1) * pageSize);
+        int startRowNum = ((int) (count - (pageNo * pageSize)));
+        if (startRowNum < 0) {
+            pageSize = startRowNum + pageSize;
+            startRowNum = 0;
+        }
+        typedQuery.setFirstResult(startRowNum);
         typedQuery.setMaxResults(pageSize);
         List<Note> results = typedQuery.getResultList();
         session.getTransaction().commit();
-        return results;
+
+        return getNotePage(results, startRowNum > 0 ? pageNo + 1 : -1, pageSize);
     }
 
+
+    private NotePage getNotePage(List<Note> notes, int nextPage, int pageSize) {
+
+        NotePage notePage = new NotePage();
+        notePage.setNotes(notes);
+        notePage.setNextPage(nextPage);
+        notePage.setPageSize(pageSize);
+        return notePage;
+    }
 
     public List<Note> getAllNotes() {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
