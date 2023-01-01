@@ -3,6 +3,7 @@ package com.notes.service;
 import com.notes.exception.NoDataFoundException;
 import com.notes.model.Note;
 import com.notes.model.NotePage;
+import com.notes.model.Notebook;
 import com.notes.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
@@ -38,7 +39,7 @@ public class NotesService {
             startRowNum = 0;
         }
         if (pageSize < 0) {
-            session.getTransaction().commit();
+            session.getTransaction().rollback();
             throw new NoDataFoundException(String.format(
                     "No data found for pageNo:%d with pageSize:%d", pageNo, origPageSize));
         }
@@ -83,6 +84,9 @@ public class NotesService {
         long seconds = Instant.now().getEpochSecond();
         note.setUpdatedOn(seconds);
         note.setCreatedOn(seconds);
+        Notebook nb = new Notebook();
+        nb.setNotebookId(note.getNotebookId());
+        note.setNotebook(nb);
         HibernateUtil.save(note);
     }
 }

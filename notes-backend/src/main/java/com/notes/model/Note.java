@@ -1,5 +1,7 @@
 package com.notes.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 
@@ -12,7 +14,7 @@ public class Note {
     @Column(name = "note_id")
     private int noteId;
 
-    @Column(name = "notebook_id")
+    @Column(name = "notebook_id", insertable = false, updatable = false)
     private int notebookId;
 
     @Column(name = "note")
@@ -24,12 +26,25 @@ public class Note {
     @Column(name = "created_on")
     private long createdOn;
 
+    @ManyToOne
+    @JoinColumn(name = "notebook_id")
+    @JsonIgnore
+    private Notebook notebook;
+
     public int getNoteId() {
         return noteId;
     }
 
     public void setNoteId(int noteId) {
         this.noteId = noteId;
+    }
+
+    public Notebook getNotebook() {
+        return notebook;
+    }
+
+    public void setNotebook(Notebook notebook) {
+        this.notebook = notebook;
     }
 
     public int getNotebookId() {
@@ -62,5 +77,23 @@ public class Note {
 
     public void setCreatedOn(long createdOn) {
         this.createdOn = createdOn;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (obj == null || obj.getClass() != this.getClass()) {
+            return false;
+        }
+        Note other = (Note) obj;
+        return noteId == other.noteId;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        return prime * noteId;
     }
 }
