@@ -14,7 +14,7 @@ import java.util.Optional;
 public class NotesController implements NotesApi {
 
     @Autowired
-    NotesService notesService;
+    private NotesService notesService;
 
     @Override
     public List<Note> getAllNotes() {
