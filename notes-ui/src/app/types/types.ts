@@ -7,7 +7,7 @@ export interface Note {
 }
 
 /**
- * Notebook name
+ * The type of Notebook.
  */
 export interface Notebook {
   notebookId?: number,
