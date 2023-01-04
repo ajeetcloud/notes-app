@@ -15,12 +15,13 @@ public class NotebookController implements NotebookApi {
     private NotebookService notebookService;
 
     @Override
-    public List<Object[]> getAllNotebooks() {
+    public List<Notebook> getAllNotebooks() {
         return notebookService.getAllNotebooks();
     }
 
     @Override
     public Notebook createNotebook(Notebook notebook) {
-        return null;
+        notebookService.createNotebook(notebook);
+        return notebook;
     }
 }

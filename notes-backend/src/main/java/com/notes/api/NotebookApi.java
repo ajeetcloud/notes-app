@@ -10,7 +10,7 @@ import java.util.List;
 public interface NotebookApi {
 
     @GetMapping("/")
-    List<Object[]> getAllNotebooks();
+    List<Notebook> getAllNotebooks();
 
     @PostMapping("/")
     Notebook createNotebook(@RequestBody Notebook notebook);
