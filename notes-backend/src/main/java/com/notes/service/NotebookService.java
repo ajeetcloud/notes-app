@@ -19,7 +19,8 @@ public class NotebookService {
 
         List<Notebook> results = null;
         Transaction tx = null;
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
             tx = session.beginTransaction();
             CriteriaBuilder cb = session.getCriteriaBuilder();
             CriteriaQuery<Notebook> criteriaQuery = cb.createQuery(Notebook.class);
@@ -32,6 +33,10 @@ public class NotebookService {
                 tx.rollback();
             }
             throw e;
+        } finally {
+            if (session.isOpen()) {
+                session.close();
+            }
         }
         return results;
     }

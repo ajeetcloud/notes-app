@@ -25,7 +25,8 @@ public class NotesService {
         List<Note> results = null;
         int startRowNum = 0;
         Transaction tx = null;
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
             tx = session.beginTransaction();
             CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
 
@@ -60,6 +61,10 @@ public class NotesService {
                 tx.rollback();
             }
             throw e;
+        } finally {
+            if (session.isOpen()) {
+                session.close();
+            }
         }
         return getNotePage(results, startRowNum, pageNo, pageSize);
     }
@@ -77,7 +82,8 @@ public class NotesService {
     public List<Note> getAllNotes() {
         List<Note> results = null;
         Transaction tx = null;
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
             tx = session.beginTransaction();
             CriteriaBuilder builder = session.getCriteriaBuilder();
             CriteriaQuery<Note> criteria = builder.createQuery(Note.class);
@@ -91,6 +97,10 @@ public class NotesService {
                 tx.rollback();
             }
             throw e;
+        } finally {
+            if (session.isOpen()) {
+                session.close();
+            }
         }
         return results;
     }

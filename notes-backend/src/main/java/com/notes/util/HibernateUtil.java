@@ -23,7 +23,8 @@ public class HibernateUtil<T> {
 
     public static <T> void save(T t) {
         Transaction tx = null;
-        try (Session session = getSessionFactory().openSession()) {
+        Session session = getSessionFactory().openSession();
+        try {
             tx = session.beginTransaction();
             session.save(t);
             session.getTransaction().commit();
@@ -32,12 +33,17 @@ public class HibernateUtil<T> {
                 tx.rollback();
             }
             throw e;
+        } finally {
+            if (session.isOpen()) {
+                session.close();
+            }
         }
     }
 
     public static <T> void update(T t) {
         Transaction tx = null;
-        try (Session session = getSessionFactory().openSession()) {
+        Session session = getSessionFactory().openSession();
+        try {
             tx = session.beginTransaction();
             session.update(t);
             session.getTransaction().commit();
@@ -46,6 +52,10 @@ public class HibernateUtil<T> {
                 tx.rollback();
             }
             throw e;
+        } finally {
+            if (session.isOpen()) {
+                session.close();
+            }
         }
     }
 }
