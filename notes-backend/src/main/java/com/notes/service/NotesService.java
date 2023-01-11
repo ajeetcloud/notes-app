@@ -6,6 +6,7 @@ import com.notes.model.NotePage;
 import com.notes.model.Notebook;
 import com.notes.util.HibernateUtil;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Service;
 
@@ -21,39 +22,45 @@ public class NotesService {
 
     public NotePage getPaginatedNotes(int pageNo, int pageSize) {
         int origPageSize = pageSize;
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        session.beginTransaction();
-        CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+        List<Note> results = null;
+        int startRowNum = 0;
+        Transaction tx = null;
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            tx = session.beginTransaction();
+            CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
 
-        CriteriaQuery<Long> countQuery = criteriaBuilder
-                .createQuery(Long.class);
-        countQuery.select(criteriaBuilder
-                .count(countQuery.from(Note.class)));
-        Long count = session.createQuery(countQuery)
-                .getSingleResult();
+            CriteriaQuery<Long> countQuery = criteriaBuilder
+                    .createQuery(Long.class);
+            countQuery.select(criteriaBuilder
+                    .count(countQuery.from(Note.class)));
+            Long count = session.createQuery(countQuery)
+                    .getSingleResult();
 
+            startRowNum = ((int) (count - (pageNo * pageSize)));
+            if (startRowNum < 0) {
+                pageSize = startRowNum + pageSize;
+                startRowNum = 0;
+            }
+            if (pageSize < 0) {
+                throw new NoDataFoundException(String.format(
+                        "No data found for pageNo:%d with pageSize:%d", pageNo, origPageSize));
+            }
+            CriteriaQuery<Note> criteriaQuery = criteriaBuilder
+                    .createQuery(Note.class);
+            Root<Note> from = criteriaQuery.from(Note.class);
+            CriteriaQuery<Note> select = criteriaQuery.select(from);
 
-        int startRowNum = ((int) (count - (pageNo * pageSize)));
-        if (startRowNum < 0) {
-            pageSize = startRowNum + pageSize;
-            startRowNum = 0;
+            TypedQuery<Note> typedQuery = session.createQuery(select);
+            typedQuery.setFirstResult(startRowNum);
+            typedQuery.setMaxResults(pageSize);
+            results = typedQuery.getResultList();
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            throw e;
         }
-        if (pageSize < 0) {
-            session.getTransaction().rollback();
-            throw new NoDataFoundException(String.format(
-                    "No data found for pageNo:%d with pageSize:%d", pageNo, origPageSize));
-        }
-        CriteriaQuery<Note> criteriaQuery = criteriaBuilder
-                .createQuery(Note.class);
-        Root<Note> from = criteriaQuery.from(Note.class);
-        CriteriaQuery<Note> select = criteriaQuery.select(from);
-
-        TypedQuery<Note> typedQuery = session.createQuery(select);
-        typedQuery.setFirstResult(startRowNum);
-        typedQuery.setMaxResults(pageSize);
-        List<Note> results = typedQuery.getResultList();
-        session.getTransaction().commit();
-
         return getNotePage(results, startRowNum, pageNo, pageSize);
     }
 
@@ -68,15 +75,23 @@ public class NotesService {
     }
 
     public List<Note> getAllNotes() {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        session.beginTransaction();
-        CriteriaBuilder builder = session.getCriteriaBuilder();
-        CriteriaQuery<Note> criteria = builder.createQuery(Note.class);
-        Root<Note> root = criteria.from(Note.class);
-        criteria.select(root);
-        Query<Note> query = session.createQuery(criteria);
-        List<Note> results = query.getResultList();
-        session.getTransaction().commit();
+        List<Note> results = null;
+        Transaction tx = null;
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            tx = session.beginTransaction();
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<Note> criteria = builder.createQuery(Note.class);
+            Root<Note> root = criteria.from(Note.class);
+            criteria.select(root);
+            Query<Note> query = session.createQuery(criteria);
+            results = query.getResultList();
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            throw e;
+        }
         return results;
     }
 
