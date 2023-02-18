@@ -1,6 +1,8 @@
 <div class="layout overflow-hidden">
-  <channel></channel>
-  <notes class="notes-content"></notes>
+  <channel (newItemEvent)="updateNotes($event)"></channel>
+  <notes class="notes-content"
+         [notes]="notes">
+  </notes>
   <!-- <create-note></create-note>-->
 </div>
 

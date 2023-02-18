@@ -20,7 +20,7 @@ import java.util.List;
 @Service
 public class NotesService {
 
-    public NotePage getPaginatedNotes(int pageNo, int pageSize) {
+    public NotePage getPaginatedNotes(String notebookId, int pageNo, int pageSize) {
         int origPageSize = pageSize;
         List<Note> results = null;
         int startRowNum = 0;
@@ -30,13 +30,31 @@ public class NotesService {
             tx = session.beginTransaction();
             CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
 
-            CriteriaQuery<Long> countQuery = criteriaBuilder
+
+            CriteriaQuery<Long> cr = criteriaBuilder.createQuery(Long.class);
+            Root<Note> root = cr.from(Note.class);
+            cr.select(criteriaBuilder.count(root)).where(criteriaBuilder.equal(root.get("notebookId"), notebookId));
+            Long query = session.createQuery(cr).getSingleResult();
+            System.out.println(query);
+
+
+        /*    CriteriaBuilder qb = session.getCriteriaBuilder();
+            CriteriaQuery<Long> cq = qb.createQuery(Long.class);
+            Root<Note> customer = cq.from(Note.class);
+            cq.select(qb.count(cq.from(Note.class)));
+            cq.where(qb.equal(customer.get("notebookId"), notebookId));
+            Long count1 = session.createQuery(cq)
+                    .getSingleResult();*/
+
+           /* CriteriaQuery<Long> countQuery = criteriaBuilder
                     .createQuery(Long.class);
+            Root<Note> fr = countQuery.from(Note.class);
             countQuery.select(criteriaBuilder
                     .count(countQuery.from(Note.class)));
             Long count = session.createQuery(countQuery)
-                    .getSingleResult();
-
+                    .getSingleResult();*/
+            Long count = query;
+            
             startRowNum = ((int) (count - (pageNo * pageSize)));
             if (startRowNum < 0) {
                 pageSize = startRowNum + pageSize;
@@ -49,7 +67,9 @@ public class NotesService {
             CriteriaQuery<Note> criteriaQuery = criteriaBuilder
                     .createQuery(Note.class);
             Root<Note> from = criteriaQuery.from(Note.class);
-            CriteriaQuery<Note> select = criteriaQuery.select(from);
+            CriteriaQuery<Note> select = criteriaQuery
+                    .select(from)
+                    .where(criteriaBuilder.equal(from.get("notebookId"), notebookId));
 
             TypedQuery<Note> typedQuery = session.createQuery(select);
             typedQuery.setFirstResult(startRowNum);

@@ -1,6 +1,6 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
 import {Subject, takeUntil} from "rxjs";
-import {Notebook} from "../types/types";
+import {Note, Notebook} from "../types/types";
 import {NotebookService} from "../service/notebook.service";
 
 @Component({
@@ -12,7 +12,8 @@ export class ChannelComponent implements OnInit, OnDestroy {
 
   searchValue: string = '';
   notebooks: Notebook[] = [];
-
+  notes: Note[] = [];
+  @Output() newItemEvent = new EventEmitter<Note[]>();
   private destroyed = new Subject<void>();
 
   ngOnInit(): void {
@@ -28,6 +29,16 @@ export class ChannelComponent implements OnInit, OnDestroy {
       .subscribe((notebooks: Notebook[]) => {
         this.notebooks = notebooks;
         console.log(this.notebooks);
+      });
+  }
+
+  getNotes(notebookId?: number) {
+    console.log(notebookId);
+    this.notebookService.getNotes(notebookId || 0)
+      .pipe(takeUntil(this.destroyed))
+      .subscribe((notes: Note[]) => {
+        this.notes = [...notes];
+        this.newItemEvent.emit(notes);
       });
   }
 

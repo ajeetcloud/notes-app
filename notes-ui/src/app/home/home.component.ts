@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {Note} from "../types/types";
 
 @Component({
   selector: 'home',
@@ -7,7 +8,13 @@ import {Component, OnInit} from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
+  notes: Note[] = [];
+
   ngOnInit(): void {
+  }
+
+  updateNotes(notes: Note[]) {
+    this.notes = notes;
   }
 
   constructor() {

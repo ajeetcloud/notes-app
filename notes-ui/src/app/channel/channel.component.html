@@ -36,7 +36,7 @@
                 </h2>
                 <div class="notebooks-container">
                   <ng-container *ngFor="let notebook of notebooks">
-                    <div class="notebook">
+                    <div class="notebook" (click)="getNotes(notebook.notebookId)">
                       <mat-icon fontIcon="book"></mat-icon>
                       {{notebook.notebookName}}
                       <mat-icon fontIcon="edit" class="edit-notebook" (click)="addNotebook()"></mat-icon>

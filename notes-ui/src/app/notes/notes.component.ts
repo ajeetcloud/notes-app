@@ -3,6 +3,7 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
+  Input,
   OnDestroy,
   OnInit,
   Renderer2,
@@ -30,7 +31,7 @@ export class NotesComponent implements OnInit, AfterViewInit, OnDestroy, AfterCo
   @ViewChild('scrollMe') private myScrollContainer: ElementRef;
 
   searchValue: string = '';
-  notes: Note[] = [];
+  @Input() notes: Note[] = [];
   private destroyed = new Subject<void>();
   @ViewChild('scrollable') scrollable: NgScrollbar;
 
@@ -60,7 +61,7 @@ export class NotesComponent implements OnInit, AfterViewInit, OnDestroy, AfterCo
 
   ngAfterContentChecked() {
 
-    const lastNoteElement = document.getElementById("1025") || null;
+    const lastNoteElement = document.getElementById("1049") || null;
     if (this.myScrollContainer && this.myScrollContainer.nativeElement) {
 
       console.log("inside better logic");
