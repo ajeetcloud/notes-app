@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Note} from "../types/types";
+import {NotesResponse} from "../types/types";
 
 @Component({
   selector: 'home',
@@ -8,13 +8,15 @@ import {Note} from "../types/types";
 })
 export class HomeComponent implements OnInit {
 
-  notes: Note[] = [];
+  notes: NotesResponse;
 
   ngOnInit(): void {
   }
 
-  updateNotes(notes: Note[]) {
+  updateNotes(notes: NotesResponse) {
     this.notes = notes;
+    console.log("Inside home");
+    console.log(this.notes);
   }
 
   constructor() {

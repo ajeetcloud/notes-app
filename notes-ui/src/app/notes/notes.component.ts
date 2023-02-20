@@ -9,7 +9,7 @@ import {
   Renderer2,
   ViewChild
 } from '@angular/core';
-import {Note} from "../types/types";
+import {Note, NotesResponse} from "../types/types";
 import {NotesService} from "../service/notes.service";
 import {Subject, takeUntil} from "rxjs";
 import {ViewportScroller} from "@angular/common";
@@ -32,6 +32,7 @@ export class NotesComponent implements OnInit, AfterViewInit, OnDestroy, AfterCo
 
   searchValue: string = '';
   @Input() notes: Note[] = [];
+  @Input() notes1: NotesResponse;
   private destroyed = new Subject<void>();
   @ViewChild('scrollable') scrollable: NgScrollbar;
 

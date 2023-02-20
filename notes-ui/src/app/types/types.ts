@@ -3,7 +3,16 @@
  */
 export interface Note {
   noteId?: number,
+  notebookId?: number,
   note: string,
+  updatedOn?: number,
+  createdOn?: number
+}
+
+export interface NotesResponse {
+  notes: Note[],
+  pageSize: number,
+  nextPage: number;
 }
 
 /**
