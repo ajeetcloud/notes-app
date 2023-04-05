@@ -9,7 +9,17 @@ import {NOTEBOOK_API_ENDPOINT} from "../common/constants";
 })
 export class NotebookService {
 
+  private selectedNotebookId: number;
+
   constructor(private http: HttpClient) {
+  }
+
+  getSelectedNotebookId(): number {
+    return this.selectedNotebookId;
+  }
+
+  setSelectedNotebookId(notebookId: number) {
+    this.selectedNotebookId = notebookId;
   }
 
   getNotebooks(): Observable<Notebook[]> {
