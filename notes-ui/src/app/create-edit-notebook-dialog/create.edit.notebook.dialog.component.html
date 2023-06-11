@@ -1,5 +1,21 @@
-dialog
+<h1 mat-dialog-title>
+  <ng-container *ngIf="data.notebookDialogType === createNotebookDialog">Create</ng-container>
+  <ng-container *ngIf="data.notebookDialogType === editNotebookDialog">Edit</ng-container>
+  Notebook
+</h1>
+<div mat-dialog-content class="ccccc">
+  <mat-form-field appearance="outline" style="width: 100%">
+    <mat-label>Notebook name</mat-label>
+    <input matInput placeholder="Enter the notebook name">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
 
-notebook action type{{data.notebookDialogType}}
-
-notebook name{{data.notebookName}}
+</div>
+<!--
+<mat-form-field appearance="outline">
+  <mat-label>Outline form field</mat-label>
+  <input matInput placeholder="Placeholder">
+  <mat-hint>Hint</mat-hint>
+</mat-form-field>
+-->
