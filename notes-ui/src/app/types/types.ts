@@ -28,3 +28,13 @@ export interface NewNote {
   notebookId?: number,
   note: string,
 }
+
+export enum NotebookDialogType {
+  CREATE,
+  EDIT,
+}
+
+export interface NotebookDialogData {
+  notebookDialogType: NotebookDialogType,
+  notebookName?: string,
+}

@@ -18,6 +18,8 @@ import {MatCardModule} from "@angular/material/card";
 import {HttpClientModule} from '@angular/common/http';
 import {NgScrollbarModule} from "ngx-scrollbar";
 import {NgScrollbarReachedModule} from "ngx-scrollbar/reached-event";
+import {CreateEditNotebookDialogComponent} from "./create-edit-notebook-dialog/create.edit.notebook.dialog.component";
+import {MatDialogModule} from "@angular/material/dialog";
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent, pathMatch: 'full'},
@@ -31,6 +33,7 @@ const appRoutes: Routes = [
     ChannelComponent,
     NotesComponent,
     CreateNoteComponent,
+    CreateEditNotebookDialogComponent,
   ],
   imports: [
     NgScrollbarModule,
@@ -44,10 +47,12 @@ const appRoutes: Routes = [
     BrowserModule,
     FormsModule,
     HttpClientModule,
+    MatDialogModule,
     BrowserAnimationsModule,
     [RouterModule.forRoot(appRoutes)],
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

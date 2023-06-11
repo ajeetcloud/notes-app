@@ -1,7 +1,10 @@
 import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
 import {Subject, takeUntil} from "rxjs";
-import {Note, Notebook, NotesResponse} from "../types/types";
+import {Note, Notebook, NotebookDialogType, NotesResponse} from "../types/types";
 import {NotebookService} from "../service/notebook.service";
+
+import {CreateEditNotebookDialogComponent} from "../create-edit-notebook-dialog/create.edit.notebook.dialog.component";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'channel',
@@ -21,7 +24,7 @@ export class ChannelComponent implements OnInit, OnDestroy {
     this.getNotebooks();
   }
 
-  constructor(private notebookService: NotebookService) {
+  constructor(private notebookService: NotebookService, private dialog: MatDialog) {
   }
 
   getNotebooks() {
@@ -56,6 +59,11 @@ export class ChannelComponent implements OnInit, OnDestroy {
   }
 
   addNotebook() {
+    const dialogRef = this.dialog.open(CreateEditNotebookDialogComponent, {
+      width: '500px',
+      height: '500px',
+      data: {notebookDialogType: NotebookDialogType.CREATE, notebookName: 'hello'}
+    });
     console.log("add notebook");
   }
 
