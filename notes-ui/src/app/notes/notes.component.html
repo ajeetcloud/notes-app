@@ -20,15 +20,11 @@
 
       <!-- Chat: Content -->
       <!-- <ng-container *ngFor="let note of notes">-->
-      <div class="chat-body hide-scrollbar flex-1 h-100">
+      <div class="chat-body hide-scrollbar flex-1 h-100" (scroll)="checkScroll($event)">
 
         <!-- Message -->
-        <ng-scrollbar #scrollMe
-                      visibility="hover"
-                      [autoHeightDisabled]="false"
-                      (reachedTop)="reachedTop()"
-                      [reachedOffset]="200">
-          <div scrollViewport *ngFor="let note of notes">
+        <div id="sc-default" class="custom-scroll">
+          <div *ngFor="let note of notes; index as i" [ngClass]="{'top-message': i == 0}">
             <div class="message">
               <div class="message-inner">
                 <div class="message-body">
@@ -125,7 +121,7 @@
               </div>
             </div>
           </div>
-        </ng-scrollbar>
+        </div>
 
 
       </div>

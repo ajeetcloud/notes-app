@@ -2,6 +2,7 @@ import {Component, ElementRef, OnDestroy, OnInit, Renderer2, ViewChild} from "@a
 import {NewNote, Note} from "../types/types";
 import {NotesService} from "../service/notes.service";
 import {Subject, takeUntil} from "rxjs";
+import {NotebookService} from "../service/notebook.service";
 
 
 @Component({
@@ -15,7 +16,9 @@ export class CreateNoteComponent implements OnInit, OnDestroy {
   private destroyed = new Subject<void>();
   @ViewChild('pRef', {static: false}) pRef: ElementRef;
 
-  constructor(private notesService: NotesService, private renderer: Renderer2) {
+  constructor(private notesService: NotesService,
+              private notebookService: NotebookService,
+              private renderer: Renderer2) {
   }
 
   ngOnInit(): void {
@@ -23,7 +26,7 @@ export class CreateNoteComponent implements OnInit, OnDestroy {
 
   saveNote() {
     const newNote: NewNote = {
-      notebookId: 101,
+      notebookId: this.notebookService.getSelectedNotebookId(),
       note: this.note
     }
     this.notesService.saveNote(newNote)

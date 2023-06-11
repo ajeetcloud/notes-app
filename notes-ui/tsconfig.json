@@ -20,6 +20,11 @@
     "target": "ES2022",
     "module": "ES2022",
     "useDefineForClassFields": false,
+    "types": [
+      "gapi",
+      "gapi.auth2",
+      "google.accounts"
+    ],
     "lib": [
       "ES2022",
       "dom"

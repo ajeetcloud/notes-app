@@ -35,14 +35,24 @@ export class ChannelComponent implements OnInit, OnDestroy {
 
   getNotes(notebookId?: number) {
     console.log(notebookId);
-    this.notebookService.getNotes(notebookId || 0)
-      .pipe(takeUntil(this.destroyed))
-      .subscribe((res: NotesResponse) => {
-        this.notesResponse = res;
+    if (notebookId) {
+      this.notebookService.setSelectedNotebookId(notebookId);
+      if (this.notebookService.getNotesMap().has(notebookId)) {
+        console.log("reusing");
+        this.notesResponse = this.notebookService.getNotesMap().get(notebookId)!;
         this.newItemEvent.emit(this.notesResponse);
-        /*this.notes = [...notes];
-        this.newItemEvent.emit(notes);*/
-      });
+      } else {
+        // TODO: when scroll up, update the next page token there
+        this.notebookService.getNotes(notebookId, 1)
+          .pipe(takeUntil(this.destroyed))
+          .subscribe((res: NotesResponse) => {
+            console.log("Notes Response", res);
+            this.notesResponse = res;
+            this.notebookService.getNotesMap().set(notebookId, this.notesResponse);
+            this.newItemEvent.emit(this.notesResponse);
+          });
+      }
+    }
   }
 
   addNotebook() {
