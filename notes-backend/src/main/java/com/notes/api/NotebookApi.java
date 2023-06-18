@@ -17,6 +17,9 @@ public interface NotebookApi {
     @PostMapping("/")
     Notebook createNotebook(@RequestBody Notebook notebook);
 
+    @PutMapping("/")
+    Notebook updateNotebook(@RequestBody Notebook notebook);
+
     @GetMapping("/{notebookId}/notes")
     NotePage getPaginatedNotes(@PathVariable String notebookId, @RequestParam int pageNo, @RequestParam Optional<Integer> pageSize);
 }

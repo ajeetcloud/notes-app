@@ -37,7 +37,6 @@ export class ChannelComponent implements OnInit, OnDestroy {
   }
 
   getNotes(notebookId?: number) {
-    console.log(notebookId);
     if (notebookId) {
       this.notebookService.setSelectedNotebookId(notebookId);
       if (this.notebookService.getNotesMap().has(notebookId)) {
@@ -61,10 +60,16 @@ export class ChannelComponent implements OnInit, OnDestroy {
   addNotebook() {
     const dialogRef = this.dialog.open(CreateEditNotebookDialogComponent, {
       width: '500px',
-      height: '500px',
       data: {notebookDialogType: NotebookDialogType.CREATE, notebookName: 'hello'}
     });
-    console.log("add notebook");
+  }
+
+  editNotebook(notebookId: number, notebookName: string, event: MouseEvent) {
+    const dialogRef = this.dialog.open(CreateEditNotebookDialogComponent, {
+      width: '500px',
+      data: {notebookDialogType: NotebookDialogType.EDIT, notebookId, notebookName}
+    });
+    event.stopPropagation();
   }
 
   ngOnDestroy(): void {

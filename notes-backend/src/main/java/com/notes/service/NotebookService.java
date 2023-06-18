@@ -49,4 +49,10 @@ public class NotebookService {
         HibernateUtil.save(notebook);
     }
 
+    public void updateNotebook(Notebook notebook) {
+
+        notebook.setUpdatedOn(Instant.now().getEpochSecond());
+        HibernateUtil.update(notebook);
+    }
+
 }

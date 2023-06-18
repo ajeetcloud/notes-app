@@ -32,6 +32,12 @@ public class NotebookController implements NotebookApi {
     }
 
     @Override
+    public Notebook updateNotebook(Notebook notebook) {
+        notebookService.updateNotebook(notebook);
+        return notebook;
+    }
+
+    @Override
     public NotePage getPaginatedNotes(String notebookId, int pageNo, Optional<Integer> pageSize) {
         return notesService.getPaginatedNotes(notebookId, pageNo, pageSize.orElseGet(() -> 20));
     }

@@ -30,11 +30,12 @@ export interface NewNote {
 }
 
 export enum NotebookDialogType {
-  CREATE,
-  EDIT,
+  CREATE = "Create",
+  EDIT = "Edit",
 }
 
 export interface NotebookDialogData {
   notebookDialogType: NotebookDialogType,
+  notebookId?: number,
   notebookName?: string,
 }
