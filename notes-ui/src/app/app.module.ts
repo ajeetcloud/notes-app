@@ -21,6 +21,7 @@ import {NgScrollbarReachedModule} from "ngx-scrollbar/reached-event";
 import {CreateEditNotebookDialogComponent} from "./create-edit-notebook-dialog/create.edit.notebook.dialog.component";
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatButtonModule} from "@angular/material/button";
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent, pathMatch: 'full'},
@@ -50,6 +51,7 @@ const appRoutes: Routes = [
     HttpClientModule,
     MatButtonModule,
     MatDialogModule,
+    MatSnackBarModule,
     BrowserAnimationsModule,
     [RouterModule.forRoot(appRoutes)],
   ],

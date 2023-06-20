@@ -60,8 +60,13 @@ export class ChannelComponent implements OnInit, OnDestroy {
   addNotebook() {
     const dialogRef = this.dialog.open(CreateEditNotebookDialogComponent, {
       width: '500px',
-      data: {notebookDialogType: NotebookDialogType.CREATE, notebookName: 'hello'}
+      data: {notebookDialogType: NotebookDialogType.CREATE}
     });
+    dialogRef.afterClosed()
+      .pipe(takeUntil(this.destroyed))
+      .subscribe((notebook: Notebook) => {
+        this.notebooks.push(notebook);
+      })
   }
 
   editNotebook(notebookId: number, notebookName: string, event: MouseEvent) {

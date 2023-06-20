@@ -31,6 +31,10 @@ export class NotebookService {
     return this.http.get<NotesResponse>(`${NOTEBOOK_API_ENDPOINT}${notebookId}/notes?pageNo=${pageNumber}&pageSize=${PAGE_SIZE}`);
   }
 
+  createNotebook(notebook: Notebook): Observable<Notebook> {
+    return this.http.post<Notebook>(NOTEBOOK_API_ENDPOINT, notebook);
+  }
+
   getNotesMap(): Map<number, NotesResponse> {
     return this.notesMap;
   }

@@ -21,7 +21,7 @@ export interface NotesResponse {
 export interface Notebook {
   notebookId?: number,
   notebookName: string,
-  createdOn: number,
+  createdOn?: number,
 }
 
 export interface NewNote {
