@@ -36,6 +36,5 @@ export enum NotebookDialogType {
 
 export interface NotebookDialogData {
   notebookDialogType: NotebookDialogType,
-  notebookId?: number,
-  notebookName?: string,
+  notebook?: Notebook,
 }

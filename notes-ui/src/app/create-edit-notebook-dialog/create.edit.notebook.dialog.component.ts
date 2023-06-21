@@ -22,10 +22,9 @@ export class CreateEditNotebookDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.notebookName = this.data.notebookName || '';
-    if (this.data.notebookDialogType === NotebookDialogType.EDIT) {
+    if (this.data.notebookDialogType === NotebookDialogType.EDIT && this.data.notebook) {
       this.actionLabel = NotebookDialogType.EDIT;
-      this.notebookId = this.data.notebookId || 0;
+      this.notebookName = this.data.notebook.notebookName || '';
     }
   }
 
@@ -42,7 +41,15 @@ export class CreateEditNotebookDialogComponent implements OnInit {
         });
 
     } else {
-
+      if (this.data.notebook) {
+        this.data.notebook.notebookName = this.notebookName;
+        this.notebookService.updateNotebook(this.data.notebook)
+          .pipe(takeUntil(this.destroyed))
+          .subscribe((res: Notebook) => {
+            this.dialogRef.close(res);
+            this.snackBar.open(res.notebookName + " updated", 'ok');
+          });
+      }
     }
   }
 
