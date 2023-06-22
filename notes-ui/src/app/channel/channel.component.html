@@ -40,8 +40,12 @@
                          [ngClass]="{'selected-notebook': notebook.notebookId === selectedNotebookId}">
                       <mat-icon fontIcon="book"></mat-icon>
                       {{notebook.notebookName}}
-                      <mat-icon fontIcon="edit" class="edit-notebook"
-                                (click)="editNotebook(notebook.notebookId || 0, notebook.notebookName, $event)"></mat-icon>
+                      <span class="edit-notebook">
+                         <mat-icon fontIcon="edit" class="space"
+                                   (click)="editNotebook(notebook.notebookId || 0, notebook.notebookName, $event)"></mat-icon>
+                         <mat-icon fontIcon="delete"
+                                   (click)="editNotebook(notebook.notebookId || 0, notebook.notebookName, $event)"></mat-icon>
+                      </span>
                     </div>
                   </ng-container>
                 </div>
