@@ -36,7 +36,8 @@
                 </h2>
                 <div class="notebooks-container">
                   <ng-container *ngFor="let notebook of notebooks">
-                    <div class="notebook" (click)="getNotes(notebook.notebookId)">
+                    <div class="notebook" (click)="getNotes(notebook.notebookId)"
+                         [ngClass]="{'selected-notebook': notebook.notebookId === selectedNotebookId}">
                       <mat-icon fontIcon="book"></mat-icon>
                       {{notebook.notebookName}}
                       <mat-icon fontIcon="edit" class="edit-notebook"
@@ -50,12 +51,5 @@
         </div>
       </div>
     </div>
-
-    <!-- Notifications - Notices -->
-
-    <!-- Support -->
-
-    <!-- Settings -->
   </div>
 </aside>
-<!-- Sidebar -->

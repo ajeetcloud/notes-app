@@ -17,11 +17,13 @@ export class ChannelComponent implements OnInit, OnDestroy {
   notebooks: Notebook[] = [];
   notesResponse: NotesResponse;
   notes: Note[] = [];
+  selectedNotebookId: number;
   @Output() newItemEvent = new EventEmitter<NotesResponse>();
   private destroyed = new Subject<void>();
 
   ngOnInit(): void {
     this.getNotebooks();
+    this.selectedNotebookId = this.notebookService.getSelectedNotebookId();
   }
 
   constructor(private notebookService: NotebookService, private dialog: MatDialog) {
@@ -39,6 +41,7 @@ export class ChannelComponent implements OnInit, OnDestroy {
   getNotes(notebookId?: number) {
     if (notebookId) {
       this.notebookService.setSelectedNotebookId(notebookId);
+      this.selectedNotebookId = notebookId;
       if (this.notebookService.getNotesMap().has(notebookId)) {
         console.log("reusing");
         this.notesResponse = this.notebookService.getNotesMap().get(notebookId)!;

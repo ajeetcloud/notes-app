@@ -61,6 +61,7 @@ public class HibernateUtil<T> {
         }
     }
 
+    // TODO: bad practice, use Criteria or HQL
     public static void deleteNotebook(int notebookId) {
         Transaction tx = null;
         Session session = getSessionFactory().openSession();

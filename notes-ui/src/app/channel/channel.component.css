@@ -33,6 +33,19 @@
 .notebook:hover {
   background-color: lightgrey;
   border-radius: 5px;
+  color: rgba(29, 28, 29, 1);
+}
+
+.selected-notebook {
+  background-color: #1164A3;
+  border-radius: 5px;
+  color: white;
+}
+
+.selected-notebook:hover {
+  background-color: #1164A3;
+  border-radius: 5px;
+  color: white;
 }
 
 .edit-notebook {
