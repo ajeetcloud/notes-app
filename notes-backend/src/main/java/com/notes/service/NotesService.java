@@ -37,24 +37,8 @@ public class NotesService {
             Long query = session.createQuery(cr).getSingleResult();
             System.out.println(query);
 
-
-        /*    CriteriaBuilder qb = session.getCriteriaBuilder();
-            CriteriaQuery<Long> cq = qb.createQuery(Long.class);
-            Root<Note> customer = cq.from(Note.class);
-            cq.select(qb.count(cq.from(Note.class)));
-            cq.where(qb.equal(customer.get("notebookId"), notebookId));
-            Long count1 = session.createQuery(cq)
-                    .getSingleResult();*/
-
-           /* CriteriaQuery<Long> countQuery = criteriaBuilder
-                    .createQuery(Long.class);
-            Root<Note> fr = countQuery.from(Note.class);
-            countQuery.select(criteriaBuilder
-                    .count(countQuery.from(Note.class)));
-            Long count = session.createQuery(countQuery)
-                    .getSingleResult();*/
             Long count = query;
-            
+
             startRowNum = ((int) (count - (pageNo * pageSize)));
             if (startRowNum < 0) {
                 pageSize = startRowNum + pageSize;

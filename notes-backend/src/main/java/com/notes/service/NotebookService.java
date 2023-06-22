@@ -55,4 +55,10 @@ public class NotebookService {
         HibernateUtil.update(notebook);
     }
 
+    public int deleteNotebook(int notebookId) {
+
+        HibernateUtil.deleteNotebook(notebookId);
+        return notebookId;
+    }
+
 }

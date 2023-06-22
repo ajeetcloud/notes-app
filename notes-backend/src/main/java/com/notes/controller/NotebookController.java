@@ -38,6 +38,11 @@ public class NotebookController implements NotebookApi {
     }
 
     @Override
+    public int deleteNotebook(int notebookId) {
+        return notebookService.deleteNotebook(notebookId);
+    }
+
+    @Override
     public NotePage getPaginatedNotes(String notebookId, int pageNo, Optional<Integer> pageSize) {
         return notesService.getPaginatedNotes(notebookId, pageNo, pageSize.orElseGet(() -> 20));
     }
