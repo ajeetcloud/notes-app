@@ -12,6 +12,7 @@
   border-style: solid;
   border: 2px;
   border-radius: 5px;
+  position: relative;
 }
 
 .box {
@@ -109,3 +110,19 @@
   margin-top: auto;
 }
 
+.actions {
+  border: 2px solid white;
+  padding: 10px;
+  border-radius: 7px;
+  position: absolute;
+  z-index: 999;
+  top: -10px;
+  right: 0;
+  background: azure;
+  cursor: pointer;
+  display: none;
+}
+
+.message:hover .actions {
+  display: block;
+}
