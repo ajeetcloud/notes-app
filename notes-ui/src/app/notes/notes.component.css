@@ -111,13 +111,13 @@
 }
 
 .actions {
-  border: 2px solid white;
+  border: 1px solid rgba(0, 0, 0, .12);
   padding: 10px;
   border-radius: 7px;
   position: absolute;
   z-index: 999;
-  top: -10px;
-  right: 0;
+  top: -15px;
+  right: 15px;
   background: azure;
   cursor: pointer;
   display: none;
@@ -126,3 +126,8 @@
 .message:hover .actions {
   display: block;
 }
+
+.space {
+  margin-right: 8px;
+}
+
