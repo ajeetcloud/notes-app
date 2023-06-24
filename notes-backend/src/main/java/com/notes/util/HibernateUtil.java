@@ -1,7 +1,6 @@
 package com.notes.util;
 
 import com.notes.model.Note;
-import com.notes.model.Notebook;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -48,29 +47,6 @@ public class HibernateUtil<T> {
         try {
             tx = session.beginTransaction();
             session.update(t);
-            session.getTransaction().commit();
-        } catch (Exception e) {
-            if (tx != null) {
-                tx.rollback();
-            }
-            throw e;
-        } finally {
-            if (session.isOpen()) {
-                session.close();
-            }
-        }
-    }
-
-    // TODO: bad practice, use Criteria or HQL
-    public static void deleteNotebook(int notebookId) {
-        Transaction tx = null;
-        Session session = getSessionFactory().openSession();
-        try {
-            tx = session.beginTransaction();
-            Notebook notebook = session.get(Notebook.class, notebookId);
-            if (notebook != null) {
-                session.delete(notebook);
-            }
             session.getTransaction().commit();
         } catch (Exception e) {
             if (tx != null) {
