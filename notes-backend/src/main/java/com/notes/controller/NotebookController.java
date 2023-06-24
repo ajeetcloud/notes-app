@@ -38,8 +38,8 @@ public class NotebookController implements NotebookApi {
     }
 
     @Override
-    public int deleteNotebook(int notebookId) {
-        return notebookService.deleteNotebook(notebookId);
+    public void deleteNotebook(int notebookId) {
+        notebookService.deleteNotebook(notebookId);
     }
 
     @Override

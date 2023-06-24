@@ -21,7 +21,7 @@ public interface NotebookApi {
     Notebook updateNotebook(@RequestBody Notebook notebook);
 
     @DeleteMapping("/{notebookId}")
-    int deleteNotebook(@PathVariable int notebookId);
+    void deleteNotebook(@PathVariable int notebookId);
 
     @GetMapping("/{notebookId}/notes")
     NotePage getPaginatedNotes(@PathVariable String notebookId, @RequestParam int pageNo, @RequestParam Optional<Integer> pageSize);
