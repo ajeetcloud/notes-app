@@ -88,8 +88,6 @@ export class ChannelComponent implements OnInit, OnDestroy {
   }
 
   deleteNotebook(notebookId: number, event: MouseEvent) {
-    console.log("delete notebook id", notebookId);
-
     const notebookIndex = this.notebooks.findIndex(notebook => notebook.notebookId === notebookId);
     const notebook = {...this.notebooks[notebookIndex]};
     const dialogRef = this.dialog.open(CreateEditNotebookDialogComponent, {
@@ -99,15 +97,8 @@ export class ChannelComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed()
       .pipe(takeUntil(this.destroyed))
       .subscribe((notebook: Notebook) => {
-        debugger;
         this.notebooks.splice(notebookIndex, 1);
-        console.log("map", this.notebookService.getNotesMap());
         this.notebookService.getNotesMap().delete(notebookId);
-        console.log("map", this.notebookService.getNotesMap());
-        console.log("notebooks", this.notebooks);
-        console.log("deleted notebook", notebook);
-        //this.notebooks[notebookIndex] = notebook;
-
       })
 
     event.stopPropagation();

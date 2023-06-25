@@ -27,7 +27,6 @@ export class CreateEditNotebookDialogComponent implements OnInit {
   }
 
   createEditNotebook() {
-    debugger;
     if (this.actionLabel === NotebookDialogType.CREATE) {
       const notebook: Notebook = {
         notebookName: this.notebookName,
