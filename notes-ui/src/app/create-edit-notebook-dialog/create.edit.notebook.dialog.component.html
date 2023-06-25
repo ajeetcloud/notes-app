@@ -1,5 +1,5 @@
 <h1 mat-dialog-title>
-  <ng-container>{{actionLabel}}</ng-container>
+  <ng-container cdkTrapFocus [cdkTrapFocusAutoCapture]="true">{{actionLabel}}</ng-container>
   Notebook
 </h1>
 <div mat-dialog-content class="content">
