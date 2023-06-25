@@ -24,4 +24,11 @@ public class NotesController implements NotesApi {
         notesService.createNote(note);
         return note;
     }
+
+    @Override
+    public void deleteNote(int noteId) {
+        notesService.deleteNote(noteId);
+    }
+
+
 }

@@ -118,4 +118,10 @@ public class NotesService {
         note.setNotebook(nb);
         HibernateUtil.save(note);
     }
+
+    public void deleteNote(int noteId) {
+        Note note = new Note();
+        note.setNoteId(noteId);
+        HibernateUtil.delete(note);
+    }
 }

@@ -60,6 +60,25 @@ public class HibernateUtil<T> {
         }
     }
 
+    public static <T> void delete(T t) {
+        Transaction tx = null;
+        Session session = getSessionFactory().openSession();
+        try {
+            tx = session.beginTransaction();
+            session.delete(t);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            throw e;
+        } finally {
+            if (session.isOpen()) {
+                session.close();
+            }
+        }
+    }
+
     public static void deleteNote(int noteId) {
         Transaction tx = null;
         Session session = getSessionFactory().openSession();
