@@ -22,6 +22,7 @@ import {CreateEditNotebookDialogComponent} from "./create-edit-notebook-dialog/c
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatButtonModule} from "@angular/material/button";
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {A11yModule} from "@angular/cdk/a11y";
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent, pathMatch: 'full'},
@@ -54,6 +55,7 @@ const appRoutes: Routes = [
     MatSnackBarModule,
     BrowserAnimationsModule,
     [RouterModule.forRoot(appRoutes)],
+    A11yModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

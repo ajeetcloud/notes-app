@@ -12,7 +12,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 })
 export class CreateEditNotebookDialogComponent implements OnInit {
 
-  actionLabel = NotebookDialogType.CREATE;
+  actionLabel = '';
   notebookName = '';
   notebookId: number;
 
@@ -22,13 +22,12 @@ export class CreateEditNotebookDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.data.notebookDialogType === NotebookDialogType.EDIT && this.data.notebook) {
-      this.actionLabel = NotebookDialogType.EDIT;
-      this.notebookName = this.data.notebook.notebookName || '';
-    }
+    this.actionLabel = this.data.notebookDialogType.toString() || '';
+    this.notebookName = this.data.notebook?.notebookName || '';
   }
 
   createEditNotebook() {
+    debugger;
     if (this.actionLabel === NotebookDialogType.CREATE) {
       const notebook: Notebook = {
         notebookName: this.notebookName,
@@ -40,7 +39,7 @@ export class CreateEditNotebookDialogComponent implements OnInit {
           this.snackBar.open(res.notebookName + " created", 'ok');
         });
 
-    } else {
+    } else if (this.actionLabel === NotebookDialogType.EDIT) {
       if (this.data.notebook) {
         this.data.notebook.notebookName = this.notebookName;
         this.notebookService.updateNotebook(this.data.notebook)
@@ -50,6 +49,17 @@ export class CreateEditNotebookDialogComponent implements OnInit {
             this.snackBar.open(res.notebookName + " updated", 'ok');
           });
       }
+    } else {
+      if (this.data.notebook) {
+        const notebook: Notebook = this.data.notebook;
+        this.notebookService.deleteNotebook(notebook.notebookId || 0)
+          .pipe(takeUntil(this.destroyed))
+          .subscribe(() => {
+            this.dialogRef.close();
+            this.snackBar.open(notebook.notebookName + " deleted", 'ok');
+          });
+      }
+
     }
   }
 

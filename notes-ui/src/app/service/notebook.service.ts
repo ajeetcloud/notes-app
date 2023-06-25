@@ -39,6 +39,10 @@ export class NotebookService {
     return this.http.put<Notebook>(NOTEBOOK_API_ENDPOINT, notebook);
   }
 
+  deleteNotebook(notebookId: number): Observable<void> {
+    return this.http.delete<void>(NOTEBOOK_API_ENDPOINT + notebookId);
+  }
+
   getNotesMap(): Map<number, NotesResponse> {
     return this.notesMap;
   }

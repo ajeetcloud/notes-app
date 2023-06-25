@@ -3,10 +3,15 @@
   Notebook
 </h1>
 <div mat-dialog-content class="content">
-  <mat-form-field appearance="outline" style="width: 100%">
-    <mat-label>Notebook name</mat-label>
-    <input matInput placeholder="Enter the notebook name" [(ngModel)]="notebookName">
-  </mat-form-field>
+  <ng-container *ngIf="actionLabel === 'Delete'; else loggedOut">
+    Are you sure you want to delete {{notebookName}}. This will delete its notes also.
+  </ng-container>
+  <ng-template #loggedOut>
+    <mat-form-field appearance="outline" style="width: 100%">
+      <mat-label>Notebook name</mat-label>
+      <input matInput placeholder="Enter the notebook name" [(ngModel)]="notebookName">
+    </mat-form-field>
+  </ng-template>
 </div>
 <mat-dialog-actions align="end">
   <button mat-raised-button mat-dialog-close>Cancel</button>
