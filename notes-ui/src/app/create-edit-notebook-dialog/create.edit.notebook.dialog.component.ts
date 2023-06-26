@@ -18,7 +18,11 @@ export class CreateEditNotebookDialogComponent implements OnInit {
 
   private destroyed = new Subject<void>();
 
-  constructor(public dialogRef: MatDialogRef<CreateEditNotebookDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: NotebookDialogData, private notebookService: NotebookService, private snackBar: MatSnackBar) {
+  constructor(private dialogRef: MatDialogRef<CreateEditNotebookDialogComponent>,
+              @Inject(MAT_DIALOG_DATA) public data: NotebookDialogData,
+              private notebookService: NotebookService,
+              private snackBar: MatSnackBar) {
+    dialogRef.disableClose = true;
   }
 
   ngOnInit(): void {
