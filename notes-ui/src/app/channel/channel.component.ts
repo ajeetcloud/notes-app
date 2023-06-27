@@ -101,8 +101,10 @@ export class ChannelComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed()
       .pipe(takeUntil(this.destroyed))
       .subscribe((notebook: Notebook) => {
-        this.notebooks.splice(notebookIndex, 1);
-        this.notebookService.getNotesMap().delete(notebookId);
+        if (notebook && notebook.notebookId) {
+          this.notebooks.splice(notebookIndex, 1);
+          this.notebookService.getNotesMap().delete(notebook.notebookId);
+        }
       })
 
     event.stopPropagation();

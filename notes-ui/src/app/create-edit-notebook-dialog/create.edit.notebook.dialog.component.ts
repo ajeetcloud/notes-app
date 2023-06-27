@@ -62,7 +62,7 @@ export class CreateEditNotebookDialogComponent implements OnInit {
         this.notebookService.deleteNotebook(notebook.notebookId || 0)
           .pipe(takeUntil(this.destroyed))
           .subscribe(() => {
-            this.dialogRef.close();
+            this.dialogRef.close(notebook);
             this.snackBar.open(notebook.notebookName + " deleted", 'ok');
           });
       }
