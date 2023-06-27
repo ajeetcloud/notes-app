@@ -41,9 +41,9 @@
                       <mat-icon fontIcon="book"></mat-icon>
                       {{notebook.notebookName}}
                       <span class="edit-notebook">
-                         <mat-icon fontIcon="edit" class="space"
+                         <mat-icon fontIcon="edit" class="space icon"
                                    (click)="editNotebook(notebook.notebookId || 0, notebook.notebookName, $event)"></mat-icon>
-                         <mat-icon fontIcon="delete"
+                         <mat-icon fontIcon="delete" class="icon"
                                    (click)="deleteNotebook(notebook.notebookId || 0, $event)"></mat-icon>
                       </span>
                     </div>
