@@ -68,7 +68,9 @@ export class ChannelComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed()
       .pipe(takeUntil(this.destroyed))
       .subscribe((notebook: Notebook) => {
-        this.notebooks.push(notebook);
+        if (notebook && notebook.notebookId) {
+          this.notebooks.push(notebook);
+        }
       })
   }
 
@@ -82,7 +84,9 @@ export class ChannelComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed()
       .pipe(takeUntil(this.destroyed))
       .subscribe((notebook: Notebook) => {
-        this.notebooks[notebookIndex] = notebook;
+        if (notebook && notebook.notebookId) {
+          this.notebooks[notebookIndex] = notebook;
+        }
       })
     event.stopPropagation();
   }

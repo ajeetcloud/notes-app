@@ -30,6 +30,10 @@ export class CreateEditNotebookDialogComponent implements OnInit {
     this.notebookName = this.data.notebook?.notebookName || '';
   }
 
+  cancel() {
+    this.dialogRef.close();
+  }
+
   createEditNotebook() {
     if (this.actionLabel === NotebookDialogType.CREATE) {
       const notebook: Notebook = {
