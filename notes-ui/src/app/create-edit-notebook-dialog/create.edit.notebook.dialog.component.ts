@@ -18,6 +18,7 @@ export class CreateEditNotebookDialogComponent implements OnInit {
 
   private destroyed = new Subject<void>();
 
+  //TODO: change component name to add 'delete'
   constructor(private dialogRef: MatDialogRef<CreateEditNotebookDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: NotebookDialogData,
               private notebookService: NotebookService,
