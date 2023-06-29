@@ -29,13 +29,13 @@ export interface NewNote {
   note: string,
 }
 
-export enum NotebookDialogType {
+export enum ActionType {
   CREATE = "Create",
   EDIT = "Edit",
   DELETE = "Delete"
 }
 
 export interface NotebookDialogData {
-  notebookDialogType: NotebookDialogType,
+  notebookDialogType: ActionType,
   notebook?: Notebook,
 }

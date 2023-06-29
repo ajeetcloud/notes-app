@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from "@angular/core";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {Notebook, NotebookDialogData, NotebookDialogType} from "../types/types";
+import {ActionType, Notebook, NotebookDialogData} from "../types/types";
 import {NotebookService} from "../service/notebook.service";
 import {Subject, takeUntil} from "rxjs";
 import {MatSnackBar} from "@angular/material/snack-bar";
@@ -36,7 +36,7 @@ export class CreateEditDeleteNotebookDialogComponent implements OnInit {
   }
 
   createEditNotebook() {
-    if (this.actionLabel === NotebookDialogType.CREATE) {
+    if (this.actionLabel === ActionType.CREATE) {
       const notebook: Notebook = {
         notebookName: this.notebookName,
       }
@@ -47,7 +47,7 @@ export class CreateEditDeleteNotebookDialogComponent implements OnInit {
           this.snackBar.open(res.notebookName + " created", 'ok');
         });
 
-    } else if (this.actionLabel === NotebookDialogType.EDIT) {
+    } else if (this.actionLabel === ActionType.EDIT) {
       if (this.data.notebook) {
         this.data.notebook.notebookName = this.notebookName;
         this.notebookService.updateNotebook(this.data.notebook)

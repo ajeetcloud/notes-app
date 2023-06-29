@@ -1,6 +1,6 @@
 import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
 import {Subject, takeUntil} from "rxjs";
-import {Note, Notebook, NotebookDialogType, NotesResponse} from "../types/types";
+import {ActionType, Note, Notebook, NotesResponse} from "../types/types";
 import {NotebookService} from "../service/notebook.service";
 
 import {
@@ -65,7 +65,7 @@ export class ChannelComponent implements OnInit, OnDestroy {
   addNotebook() {
     const dialogRef = this.dialog.open(CreateEditDeleteNotebookDialogComponent, {
       width: '500px',
-      data: {notebookDialogType: NotebookDialogType.CREATE}
+      data: {notebookDialogType: ActionType.CREATE}
     });
     dialogRef.afterClosed()
       .pipe(takeUntil(this.destroyed))
@@ -81,7 +81,7 @@ export class ChannelComponent implements OnInit, OnDestroy {
     const notebook = {...this.notebooks[notebookIndex]};
     const dialogRef = this.dialog.open(CreateEditDeleteNotebookDialogComponent, {
       width: '500px',
-      data: {notebookDialogType: NotebookDialogType.EDIT, notebook}
+      data: {notebookDialogType: ActionType.EDIT, notebook}
     });
     dialogRef.afterClosed()
       .pipe(takeUntil(this.destroyed))
@@ -98,7 +98,7 @@ export class ChannelComponent implements OnInit, OnDestroy {
     const notebook = {...this.notebooks[notebookIndex]};
     const dialogRef = this.dialog.open(CreateEditDeleteNotebookDialogComponent, {
       width: '500px',
-      data: {notebookDialogType: NotebookDialogType.DELETE, notebook}
+      data: {notebookDialogType: ActionType.DELETE, notebook}
     });
     dialogRef.afterClosed()
       .pipe(takeUntil(this.destroyed))
