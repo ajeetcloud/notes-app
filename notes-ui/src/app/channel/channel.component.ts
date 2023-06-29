@@ -3,7 +3,9 @@ import {Subject, takeUntil} from "rxjs";
 import {Note, Notebook, NotebookDialogType, NotesResponse} from "../types/types";
 import {NotebookService} from "../service/notebook.service";
 
-import {CreateEditNotebookDialogComponent} from "../create-edit-notebook-dialog/create.edit.notebook.dialog.component";
+import {
+  CreateEditDeleteNotebookDialogComponent
+} from "../create-edit--delete-notebook-dialog/create.edit.delete.notebook.dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 
 @Component({
@@ -61,7 +63,7 @@ export class ChannelComponent implements OnInit, OnDestroy {
   }
 
   addNotebook() {
-    const dialogRef = this.dialog.open(CreateEditNotebookDialogComponent, {
+    const dialogRef = this.dialog.open(CreateEditDeleteNotebookDialogComponent, {
       width: '500px',
       data: {notebookDialogType: NotebookDialogType.CREATE}
     });
@@ -77,7 +79,7 @@ export class ChannelComponent implements OnInit, OnDestroy {
   editNotebook(notebookId: number, notebookName: string, event: MouseEvent) {
     const notebookIndex = this.notebooks.findIndex(notebook => notebook.notebookId === notebookId);
     const notebook = {...this.notebooks[notebookIndex]};
-    const dialogRef = this.dialog.open(CreateEditNotebookDialogComponent, {
+    const dialogRef = this.dialog.open(CreateEditDeleteNotebookDialogComponent, {
       width: '500px',
       data: {notebookDialogType: NotebookDialogType.EDIT, notebook}
     });
@@ -94,7 +96,7 @@ export class ChannelComponent implements OnInit, OnDestroy {
   deleteNotebook(notebookId: number, event: MouseEvent) {
     const notebookIndex = this.notebooks.findIndex(notebook => notebook.notebookId === notebookId);
     const notebook = {...this.notebooks[notebookIndex]};
-    const dialogRef = this.dialog.open(CreateEditNotebookDialogComponent, {
+    const dialogRef = this.dialog.open(CreateEditDeleteNotebookDialogComponent, {
       width: '500px',
       data: {notebookDialogType: NotebookDialogType.DELETE, notebook}
     });

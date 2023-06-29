@@ -18,7 +18,9 @@ import {MatCardModule} from "@angular/material/card";
 import {HttpClientModule} from '@angular/common/http';
 import {NgScrollbarModule} from "ngx-scrollbar";
 import {NgScrollbarReachedModule} from "ngx-scrollbar/reached-event";
-import {CreateEditNotebookDialogComponent} from "./create-edit-notebook-dialog/create.edit.notebook.dialog.component";
+import {
+  CreateEditDeleteNotebookDialogComponent
+} from "./create-edit--delete-notebook-dialog/create.edit.delete.notebook.dialog.component";
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatButtonModule} from "@angular/material/button";
 import {MatSnackBarModule} from '@angular/material/snack-bar';
@@ -36,7 +38,7 @@ const appRoutes: Routes = [
     ChannelComponent,
     NotesComponent,
     CreateNoteComponent,
-    CreateEditNotebookDialogComponent,
+    CreateEditDeleteNotebookDialogComponent,
   ],
   imports: [
     NgScrollbarModule,

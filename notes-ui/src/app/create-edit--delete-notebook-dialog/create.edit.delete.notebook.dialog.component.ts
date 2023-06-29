@@ -7,10 +7,10 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'create-edit-notebook-dialog',
-  templateUrl: './create.edit.notebook.dialog.component.html',
-  styleUrls: ['./create.edit.notebook.dialog.component.css'],
+  templateUrl: './create.edit.delete.notebook.dialog.component.html',
+  styleUrls: ['./create.edit.delete.notebook.dialog.component.css'],
 })
-export class CreateEditNotebookDialogComponent implements OnInit {
+export class CreateEditDeleteNotebookDialogComponent implements OnInit {
 
   actionLabel = '';
   notebookName = '';
@@ -19,7 +19,7 @@ export class CreateEditNotebookDialogComponent implements OnInit {
   private destroyed = new Subject<void>();
 
   //TODO: change component name to add 'delete'
-  constructor(private dialogRef: MatDialogRef<CreateEditNotebookDialogComponent>,
+  constructor(private dialogRef: MatDialogRef<CreateEditDeleteNotebookDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: NotebookDialogData,
               private notebookService: NotebookService,
               private snackBar: MatSnackBar) {
