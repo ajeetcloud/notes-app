@@ -22,6 +22,10 @@ export class NotesService {
     return this.http.post<Note>(NOTES_API_ENDPOINT, note);
   }
 
+  deleteNote(noteId: number): Observable<void> {
+    return this.http.delete<void>(NOTES_API_ENDPOINT + noteId);
+  }
+
   getNoteSubject(): Subject<Note> {
     return this.createNoteSubject;
   }

@@ -16,6 +16,8 @@ import {ViewportScroller} from "@angular/common";
 import {Router} from "@angular/router";
 import {NgScrollbar} from "ngx-scrollbar";
 import {NotebookService} from "../service/notebook.service";
+import {MatDialog} from "@angular/material/dialog";
+import {EditDeleteNoteDialogComponent} from "../edit-delete-note-dialog/edit.delete.note.dialog.component";
 
 @Component({
   selector: 'notes',
@@ -70,7 +72,12 @@ export class NotesComponent implements OnInit, OnDestroy, OnChanges {
     }
   }
 
-  constructor(private notesService: NotesService, private notebookService: NotebookService, private renderer: Renderer2, private scroller: ViewportScroller, private router: Router
+  constructor(private notesService: NotesService,
+              private notebookService: NotebookService,
+              private renderer: Renderer2,
+              private scroller: ViewportScroller,
+              private router: Router,
+              private dialog: MatDialog
   ) {
   }
 
@@ -102,6 +109,14 @@ export class NotesComponent implements OnInit, OnDestroy, OnChanges {
         });
     }
   }
+
+  deleteNote(note: Note) {
+    const dialogRef = this.dialog.open(EditDeleteNoteDialogComponent, {
+      width: '500px',
+      data: {note}
+    });
+  }
+
 
   onCreateNote() {
     this.notesService.getNoteSubject().subscribe((note: Note) => {
