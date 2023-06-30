@@ -1,0 +1,15 @@
+<h1 mat-dialog-title>
+  <ng-container cdkTrapFocus [cdkTrapFocusAutoCapture]="true">Delete Note</ng-container>
+</h1>
+<div mat-dialog-content class="content">
+  <ng-template>
+    <mat-form-field appearance="outline" style="width: 100%">
+      <mat-label>Notebook name</mat-label>
+      <input matInput placeholder="Enter the notebook name">
+    </mat-form-field>
+  </ng-template>
+</div>
+<mat-dialog-actions align="end">
+  <button mat-raised-button mat-dialog-close>Cancel</button>
+  <button mat-raised-button color="primary">Delete</button>
+</mat-dialog-actions>

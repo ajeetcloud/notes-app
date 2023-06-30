@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit} from "@angular/core";
+import {Component, Inject, OnDestroy, OnInit} from "@angular/core";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {ActionType, Notebook, NotebookDialogData} from "../types/types";
 import {NotebookService} from "../service/notebook.service";
@@ -10,7 +10,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
   templateUrl: './create.edit.delete.notebook.dialog.component.html',
   styleUrls: ['./create.edit.delete.notebook.dialog.component.css'],
 })
-export class CreateEditDeleteNotebookDialogComponent implements OnInit {
+export class CreateEditDeleteNotebookDialogComponent implements OnInit, OnDestroy {
 
   actionLabel = '';
   notebookName = '';
@@ -18,7 +18,6 @@ export class CreateEditDeleteNotebookDialogComponent implements OnInit {
 
   private destroyed = new Subject<void>();
 
-  //TODO: change component name to add 'delete'
   constructor(private dialogRef: MatDialogRef<CreateEditDeleteNotebookDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: NotebookDialogData,
               private notebookService: NotebookService,
