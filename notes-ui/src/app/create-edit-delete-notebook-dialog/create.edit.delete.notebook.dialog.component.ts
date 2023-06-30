@@ -6,7 +6,7 @@ import {Subject, takeUntil} from "rxjs";
 import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
-  selector: 'create-edit-notebook-dialog',
+  selector: 'create-edit-delete-notebook-dialog',
   templateUrl: './create.edit.delete.notebook.dialog.component.html',
   styleUrls: ['./create.edit.delete.notebook.dialog.component.css'],
 })
