@@ -25,6 +25,7 @@ import {MatDialogModule} from "@angular/material/dialog";
 import {MatButtonModule} from "@angular/material/button";
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {A11yModule} from "@angular/cdk/a11y";
+import {EditDeleteNoteDialogComponent} from "./edit-delete-note-dialog/edit.delete.note.dialog.component";
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent, pathMatch: 'full'},
@@ -39,6 +40,7 @@ const appRoutes: Routes = [
     NotesComponent,
     CreateNoteComponent,
     CreateEditDeleteNotebookDialogComponent,
+    EditDeleteNoteDialogComponent,
   ],
   imports: [
     NgScrollbarModule,
