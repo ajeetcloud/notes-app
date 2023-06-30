@@ -5,7 +5,7 @@ import {NotebookService} from "../service/notebook.service";
 
 import {
   CreateEditDeleteNotebookDialogComponent
-} from "../create-edit--delete-notebook-dialog/create.edit.delete.notebook.dialog.component";
+} from "../create-edit-delete-notebook-dialog/create.edit.delete.notebook.dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 
 @Component({

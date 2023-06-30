@@ -20,7 +20,7 @@ import {NgScrollbarModule} from "ngx-scrollbar";
 import {NgScrollbarReachedModule} from "ngx-scrollbar/reached-event";
 import {
   CreateEditDeleteNotebookDialogComponent
-} from "./create-edit--delete-notebook-dialog/create.edit.delete.notebook.dialog.component";
+} from "./create-edit-delete-notebook-dialog/create.edit.delete.notebook.dialog.component";
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatButtonModule} from "@angular/material/button";
 import {MatSnackBarModule} from '@angular/material/snack-bar';
