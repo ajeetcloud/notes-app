@@ -1,7 +1,8 @@
-import {Component, OnDestroy, OnInit} from "@angular/core";
-import {MatDialogRef} from "@angular/material/dialog";
+import {Component, Inject, OnDestroy, OnInit} from "@angular/core";
+import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {Subject, takeUntil} from "rxjs";
 import {NotesService} from "../service/notes.service";
+import {Note} from "../types/types";
 
 
 @Component({
@@ -12,11 +13,16 @@ import {NotesService} from "../service/notes.service";
 export class EditDeleteNoteDialogComponent implements OnInit, OnDestroy {
 
   private destroyed = new Subject<void>();
+  note: Note;
 
-  constructor(private dialogRef: MatDialogRef<EditDeleteNoteDialogComponent>, private notesService: NotesService) {
+  constructor(private dialogRef: MatDialogRef<EditDeleteNoteDialogComponent>,
+              @Inject(MAT_DIALOG_DATA) public data: Note,
+              private notesService: NotesService) {
   }
 
   ngOnInit(): void {
+    this.note = this.data;
+    console.log(this.data.note);
   }
 
   deleteNote(noteId: number) {
