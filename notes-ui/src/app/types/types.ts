@@ -4,7 +4,7 @@
 export interface Note {
   noteId?: number,
   notebookId?: number,
-  note: string,
+  note?: string,
   updatedOn?: number,
   createdOn?: number
 }
@@ -38,4 +38,9 @@ export enum ActionType {
 export interface NotebookDialogData {
   notebookDialogType: ActionType,
   notebook?: Notebook,
+}
+
+export interface NoteDialogData {
+  notebookDialogType: ActionType,
+  note?: Note,
 }

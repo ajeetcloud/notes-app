@@ -2,7 +2,7 @@ import {Component, Inject, OnDestroy, OnInit} from "@angular/core";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {Subject, takeUntil} from "rxjs";
 import {NotesService} from "../service/notes.service";
-import {Note} from "../types/types";
+import {Note, NoteDialogData} from "../types/types";
 
 
 @Component({
@@ -13,16 +13,17 @@ import {Note} from "../types/types";
 export class EditDeleteNoteDialogComponent implements OnInit, OnDestroy {
 
   private destroyed = new Subject<void>();
-  note: Note;
+  note: Note = {};
 
   constructor(private dialogRef: MatDialogRef<EditDeleteNoteDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: Note,
+              @Inject(MAT_DIALOG_DATA) public data: NoteDialogData,
               private notesService: NotesService) {
   }
 
   ngOnInit(): void {
-    this.note = this.data;
-    console.log(this.data.note);
+    // @ts-ignore
+    console.log(this.data.note.note);
+    this.note = this.data.note || {};
   }
 
   deleteNote(noteId: number) {

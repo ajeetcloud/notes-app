@@ -9,7 +9,7 @@ import {
   SimpleChanges,
   ViewChild
 } from '@angular/core';
-import {Note, NotesResponse} from "../types/types";
+import {ActionType, Note, NotesResponse} from "../types/types";
 import {NotesService} from "../service/notes.service";
 import {Subject, takeUntil} from "rxjs";
 import {ViewportScroller} from "@angular/common";
@@ -113,7 +113,7 @@ export class NotesComponent implements OnInit, OnDestroy, OnChanges {
   deleteNote(note: Note) {
     const dialogRef = this.dialog.open(EditDeleteNoteDialogComponent, {
       width: '500px',
-      data: {note}
+      data: {notebookDialogType: ActionType.DELETE, note}
     });
   }
 
