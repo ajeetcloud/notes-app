@@ -109,9 +109,9 @@ public class NotesService {
     }
 
     public void createNote(Note note) {
-        long creationTime = System.currentTimeMillis();
-        note.setUpdatedOn(creationTime);
-        note.setCreatedOn(creationTime);
+        long currentTime = System.currentTimeMillis();
+        note.setUpdatedOn(currentTime);
+        note.setCreatedOn(currentTime);
         Notebook nb = new Notebook();
         nb.setNotebookId(note.getNotebookId());
         note.setNotebook(nb);

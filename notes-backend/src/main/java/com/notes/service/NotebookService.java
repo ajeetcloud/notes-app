@@ -45,9 +45,9 @@ public class NotebookService {
 
     public void createNotebook(Notebook notebook) {
 
-        long creationTime = System.currentTimeMillis();
-        notebook.setUpdatedOn(creationTime);
-        notebook.setCreatedOn(creationTime);
+        long currentTime = System.currentTimeMillis();
+        notebook.setUpdatedOn(currentTime);
+        notebook.setCreatedOn(currentTime);
         HibernateUtil.save(notebook);
     }
 
