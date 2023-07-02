@@ -35,7 +35,7 @@
                   <div class="message-content">
                     <div id="{{note.noteId}}" class="message-text">
                       <div class="message-time">
-                        8:45 pm
+                        {{note.createdOn | date: 'medium'}}
                       </div>
                       <p class="message-content">{{note.note}}</p>
                     </div>

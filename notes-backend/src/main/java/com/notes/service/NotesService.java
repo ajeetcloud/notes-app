@@ -14,7 +14,6 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import java.time.Instant;
 import java.util.List;
 
 @Service
@@ -110,9 +109,9 @@ public class NotesService {
     }
 
     public void createNote(Note note) {
-        long seconds = Instant.now().getEpochSecond();
-        note.setUpdatedOn(seconds);
-        note.setCreatedOn(seconds);
+        long creationTime = System.currentTimeMillis();
+        note.setUpdatedOn(creationTime);
+        note.setCreatedOn(creationTime);
         Notebook nb = new Notebook();
         nb.setNotebookId(note.getNotebookId());
         note.setNotebook(nb);
