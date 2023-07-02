@@ -1,0 +1,10 @@
+.container {
+  color: rgba(29, 28, 29, 1);
+}
+
+.note-content {
+  border: 1px solid rgba(0, 0, 0, .12);
+  border-radius: 5px;
+  margin-top: 5px;
+  padding: 10px;
+}
