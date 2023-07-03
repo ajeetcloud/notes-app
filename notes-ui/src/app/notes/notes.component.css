@@ -88,7 +88,7 @@
 .chip {
   border: 1px solid rgba(0, 0, 0, .12);
   border-radius: 24px;
-  color: rgba(97, 96, 97, 1);
+  color: rgba(29, 28, 29, 1)
 }
 
 .message-time {
