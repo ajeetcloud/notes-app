@@ -25,6 +25,18 @@
         <!-- Message -->
         <div id="sc-default" class="custom-scroll">
           <div *ngFor="let note of notes; index as i" [ngClass]="{'top-message': i == 0}">
+            <div class="message-divider">
+              <div class="date-separator">
+                <div class="line">
+                  <mat-divider></mat-divider>
+                </div>
+                <!--<div class="text mat-typography chip">Friday, Sep 20</div>-->
+                <div class="text mat-typography chip"> {{note.createdOn | date: 'EEEE, MMMM  d'}}</div>
+                <div class="line">
+                  <mat-divider></mat-divider>
+                </div>
+              </div>
+            </div>
             <div class="message">
               <span class="actions">
                 <mat-icon fontIcon="edit" class="space icon"></mat-icon>
@@ -46,17 +58,17 @@
                 </div>
               </div>
             </div>
-            <div class="message-divider">
-              <div class="date-separator">
-                <div class="line">
-                  <mat-divider></mat-divider>
-                </div>
-                <div class="text mat-typography chip">Friday, Sep 20</div>
-                <div class="line">
-                  <mat-divider></mat-divider>
-                </div>
-              </div>
-            </div>
+            <!-- <div class="message-divider">
+               <div class="date-separator">
+                 <div class="line">
+                   <mat-divider></mat-divider>
+                 </div>
+                 <div class="text mat-typography chip">Friday, Sep 20</div>
+                 <div class="line">
+                   <mat-divider></mat-divider>
+                 </div>
+               </div>
+             </div>-->
           </div>
         </div>
 
