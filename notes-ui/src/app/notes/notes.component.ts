@@ -18,6 +18,7 @@ import {NgScrollbar} from "ngx-scrollbar";
 import {NotebookService} from "../service/notebook.service";
 import {MatDialog} from "@angular/material/dialog";
 import {EditDeleteNoteDialogComponent} from "../edit-delete-note-dialog/edit.delete.note.dialog.component";
+import {Clipboard} from '@angular/cdk/clipboard';
 
 @Component({
   selector: 'notes',
@@ -77,7 +78,8 @@ export class NotesComponent implements OnInit, OnDestroy, OnChanges {
               private renderer: Renderer2,
               private scroller: ViewportScroller,
               private router: Router,
-              private dialog: MatDialog
+              private dialog: MatDialog,
+              private clipboard: Clipboard
   ) {
   }
 
@@ -115,6 +117,10 @@ export class NotesComponent implements OnInit, OnDestroy, OnChanges {
       width: '500px',
       data: {notebookDialogType: ActionType.DELETE, note}
     });
+  }
+
+  copyToClipboard(note: Note) {
+    this.clipboard.copy(note.note || '');
   }
 
 
