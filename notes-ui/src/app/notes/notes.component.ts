@@ -19,6 +19,7 @@ import {NotebookService} from "../service/notebook.service";
 import {MatDialog} from "@angular/material/dialog";
 import {EditDeleteNoteDialogComponent} from "../edit-delete-note-dialog/edit.delete.note.dialog.component";
 import {Clipboard} from '@angular/cdk/clipboard';
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'notes',
@@ -79,7 +80,8 @@ export class NotesComponent implements OnInit, OnDestroy, OnChanges {
               private scroller: ViewportScroller,
               private router: Router,
               private dialog: MatDialog,
-              private clipboard: Clipboard
+              private clipboard: Clipboard,
+              private snackBar: MatSnackBar
   ) {
   }
 
@@ -121,6 +123,7 @@ export class NotesComponent implements OnInit, OnDestroy, OnChanges {
 
   copyToClipboard(note: Note) {
     this.clipboard.copy(note.note || '');
+    this.snackBar.open("Note copied", 'ok');
   }
 
 
