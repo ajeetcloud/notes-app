@@ -26,8 +26,7 @@
         <div id="sc-default" class="custom-scroll">
           <div *ngFor="let note of notes; index as i" [ngClass]="{'top-message': i == 0}">
 
-            <!-- <div class="message-divider" *ngIf="isDividerVisible(i)">-->
-            <div class="message-divider">
+            <div class="message-divider" *ngIf="isDividerVisible(i)">
               <div class="date-separator">
                 <div class="line">
                   <mat-divider></mat-divider>
