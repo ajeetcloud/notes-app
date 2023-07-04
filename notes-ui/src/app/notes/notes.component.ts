@@ -55,8 +55,7 @@ export class NotesComponent implements OnInit, OnDestroy, OnChanges {
     // TODO: Fix 1st load data
     if (changes && changes['notes1'] && changes['notes1'].currentValue.notes) {
       this.notes = changes['notes1'].currentValue.notes;
-
-      setTimeout(this.focusOnTheLastNote, 200);
+      setTimeout(this.focusOnTheLastNote, 0);
     }
   }
 
@@ -126,10 +125,10 @@ export class NotesComponent implements OnInit, OnDestroy, OnChanges {
     this.snackBar.open("Note copied", 'ok');
   }
 
-
   onCreateNote() {
     this.notesService.getNoteSubject().subscribe((note: Note) => {
       this.notes.push(note);
+      setTimeout(this.focusOnTheLastNote, 0);
     });
   }
 
