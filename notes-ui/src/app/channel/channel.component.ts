@@ -49,7 +49,6 @@ export class ChannelComponent implements OnInit, OnDestroy {
         this.notesResponse = this.notebookService.getNotesMap().get(notebookId)!;
         this.newItemEvent.emit(this.notesResponse);
       } else {
-        // TODO: when scroll up, update the next page token there
         this.notebookService.getNotes(notebookId, 1)
           .pipe(takeUntil(this.destroyed))
           .subscribe((res: NotesResponse) => {

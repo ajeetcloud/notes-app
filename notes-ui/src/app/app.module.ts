@@ -26,6 +26,7 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {A11yModule} from "@angular/cdk/a11y";
 import {EditDeleteNoteDialogComponent} from "./edit-delete-note-dialog/edit.delete.note.dialog.component";
+import {DatePipe} from "@angular/common";
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent, pathMatch: 'full'},
@@ -61,7 +62,7 @@ const appRoutes: Routes = [
     [RouterModule.forRoot(appRoutes)],
     A11yModule,
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule {

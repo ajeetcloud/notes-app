@@ -12,7 +12,7 @@ import {
 import {ActionType, Note, NotesResponse} from "../types/types";
 import {NotesService} from "../service/notes.service";
 import {Subject, takeUntil} from "rxjs";
-import {ViewportScroller} from "@angular/common";
+import {DatePipe, ViewportScroller} from "@angular/common";
 import {Router} from "@angular/router";
 import {NgScrollbar} from "ngx-scrollbar";
 import {NotebookService} from "../service/notebook.service";
@@ -80,6 +80,7 @@ export class NotesComponent implements OnInit, OnDestroy, OnChanges {
               private router: Router,
               private dialog: MatDialog,
               private clipboard: Clipboard,
+              public datepipe: DatePipe,
               private snackBar: MatSnackBar
   ) {
   }
@@ -106,11 +107,42 @@ export class NotesComponent implements OnInit, OnDestroy, OnChanges {
           for (const note of res.notes.reverse()) {
             this.notes.unshift(note);
           }
+          // Updating the map.
           notesResponse.notes = this.notes;
           notesResponse.pageSize = res.pageSize;
           this.isNextPageLoading = false;
         });
     }
+  }
+
+  isDividerVisible(index: number): boolean {
+    if (index == 0) {
+      return true;
+    }
+    const prevNote = this.notes[index - 1];
+    const currentNote = this.notes[index];
+    const prevNoteCreationDate = new Date(prevNote!.createdOn!).toDateString();
+    const currentNoteCreationDate = new Date(currentNote!.createdOn!).toDateString();
+
+    return prevNoteCreationDate !== currentNoteCreationDate;
+  }
+
+  getDateDisplayLabel(note: Note): string {
+    const creationDate = new Date(note!.createdOn!);
+    if (creationDate.toDateString() === new Date().toDateString()) {
+      return 'Today';
+    }
+    const yesterday = new Date();
+    yesterday.setDate(yesterday.getDate() - 1);
+    if (creationDate.toDateString() === yesterday.toDateString()) {
+      return 'Yesterday';
+    }
+    // Note was created in current year.
+    if (creationDate.getFullYear() === new Date().getFullYear()) {
+      return this.datepipe.transform(creationDate, 'EEEE, MMMM d') || '';
+    }
+    // Note was created in previous years.
+    return this.datepipe.transform(creationDate, 'MMMM d, y') || '';
   }
 
   deleteNote(note: Note) {
