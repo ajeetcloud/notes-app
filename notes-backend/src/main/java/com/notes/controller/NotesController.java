@@ -26,6 +26,11 @@ public class NotesController implements NotesApi {
     }
 
     @Override
+    public Note updateNote(Note note) {
+        return null;
+    }
+
+    @Override
     public void deleteNote(int noteId) {
         notesService.deleteNote(noteId);
     }

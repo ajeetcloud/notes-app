@@ -15,6 +15,9 @@ public interface NotesApi {
     @PostMapping("/")
     Note createNote(@RequestBody Note note);
 
+    @PutMapping("/")
+    Note updateNote(@RequestBody Note note);
+
     @DeleteMapping("/{noteId}")
     void deleteNote(@PathVariable int noteId);
 }
