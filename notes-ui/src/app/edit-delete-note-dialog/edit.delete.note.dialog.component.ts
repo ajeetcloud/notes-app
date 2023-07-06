@@ -3,6 +3,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {Subject, takeUntil} from "rxjs";
 import {NotesService} from "../service/notes.service";
 import {Note, NoteDialogData} from "../types/types";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 
 @Component({
@@ -17,7 +18,8 @@ export class EditDeleteNoteDialogComponent implements OnInit, OnDestroy {
 
   constructor(private dialogRef: MatDialogRef<EditDeleteNoteDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: NoteDialogData,
-              private notesService: NotesService) {
+              private notesService: NotesService,
+              private snackBar: MatSnackBar) {
   }
 
   ngOnInit(): void {
@@ -26,12 +28,15 @@ export class EditDeleteNoteDialogComponent implements OnInit, OnDestroy {
     this.note = this.data.note || {};
   }
 
-  deleteNote(noteId: number) {
-    this.notesService.deleteNote(noteId)
-      .pipe(takeUntil(this.destroyed))
-      .subscribe(() => {
-        this.dialogRef.close();
-      })
+  deleteNote(noteId?: number) {
+    if (noteId) {
+      this.notesService.deleteNote(noteId)
+        .pipe(takeUntil(this.destroyed))
+        .subscribe(() => {
+          this.dialogRef.close();
+          this.snackBar.open("Note deleted", 'ok', {duration: 2000});
+        })
+    }
   }
 
 
