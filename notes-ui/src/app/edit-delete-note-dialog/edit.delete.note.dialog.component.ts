@@ -15,6 +15,8 @@ export class EditDeleteNoteDialogComponent implements OnInit, OnDestroy {
 
   private destroyed = new Subject<void>();
   note: Note = {};
+  actionLabel = '';
+  noteContent = '';
 
   constructor(private dialogRef: MatDialogRef<EditDeleteNoteDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: NoteDialogData,
@@ -23,9 +25,11 @@ export class EditDeleteNoteDialogComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    // @ts-ignore
-    console.log(this.data.note.note);
+    this.actionLabel = this.data.notebookDialogType.toString() || '';
     this.note = this.data.note || {};
+    if (this.note) {
+      this.noteContent = this.note.note || '';
+    }
   }
 
   deleteNote(noteId?: number) {

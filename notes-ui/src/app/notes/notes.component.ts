@@ -145,6 +145,14 @@ export class NotesComponent implements OnInit, OnDestroy, OnChanges {
     return this.datepipe.transform(creationDate, 'MMMM d, y') || '';
   }
 
+  editNote(note: Note) {
+    const dialogRef = this.dialog.open(EditDeleteNoteDialogComponent, {
+      width: '500px',
+      data: {notebookDialogType: ActionType.EDIT, note}
+    });
+  }
+
+
   deleteNote(note: Note) {
     const dialogRef = this.dialog.open(EditDeleteNoteDialogComponent, {
       width: '500px',
