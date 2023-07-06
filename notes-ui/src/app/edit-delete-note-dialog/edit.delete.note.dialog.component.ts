@@ -34,7 +34,7 @@ export class EditDeleteNoteDialogComponent implements OnInit, OnDestroy {
         .pipe(takeUntil(this.destroyed))
         .subscribe(() => {
           this.dialogRef.close();
-          this.snackBar.open("Note deleted", 'ok', {duration: 2000});
+          this.snackBar.open("Note deleted", "ok", {duration: 2000});
         })
     }
   }
