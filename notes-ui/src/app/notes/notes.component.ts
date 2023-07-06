@@ -150,6 +150,14 @@ export class NotesComponent implements OnInit, OnDestroy, OnChanges {
       width: '500px',
       data: {notebookDialogType: ActionType.DELETE, note}
     });
+    dialogRef.afterClosed()
+      .pipe(takeUntil(this.destroyed))
+      .subscribe((noteId: number) => {
+        if (noteId) {
+          const noteIndex = this.notes.findIndex(note => note.noteId === noteId);
+          this.notes.splice(noteIndex, 1);
+        }
+      })
   }
 
   copyToClipboard(note: Note) {
