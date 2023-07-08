@@ -23,11 +23,11 @@ public class Note {
     @Column(name = "updated_on")
     private long updatedOn;
 
-    @Column(name = "created_on")
+    @Column(name = "created_on", updatable = false)
     private long createdOn;
 
     @ManyToOne
-    @JoinColumn(name = "notebook_id")
+    @JoinColumn(name = "notebook_id", updatable = false)
     @JsonIgnore
     private Notebook notebook;
 

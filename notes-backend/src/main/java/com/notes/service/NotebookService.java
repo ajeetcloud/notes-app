@@ -11,7 +11,6 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaDelete;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import java.time.Instant;
 import java.util.List;
 
 @Service
@@ -53,7 +52,7 @@ public class NotebookService {
 
     public void updateNotebook(Notebook notebook) {
 
-        notebook.setUpdatedOn(Instant.now().getEpochSecond());
+        notebook.setUpdatedOn(System.currentTimeMillis());
         HibernateUtil.update(notebook);
     }
 

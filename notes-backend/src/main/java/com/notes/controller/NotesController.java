@@ -27,7 +27,8 @@ public class NotesController implements NotesApi {
 
     @Override
     public Note updateNote(Note note) {
-        return null;
+        notesService.updateNote(note);
+        return note;
     }
 
     @Override

@@ -118,6 +118,12 @@ public class NotesService {
         HibernateUtil.save(note);
     }
 
+    public void updateNote(Note note) {
+
+        note.setUpdatedOn(System.currentTimeMillis());
+        HibernateUtil.update(note);
+    }
+
     public void deleteNote(int noteId) {
         Note note = new Note();
         note.setNoteId(noteId);
