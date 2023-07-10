@@ -3,6 +3,7 @@ import {NewNote, Note} from "../types/types";
 import {NotesService} from "../service/notes.service";
 import {Subject, takeUntil} from "rxjs";
 import {NotebookService} from "../service/notebook.service";
+import {DriveService} from "../service/drive-service";
 
 
 @Component({
@@ -18,6 +19,7 @@ export class CreateNoteComponent implements OnInit, OnDestroy {
 
   constructor(private notesService: NotesService,
               private notebookService: NotebookService,
+              private driveService: DriveService,
               private renderer: Renderer2) {
   }
 
@@ -37,6 +39,10 @@ export class CreateNoteComponent implements OnInit, OnDestroy {
           this.note = '';
         }
       });
+  }
+
+  uploadFiles() {
+    this.driveService.authorize();
   }
 
   setHeight() {
