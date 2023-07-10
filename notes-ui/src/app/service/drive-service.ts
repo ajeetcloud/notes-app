@@ -36,7 +36,7 @@ export class DriveService {
    * and long-lived 'refreshToken'.
    */
   retrieveAccessToken() {
-    
+
   }
 
   getOAuth2Code() {
@@ -45,5 +45,13 @@ export class DriveService {
 
   setOAuth2Code(oAuth2Code: string) {
     this.oAuth2Code = oAuth2Code;
+  }
+
+  getAccessToken() {
+    return this.accessToken;
+  }
+
+  setAccessToken(accessToken: string) {
+    this.accessToken = accessToken;
   }
 }
