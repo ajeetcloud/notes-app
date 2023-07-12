@@ -7,4 +7,5 @@ export const CLIENT_SECRET = "";
 export const REDIRECT_URI = "http://localhost:4200";
 // https://www.googleapis.com/auth/drive.file - See, edit, create, and delete only the specific Google Drive files you use with this app
 export const G_DRIVE_SCOPE = "https://www.googleapis.com/auth/drive.file";
-
+export const GOOGLE_OAUTH_ENDPOINT = "https://oauth2.googleapis.com/token";
+export const RESET_ACCESS_TOKEN_INTERVAL_MS = 3360000 // 56 minutes
