@@ -15,6 +15,7 @@ export class CreateNoteComponent implements OnInit, OnDestroy {
 
   note = '';
   accessToken = '';
+  refreshToken = '';
   private destroyed = new Subject<void>();
   @ViewChild('pRef', {static: false}) pRef: ElementRef;
 
@@ -44,11 +45,16 @@ export class CreateNoteComponent implements OnInit, OnDestroy {
   }
 
   uploadFiles() {
-    this.driveService.authorize();
+    // TODO: move subscribe to here
+    if (!this.refreshToken) {
+      this.driveService.authorize();
+    } else {
+      this.driveService.refreshAccessToken();
+    }
   }
 
   selectFile(event: Event) {
-    
+
   }
 
   setHeight() {
