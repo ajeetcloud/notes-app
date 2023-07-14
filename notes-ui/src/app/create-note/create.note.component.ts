@@ -45,7 +45,7 @@ export class CreateNoteComponent implements OnInit, OnDestroy {
   }
 
   uploadFiles() {
-    // TODO: move subscribe to here
+    // TODO: move subscribe to here & create a new component for this
     if (!this.refreshToken) {
       this.driveService.authorize();
     } else {
