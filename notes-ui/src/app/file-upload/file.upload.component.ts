@@ -1,6 +1,5 @@
 import {Component, OnDestroy, OnInit} from "@angular/core";
 
-
 @Component({
   selector: 'file-upload',
   templateUrl: './file.upload.component.html',
