@@ -27,6 +27,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {A11yModule} from "@angular/cdk/a11y";
 import {EditDeleteNoteDialogComponent} from "./edit-delete-note-dialog/edit.delete.note.dialog.component";
 import {DatePipe} from "@angular/common";
+import {FileUploadComponent} from "./file-upload/file.upload.component";
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent, pathMatch: 'full'},
@@ -40,6 +41,7 @@ const appRoutes: Routes = [
     ChannelComponent,
     NotesComponent,
     CreateNoteComponent,
+    FileUploadComponent,
     CreateEditDeleteNotebookDialogComponent,
     EditDeleteNoteDialogComponent,
   ],
