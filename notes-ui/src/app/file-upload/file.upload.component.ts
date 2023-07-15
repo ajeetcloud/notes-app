@@ -10,10 +10,9 @@ export class FileUploadComponent implements OnInit, OnDestroy {
   constructor() {
   }
 
-  ngOnDestroy(): void {
-  }
-
   ngOnInit(): void {
   }
 
+  ngOnDestroy(): void {
+  }
 }
