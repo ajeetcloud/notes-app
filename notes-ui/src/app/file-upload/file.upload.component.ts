@@ -1,4 +1,5 @@
 import {Component, OnDestroy, OnInit} from "@angular/core";
+import {DriveService} from "../service/drive-service";
 
 @Component({
   selector: 'file-upload',
@@ -7,7 +8,10 @@ import {Component, OnDestroy, OnInit} from "@angular/core";
 })
 export class FileUploadComponent implements OnInit, OnDestroy {
 
-  constructor() {
+  accessToken = '';
+
+  constructor(private driveService: DriveService) {
+    this.accessToken = this.driveService.getAccessToken();
   }
 
   ngOnInit(): void {
