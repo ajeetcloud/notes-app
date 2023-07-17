@@ -9,6 +9,7 @@ import {DriveService} from "../service/drive-service";
 export class FileUploadComponent implements OnInit, OnDestroy {
 
   accessToken = '';
+  refreshToken = '';
 
   constructor(private driveService: DriveService) {
     this.accessToken = this.driveService.getAccessToken();
