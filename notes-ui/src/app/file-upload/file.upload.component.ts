@@ -19,6 +19,19 @@ export class FileUploadComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
   }
 
+  selectFile(event: Event) {
+
+  }
+
+  uploadFiles() {
+    // TODO: move subscribe to here & create a new component for this
+    if (!this.refreshToken) {
+      this.driveService.authorize();
+    } else {
+      this.driveService.refreshAccessToken();
+    }
+  }
+
   ngOnDestroy(): void {
   }
 }
