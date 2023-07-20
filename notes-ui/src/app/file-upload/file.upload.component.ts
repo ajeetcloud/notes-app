@@ -11,7 +11,6 @@ export class FileUploadComponent implements OnInit, OnDestroy {
   accessToken = '';
   refreshToken = '';
 
-  // Todo: add supporting html for attachment
   constructor(private driveService: DriveService) {
     this.accessToken = this.driveService.getAccessToken();
   }
