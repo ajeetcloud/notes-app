@@ -23,7 +23,7 @@ export class FileUploadComponent implements OnInit, OnDestroy {
   }
 
   uploadFiles() {
-    // TODO: move subscribe to here & create a new component for this
+    // TODO: move subscribe to here & create a new component for this, add here
     if (!this.refreshToken) {
       this.driveService.authorize();
     } else {
