@@ -19,7 +19,7 @@ export class FileUploadComponent implements OnInit, OnDestroy {
   }
 
   selectFile(event: Event) {
-
+    console.log(event);
   }
 
   uploadFiles() {
