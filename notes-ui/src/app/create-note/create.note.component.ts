@@ -14,8 +14,6 @@ import {DriveService} from "../service/drive-service";
 export class CreateNoteComponent implements OnInit, OnDestroy {
 
   note = '';
-  accessToken = '';
-  refreshToken = '';
   private destroyed = new Subject<void>();
   @ViewChild('pRef', {static: false}) pRef: ElementRef;
 
@@ -26,7 +24,6 @@ export class CreateNoteComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.accessToken = this.driveService.getAccessToken();
   }
 
   saveNote() {
@@ -42,19 +39,6 @@ export class CreateNoteComponent implements OnInit, OnDestroy {
           this.note = '';
         }
       });
-  }
-
-  uploadFiles() {
-    // TODO: move subscribe to here & create a new component for this
-    if (!this.refreshToken) {
-      this.driveService.authorize();
-    } else {
-      this.driveService.refreshAccessToken();
-    }
-  }
-
-  selectFile(event: Event) {
-
   }
 
   setHeight() {
