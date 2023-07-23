@@ -12,10 +12,11 @@ export class FileUploadComponent implements OnInit, OnDestroy {
   refreshToken = '';
 
   constructor(private driveService: DriveService) {
-    this.accessToken = this.driveService.getAccessToken();
   }
 
   ngOnInit(): void {
+    this.accessToken = this.driveService.getAccessToken();
+    this.refreshToken = this.driveService.getRefreshToken();
   }
 
   selectFile(event: Event) {
