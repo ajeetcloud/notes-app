@@ -1,5 +1,6 @@
 import {Component, OnDestroy, OnInit} from "@angular/core";
 import {DriveService} from "../service/drive-service";
+import {CLIENT_ID, G_DRIVE_SCOPE} from "../common/constants";
 
 @Component({
   selector: 'file-upload',
@@ -26,11 +27,26 @@ export class FileUploadComponent implements OnInit, OnDestroy {
   uploadFiles() {
     // TODO: move subscribe to here & create a new component for this, add here
     if (!this.refreshToken) {
-      this.driveService.authorize();
+      this.authorize();
     } else {
       this.driveService.refreshAccessToken();
     }
   }
+
+  authorize() {
+    // @ts-ignore
+    const client = google.accounts.oauth2.initCodeClient({
+      client_id: CLIENT_ID,
+      scope: G_DRIVE_SCOPE,
+      ux_mode: 'popup',
+      callback: (response: any) => {
+        /*  this.setOAuth2Code(response.code);
+          this.retrieveAccessToken();*/
+      },
+    });
+    client.requestCode();
+  }
+
 
   ngOnDestroy(): void {
   }
