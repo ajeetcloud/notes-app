@@ -1,6 +1,7 @@
 import {Component, OnDestroy, OnInit} from "@angular/core";
 import {DriveService} from "../service/drive-service";
-import {CLIENT_ID, G_DRIVE_SCOPE} from "../common/constants";
+import {CLIENT_ID, CLIENT_SECRET, G_DRIVE_SCOPE, REDIRECT_URI} from "../common/constants";
+import {AccessTokenRequest} from "../types/types";
 
 @Component({
   selector: 'file-upload',
@@ -40,13 +41,31 @@ export class FileUploadComponent implements OnInit, OnDestroy {
       scope: G_DRIVE_SCOPE,
       ux_mode: 'popup',
       callback: (response: any) => {
-        /*  this.setOAuth2Code(response.code);
-          this.retrieveAccessToken();*/
+        this.driveService.setOAuth2Code(response.code);
+        this.retrieveAccessToken();
       },
     });
     client.requestCode();
   }
 
+  /**
+   * Uses the OAuth2 code to retrieve short-lived 'accessToken' with expiry
+   * and long-lived 'refreshToken'.
+   */
+  retrieveAccessToken() {
+    const accessTokenRequest = this.getAccessTokenRequest();
+  }
+
+
+  getAccessTokenRequest(): AccessTokenRequest {
+    return {
+      client_id: CLIENT_ID,
+      client_secret: CLIENT_SECRET,
+      code: this.driveService.getOAuth2Code(),
+      grant_type: 'authorization_code',
+      redirect_uri: REDIRECT_URI,
+    };
+  }
 
   ngOnDestroy(): void {
   }
