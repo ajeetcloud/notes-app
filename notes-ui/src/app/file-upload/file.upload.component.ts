@@ -27,6 +27,7 @@ export class FileUploadComponent implements OnInit, OnDestroy {
     console.log(event);
   }
 
+  // Add Exclamation mark when authorization is not there
   uploadFiles() {
     if (!this.refreshToken) {
       this.authorize();
