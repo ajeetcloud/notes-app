@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from "@angular/core";
+import {Component, OnDestroy, OnInit} from "@angular/core";
 import {DriveService} from "../service/drive-service";
 import {CLIENT_ID, CLIENT_SECRET, G_DRIVE_SCOPE, REDIRECT_URI} from "../common/constants";
 import {AccessTokenRequest, AccessTokenResponse, RefreshTokenResponse} from "../types/types";
@@ -14,9 +14,6 @@ export class FileUploadComponent implements OnInit, OnDestroy {
   accessToken = '';
   refreshToken = '';
   private destroyed = new Subject<void>();
-
-  @ViewChild('fileInput', {read: ElementRef})
-  fileInput: ElementRef<HTMLElement>;
 
   constructor(private driveService: DriveService) {
   }
