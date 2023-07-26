@@ -2,6 +2,7 @@ import {Component, OnDestroy, OnInit} from "@angular/core";
 import {DriveService} from "../service/drive-service";
 import {CLIENT_ID, CLIENT_SECRET, G_DRIVE_SCOPE, REDIRECT_URI} from "../common/constants";
 import {AccessTokenRequest, AccessTokenResponse, RefreshTokenResponse} from "../types/types";
+import {Subject, takeUntil} from "rxjs";
 
 @Component({
   selector: 'file-upload',
@@ -12,6 +13,7 @@ export class FileUploadComponent implements OnInit, OnDestroy {
 
   accessToken = '';
   refreshToken = '';
+  private destroyed = new Subject<void>();
 
   constructor(private driveService: DriveService) {
   }
@@ -30,6 +32,7 @@ export class FileUploadComponent implements OnInit, OnDestroy {
       this.authorize();
     } else {
       this.driveService.refreshAccessToken()
+        .pipe(takeUntil(this.destroyed))
         .subscribe((res: RefreshTokenResponse) => {
           this.driveService.setAccessToken(res.access_token);
         })
@@ -57,6 +60,7 @@ export class FileUploadComponent implements OnInit, OnDestroy {
   retrieveAccessToken() {
     const accessTokenRequest = this.getAccessTokenRequest();
     this.driveService.retrieveAccessToken(accessTokenRequest)
+      .pipe(takeUntil(this.destroyed))
       .subscribe((res: AccessTokenResponse) => {
         this.driveService.setAccessToken(res.access_token);
         this.driveService.setRefreshToken(res.refresh_token);
@@ -76,5 +80,7 @@ export class FileUploadComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.destroyed.next();
+    this.destroyed.complete();
   }
 }

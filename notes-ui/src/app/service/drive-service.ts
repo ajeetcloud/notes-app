@@ -1,5 +1,5 @@
-import {Injectable} from "@angular/core";
-import {Observable} from "rxjs";
+import {Injectable, OnDestroy} from "@angular/core";
+import {Observable, Subject, takeUntil} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {CLIENT_ID, CLIENT_SECRET, GOOGLE_OAUTH_ENDPOINT, RESET_ACCESS_TOKEN_INTERVAL_MS} from "../common/constants";
 import {AccessTokenRequest, AccessTokenResponse, RefreshTokenRequest, RefreshTokenResponse} from "../types/types";
@@ -7,11 +7,13 @@ import {AccessTokenRequest, AccessTokenResponse, RefreshTokenRequest, RefreshTok
 @Injectable({
   providedIn: 'root'
 })
-export class DriveService {
+export class DriveService implements OnDestroy {
 
   private oAuth2Code = '';
   private accessToken = '';
   private refreshToken = '';
+
+  private destroyed = new Subject<void>();
 
   constructor(private http: HttpClient) {
   }
@@ -34,6 +36,7 @@ export class DriveService {
   checkAccessToken() {
     setInterval(() => {
         this.http.post<RefreshTokenResponse>(GOOGLE_OAUTH_ENDPOINT, this.getRefreshTokenRequest())
+          .pipe(takeUntil(this.destroyed))
           .subscribe((res: RefreshTokenResponse) => {
             this.setAccessToken(res.access_token);
           });
@@ -74,4 +77,8 @@ export class DriveService {
     this.refreshToken = refreshToken;
   }
 
+  ngOnDestroy(): void {
+    this.destroyed.next();
+    this.destroyed.complete();
+  }
 }
