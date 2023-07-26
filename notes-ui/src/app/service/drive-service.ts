@@ -35,7 +35,7 @@ export class DriveService implements OnDestroy {
    */
   checkAccessToken() {
     setInterval(() => {
-        this.http.post<RefreshTokenResponse>(GOOGLE_OAUTH_ENDPOINT, this.getRefreshTokenRequest())
+        this.refreshAccessToken()
           .pipe(takeUntil(this.destroyed))
           .subscribe((res: RefreshTokenResponse) => {
             this.setAccessToken(res.access_token);
