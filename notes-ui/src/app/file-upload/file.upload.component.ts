@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from "@angular/core";
 import {DriveService} from "../service/drive-service";
 import {CLIENT_ID, CLIENT_SECRET, G_DRIVE_SCOPE, REDIRECT_URI} from "../common/constants";
-import {AccessTokenRequest, AccessTokenResponse} from "../types/types";
+import {AccessTokenRequest, AccessTokenResponse, RefreshTokenResponse} from "../types/types";
 
 @Component({
   selector: 'file-upload',
@@ -29,7 +29,10 @@ export class FileUploadComponent implements OnInit, OnDestroy {
     if (!this.refreshToken) {
       this.authorize();
     } else {
-      this.driveService.refreshAccessToken();
+      this.driveService.refreshAccessToken()
+        .subscribe((res: RefreshTokenResponse) => {
+          this.driveService.setAccessToken(res.access_token);
+        })
     }
   }
 

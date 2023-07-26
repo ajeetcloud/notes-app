@@ -23,19 +23,22 @@ export class DriveService {
   /**
    * Uses 'refreshToken' to get a new 'accessToken'.
    */
-  refreshAccessToken() {
+  refreshAccessToken(): Observable<RefreshTokenResponse> {
     const refreshTokenRequest = this.getRefreshTokenRequest();
-    this.http.post<RefreshTokenResponse>(GOOGLE_OAUTH_ENDPOINT, refreshTokenRequest)
-      .subscribe((res: RefreshTokenResponse) => {
-        this.setAccessToken(res.access_token);
-      });
+    return this.http.post<RefreshTokenResponse>(GOOGLE_OAUTH_ENDPOINT, refreshTokenRequest);
   }
 
   /**
    * Retrieves a new access token, on expiry.
    */
   checkAccessToken() {
-    setInterval(this.refreshAccessToken, RESET_ACCESS_TOKEN_INTERVAL_MS);
+    setInterval(() => {
+        this.http.post<RefreshTokenResponse>(GOOGLE_OAUTH_ENDPOINT, this.getRefreshTokenRequest())
+          .subscribe((res: RefreshTokenResponse) => {
+            this.setAccessToken(res.access_token);
+          });
+      },
+      RESET_ACCESS_TOKEN_INTERVAL_MS);
   }
 
   getRefreshTokenRequest(): RefreshTokenRequest {
