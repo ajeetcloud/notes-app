@@ -13,6 +13,7 @@ export class FileUploadComponent implements OnInit, OnDestroy {
 
   accessToken = '';
   refreshToken = '';
+  loading = false;
   private destroyed = new Subject<void>();
 
   constructor(private driveService: DriveService) {
@@ -32,11 +33,13 @@ export class FileUploadComponent implements OnInit, OnDestroy {
     if (!this.refreshToken) {
       this.authorize();
     } else {
+      this.loading = true;
       this.driveService.refreshAccessToken()
         .pipe(takeUntil(this.destroyed))
         .subscribe((res: RefreshTokenResponse) => {
           this.driveService.setAccessToken(res.access_token);
           this.accessToken = res.access_token;
+          this.loading = false;
         })
     }
   }

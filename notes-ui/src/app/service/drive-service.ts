@@ -11,7 +11,7 @@ export class DriveService implements OnDestroy {
 
   private oAuth2Code = '';
   private accessToken = '';
-  private refreshToken = '1//0g_sNJ1ZgZ-aXCgYIARAAGBASNwF-L9IrioCELYa3jCCZ_aZf7p2LUf9yJ9CUGwHiva42jO8RHrOkZh2dS3i18v_Up_Gmidz97pw';
+  private refreshToken = '';
 
   private destroyed = new Subject<void>();
 
