@@ -28,6 +28,7 @@ import {A11yModule} from "@angular/cdk/a11y";
 import {EditDeleteNoteDialogComponent} from "./edit-delete-note-dialog/edit.delete.note.dialog.component";
 import {DatePipe} from "@angular/common";
 import {FileUploadComponent} from "./file-upload/file.upload.component";
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent, pathMatch: 'full'},
@@ -63,6 +64,7 @@ const appRoutes: Routes = [
     BrowserAnimationsModule,
     [RouterModule.forRoot(appRoutes)],
     A11yModule,
+    MatProgressSpinnerModule,
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]

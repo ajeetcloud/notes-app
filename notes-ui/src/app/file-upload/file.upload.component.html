@@ -1,6 +1,7 @@
 <input #fileInput type="file" (change)="selectFile($event)" style="display:none;" multiple/>
 <a class="btn btn-icon text-body rounded-circle" id="dz-btn"
    (click)="accessToken ? fileInput.click() : uploadFiles()">
+  <mat-spinner class="loading"></mat-spinner>
   <mat-icon class="attach">attach_file</mat-icon>
-  <span class="authorize">!</span>
+  <span class="authorize" *ngIf="!refreshToken">!</span>
 </a>

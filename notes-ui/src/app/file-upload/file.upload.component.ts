@@ -36,6 +36,7 @@ export class FileUploadComponent implements OnInit, OnDestroy {
         .pipe(takeUntil(this.destroyed))
         .subscribe((res: RefreshTokenResponse) => {
           this.driveService.setAccessToken(res.access_token);
+          this.accessToken = res.access_token;
         })
     }
   }
@@ -60,13 +61,15 @@ export class FileUploadComponent implements OnInit, OnDestroy {
    */
   retrieveAccessToken() {
     const accessTokenRequest = this.getAccessTokenRequest();
-    console.log('accessTokenRequest', accessTokenRequest);
     this.driveService.retrieveAccessToken(accessTokenRequest)
       .pipe(takeUntil(this.destroyed))
       .subscribe((res: AccessTokenResponse) => {
         this.driveService.setAccessToken(res.access_token);
         this.driveService.setRefreshToken(res.refresh_token);
+        console.log('refresh token', res.refresh_token);
         this.driveService.checkAccessToken();
+        this.accessToken = res.access_token;
+        this.refreshToken = res.refresh_token;
       })
   }
 

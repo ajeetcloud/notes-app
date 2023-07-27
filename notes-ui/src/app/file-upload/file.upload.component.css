@@ -5,3 +5,7 @@
 .authorize {
   color: red;
 }
+
+.loading {
+  width: 25px !important;
+}
