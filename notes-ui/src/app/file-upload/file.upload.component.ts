@@ -24,6 +24,7 @@ export class FileUploadComponent implements OnInit, OnDestroy {
     this.refreshToken = this.driveService.getRefreshToken();
   }
 
+  // TODO: add this method
   selectFile(event: Event) {
     console.log(event);
   }
