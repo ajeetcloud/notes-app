@@ -26,6 +26,8 @@ export class FileUploadComponent implements OnInit, OnDestroy {
 
   // TODO: add more details here
   selectFile(event: Event) {
+    // @ts-ignore
+    const file = (event.target as HTMLInputElement).files[0];
     console.log(event);
   }
 
