@@ -73,12 +73,9 @@ export class FileUploadComponent implements OnInit, OnDestroy {
       .subscribe((res: AccessTokenResponse) => {
         this.driveService.setAccessToken(res.access_token);
         this.driveService.setRefreshToken(res.refresh_token);
-        console.log('refresh token', res.refresh_token);
         this.driveService.checkAccessToken();
         this.accessToken = res.access_token;
         this.refreshToken = res.refresh_token;
-        console.log("received")
-        this.fileInput.nativeElement.click();
       })
   }
 
