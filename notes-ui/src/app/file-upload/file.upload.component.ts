@@ -23,6 +23,7 @@ export class FileUploadComponent implements OnInit, OnDestroy {
   refreshToken = '';
   loading = false;
   selectedFiles: FileList;
+  uploadedFiles: FileDetails[] = [];
   private destroyed = new Subject<void>();
 
   @ViewChild('fileInput', {read: ElementRef})
@@ -34,12 +35,6 @@ export class FileUploadComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.accessToken = this.driveService.getAccessToken();
     this.refreshToken = this.driveService.getRefreshToken();
-  }
-
-  // TODO: add more details here
-  selectFile(event: Event) {
-    // @ts-ignore
-    this.selectedFiles = event.target.files;
   }
 
   uploadFiles() {
@@ -100,7 +95,21 @@ export class FileUploadComponent implements OnInit, OnDestroy {
     };
   }
 
-  uploadSmallFile(file: File, fileDetails: FileDetails) {
+  selectFile(event: Event) {
+    this.uploadedFiles = [];
+    // @ts-ignore
+    this.selectedFiles = event.target.files;
+    for (const file of Array.from(this.selectedFiles)) {
+      const fileDetails: FileDetails = {
+        name: file.name,
+        size: (file.size / (1024 * 1024)).toFixed(2) + 'MB',
+      };
+      this.uploadedFiles.push(fileDetails);
+      this.uploadFileWithMetadata(file, fileDetails);
+    }
+  }
+
+  uploadFileWithMetadata(file: File, fileDetails: FileDetails) {
     this.driveService.uploadFileWithMetadata(file)
       .pipe(tap(event => {
         if (event.type === HttpEventType.UploadProgress) {
