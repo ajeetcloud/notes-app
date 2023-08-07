@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from "@angular/core";
+import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from "@angular/core";
 import {DriveService} from "../service/drive-service";
 import {CLIENT_ID, CLIENT_SECRET, G_DRIVE_SCOPE, REDIRECT_URI} from "../common/constants";
 import {AccessTokenRequest, AccessTokenResponse, RefreshTokenResponse} from "../types/types";
@@ -15,6 +15,9 @@ export class FileUploadComponent implements OnInit, OnDestroy {
   refreshToken = '';
   loading = false;
   private destroyed = new Subject<void>();
+
+  @ViewChild('fileInput', {read: ElementRef})
+  fileInput: ElementRef<HTMLElement>;
 
   constructor(private driveService: DriveService) {
   }
@@ -40,6 +43,7 @@ export class FileUploadComponent implements OnInit, OnDestroy {
           this.driveService.setAccessToken(res.access_token);
           this.accessToken = res.access_token;
           this.loading = false;
+          this.fileInput.nativeElement.click();
         })
     }
   }
@@ -73,6 +77,8 @@ export class FileUploadComponent implements OnInit, OnDestroy {
         this.driveService.checkAccessToken();
         this.accessToken = res.access_token;
         this.refreshToken = res.refresh_token;
+        console.log("received")
+        this.fileInput.nativeElement.click();
       })
   }
 
