@@ -1,8 +1,20 @@
 import {Injectable, OnDestroy} from "@angular/core";
 import {Observable, Subject, takeUntil} from "rxjs";
-import {HttpClient} from "@angular/common/http";
-import {CLIENT_ID, CLIENT_SECRET, GOOGLE_OAUTH_ENDPOINT, RESET_ACCESS_TOKEN_INTERVAL_MS} from "../common/constants";
-import {AccessTokenRequest, AccessTokenResponse, RefreshTokenRequest, RefreshTokenResponse} from "../types/types";
+import {HttpClient, HttpEvent, HttpHeaders} from "@angular/common/http";
+import {
+  CLIENT_ID,
+  CLIENT_SECRET,
+  DRIVE_FILE_UPLOAD_MULTIPART_ENDPOINT,
+  GOOGLE_OAUTH_ENDPOINT,
+  RESET_ACCESS_TOKEN_INTERVAL_MS
+} from "../common/constants";
+import {
+  AccessTokenRequest,
+  AccessTokenResponse,
+  DriveUploadResponse,
+  RefreshTokenRequest,
+  RefreshTokenResponse
+} from "../types/types";
 
 @Injectable({
   providedIn: 'root'
@@ -42,6 +54,29 @@ export class DriveService implements OnDestroy {
           });
       },
       RESET_ACCESS_TOKEN_INTERVAL_MS);
+  }
+
+  /**
+   * Performs multipart Google Drive file upload with metadata.
+   *
+   * @param file
+   */
+  uploadFileWithMetadata(file: File): Observable<HttpEvent<DriveUploadResponse>> {
+    let headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.getAccessToken()}`
+    });
+    const metadata = {
+      name: file.name,
+    };
+    const formData: FormData = new FormData();
+    formData.append('metadata', new Blob([JSON.stringify(metadata)], {type: 'application/json'}));
+    formData.append('file', file);
+
+    return this.http.post<DriveUploadResponse>(DRIVE_FILE_UPLOAD_MULTIPART_ENDPOINT, formData, {
+      headers: headers,
+      reportProgress: true,
+      observe: 'events'
+    });
   }
 
   getRefreshTokenRequest(): RefreshTokenRequest {

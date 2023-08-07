@@ -14,6 +14,7 @@ export class FileUploadComponent implements OnInit, OnDestroy {
   accessToken = '';
   refreshToken = '';
   loading = false;
+  selectedFiles: FileList;
   private destroyed = new Subject<void>();
 
   @ViewChild('fileInput', {read: ElementRef})
@@ -29,7 +30,8 @@ export class FileUploadComponent implements OnInit, OnDestroy {
 
   // TODO: add more details here
   selectFile(event: Event) {
-    console.log(event);
+    // @ts-ignore
+    this.selectedFiles = event.target.files;
   }
 
   uploadFiles() {

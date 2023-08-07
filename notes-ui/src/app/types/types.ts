@@ -76,3 +76,10 @@ export interface RefreshTokenResponse {
   token_type: string,
   id_token: string,
 }
+
+export interface DriveUploadResponse {
+  kind: string,
+  id: string,
+  name: string,
+  mimeType: string,
+}

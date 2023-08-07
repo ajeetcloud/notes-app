@@ -9,3 +9,5 @@ export const REDIRECT_URI = "http://localhost:4200";
 export const G_DRIVE_SCOPE = "https://www.googleapis.com/auth/drive.file";
 export const GOOGLE_OAUTH_ENDPOINT = "https://oauth2.googleapis.com/token";
 export const RESET_ACCESS_TOKEN_INTERVAL_MS = 3360000 // 56 minutes
+
+export const DRIVE_FILE_UPLOAD_MULTIPART_ENDPOINT = "https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart";
