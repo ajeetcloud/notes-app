@@ -1,8 +1,16 @@
 import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from "@angular/core";
 import {DriveService} from "../service/drive-service";
-import {CLIENT_ID, CLIENT_SECRET, G_DRIVE_SCOPE, REDIRECT_URI} from "../common/constants";
-import {AccessTokenRequest, AccessTokenResponse, RefreshTokenResponse} from "../types/types";
-import {Subject, takeUntil} from "rxjs";
+import {CLIENT_ID, CLIENT_SECRET, DRIVE_URL_OF_FILE, G_DRIVE_SCOPE, REDIRECT_URI} from "../common/constants";
+import {
+  AccessTokenRequest,
+  AccessTokenResponse,
+  DriveUploadResponse,
+  FileDetails,
+  RefreshTokenResponse
+} from "../types/types";
+import {Subject, takeUntil, tap} from "rxjs";
+import {HttpEvent, HttpEventType, HttpResponse} from "@angular/common/http";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'file-upload',
@@ -20,7 +28,7 @@ export class FileUploadComponent implements OnInit, OnDestroy {
   @ViewChild('fileInput', {read: ElementRef})
   fileInput: ElementRef<HTMLElement>;
 
-  constructor(private driveService: DriveService) {
+  constructor(private driveService: DriveService, private snackBar: MatSnackBar) {
   }
 
   ngOnInit(): void {
@@ -90,6 +98,26 @@ export class FileUploadComponent implements OnInit, OnDestroy {
       grant_type: 'authorization_code',
       redirect_uri: REDIRECT_URI,
     };
+  }
+
+  uploadSmallFile(file: File, fileDetails: FileDetails) {
+    this.driveService.uploadFileWithMetadata(file)
+      .pipe(tap(event => {
+        if (event.type === HttpEventType.UploadProgress) {
+          // @ts-ignore
+          fileDetails.progress = Math.round(100 * event.loaded / event.total);
+        }
+      }))
+      .subscribe((response: HttpEvent<DriveUploadResponse>) => {
+        if (response instanceof HttpResponse) {
+          const driveResponse: DriveUploadResponse | null = response.body;
+          if (driveResponse) {
+            fileDetails.driveUrl = DRIVE_URL_OF_FILE + driveResponse.id;
+          }
+        }
+      }, e => {
+        this.snackBar.open(e.error.error.message, 'Ok');
+      });
   }
 
   ngOnDestroy(): void {

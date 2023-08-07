@@ -11,3 +11,4 @@ export const GOOGLE_OAUTH_ENDPOINT = "https://oauth2.googleapis.com/token";
 export const RESET_ACCESS_TOKEN_INTERVAL_MS = 3360000 // 56 minutes
 
 export const DRIVE_FILE_UPLOAD_MULTIPART_ENDPOINT = "https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart";
+export const DRIVE_URL_OF_FILE = "https://drive.google.com/file/d/";

@@ -83,3 +83,10 @@ export interface DriveUploadResponse {
   name: string,
   mimeType: string,
 }
+
+export interface FileDetails {
+  name: string,
+  size: string,
+  driveUrl?: string,
+  progress?: number,
+}
