@@ -37,6 +37,7 @@ export class FileUploadComponent implements OnInit, OnDestroy {
     this.refreshToken = this.driveService.getRefreshToken();
   }
 
+  // TODO: add chips support
   uploadFiles() {
     if (!this.refreshToken) {
       this.authorize();
