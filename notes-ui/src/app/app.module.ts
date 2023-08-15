@@ -30,6 +30,7 @@ import {DatePipe} from "@angular/common";
 import {FileUploadComponent} from "./file-upload/file.upload.component";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
+import {MatChipsModule} from "@angular/material/chips";
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent, pathMatch: 'full'},
@@ -67,6 +68,7 @@ const appRoutes: Routes = [
     A11yModule,
     MatProgressSpinnerModule,
     MatProgressBarModule,
+    MatChipsModule,
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]

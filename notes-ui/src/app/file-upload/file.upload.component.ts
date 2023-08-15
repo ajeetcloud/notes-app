@@ -68,6 +68,10 @@ export class FileUploadComponent implements OnInit, OnDestroy {
     client.requestCode();
   }
 
+  removeUploadedFile(index: number) {
+    this.uploadedFiles.splice(index, 1);
+  }
+
   /**
    * Uses the OAuth2 code to retrieve short-lived 'accessToken' with expiry
    * and long-lived 'refreshToken'.
