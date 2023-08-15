@@ -38,7 +38,7 @@
               </div>
             </div>
 
-            <div class="message">
+            <div class="message" [ngClass]="{'bottom-message': i == notes.length - 1}">
               <span class="actions">
                 <mat-icon fontIcon="edit" class="space icon" (click)="editNote(note)"></mat-icon>
                  <mat-icon fontIcon="content_copy" class="space icon" (click)="copyToClipboard(note)"></mat-icon>

@@ -29,6 +29,7 @@ import {EditDeleteNoteDialogComponent} from "./edit-delete-note-dialog/edit.dele
 import {DatePipe} from "@angular/common";
 import {FileUploadComponent} from "./file-upload/file.upload.component";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {MatProgressBarModule} from "@angular/material/progress-bar";
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent, pathMatch: 'full'},
@@ -65,6 +66,7 @@ const appRoutes: Routes = [
     [RouterModule.forRoot(appRoutes)],
     A11yModule,
     MatProgressSpinnerModule,
+    MatProgressBarModule,
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]

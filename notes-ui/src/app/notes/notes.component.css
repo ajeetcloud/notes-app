@@ -64,7 +64,6 @@
 
 .message {
   margin-bottom: 0;
-
   margin-right: 12px;
 }
 
@@ -108,6 +107,11 @@
 
 .top-message {
   margin-top: auto;
+  color: red;
+}
+
+.bottom-message {
+  margin-bottom: 30px;
 }
 
 .actions {

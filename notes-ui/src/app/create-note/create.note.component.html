@@ -9,7 +9,7 @@
   <div class="chat-form rounded-pill bg-dark" data-emoji-form="">
     <div class="row align-items-center gx-0">
       <div class="col-auto">
-        <file-upload></file-upload>
+        <!-- <file-upload></file-upload>-->
       </div>
 
       <div class="col">
@@ -18,11 +18,15 @@
                             [(ngModel)]="note"
                             (keydown.enter)="saveNote();$event.preventDefault()"
                             #pRef (input)="setHeight()"
-                            style="overflow: hidden;overflow-wrap: break-word;resize: none;"
+                            style="overflow: hidden;overflow-wrap: break-word;resize: none;margin-left:16px;margin-bottom: -10px"
                             class="form-control px-0" placeholder="Type your message..." rows="1" data-emoji-input=""
                             data-autosize="true">
                   </textarea>
         </div>
+        <div>
+          <file-upload></file-upload>
+        </div>
+
       </div>
 
       <div class="col-auto">
