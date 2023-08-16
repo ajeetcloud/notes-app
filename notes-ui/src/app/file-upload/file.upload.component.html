@@ -10,7 +10,7 @@
 
 
   <mat-chip-row *ngFor="let uploadedFile of uploadedFiles; let i = index"
-                (removed)="removeUploadedFile(i)">
+                (removed)="removeUploadedFile(i)" class="chip">
     <!--<img matChipAvatar src="https://material.angular.io/assets/img/examples/shiba1.jpg" alt="Photo of a Shiba Inu"/>-->
     {{uploadedFile.name}}
     <button matChipRemove>
