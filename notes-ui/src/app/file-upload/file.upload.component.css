@@ -10,6 +10,11 @@
   width: 25px !important;
 }
 
+.chips {
+  margin-left: 16px;
+}
+
 .chip {
   background-color: #A988FF !important;
+  margin-right: 5px;
 }
