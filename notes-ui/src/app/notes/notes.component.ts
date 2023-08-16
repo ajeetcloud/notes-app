@@ -36,6 +36,7 @@ export class NotesComponent implements OnInit, OnDestroy, OnChanges {
   isNextPageLoading = false;
   @ViewChild('scrollMe') private myScrollContainer: ElementRef;
 
+  selectedNotebookId: number;
   searchValue: string = '';
   @Input() notes: Note[] = [];
   @Input() notes1: NotesResponse;
@@ -44,6 +45,7 @@ export class NotesComponent implements OnInit, OnDestroy, OnChanges {
 
 
   ngOnInit(): void {
+    this.selectedNotebookId = this.notebookService.getSelectedNotebookId();
     if (this.notes1 && this.notes1.notes) {
       this.notes = this.notes1.notes;
     }
@@ -51,6 +53,7 @@ export class NotesComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
+    this.selectedNotebookId = this.notebookService.getSelectedNotebookId();
     console.log("changes", changes); // here you will get the data from parent once the input param is change
     // TODO: Fix 1st load data
     if (changes && changes['notes1'] && changes['notes1'].currentValue.notes) {
