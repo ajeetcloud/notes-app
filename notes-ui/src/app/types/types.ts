@@ -78,15 +78,15 @@ export interface RefreshTokenResponse {
 }
 
 export interface DriveUploadResponse {
-  kind: string,
   id: string,
   name: string,
-  mimeType: string,
+  webContentLink: string,
 }
 
 export interface FileDetails {
   name: string,
   size: string,
-  driveUrl?: string,
+  downloadLink?: string,
+  viewLink?: string,
   progress?: number,
 }

@@ -12,12 +12,12 @@
   <mat-chip-row *ngFor="let uploadedFile of uploadedFiles; let i = index"
                 (removed)="removeUploadedFile(i)" class="chip" [ngClass]="{'chips': i == 0}">
     <!--<img matChipAvatar src="https://material.angular.io/assets/img/examples/shiba1.jpg" alt="Photo of a Shiba Inu"/>-->
-    <span *ngIf="!uploadedFile.driveUrl">
+    <span *ngIf="!uploadedFile.downloadLink">
       {{uploadedFile.name}} - {{uploadedFile.progress}}%
       <mat-progress-bar mode="determinate" value="{{uploadedFile.progress}}"></mat-progress-bar>
     </span>
-    <span *ngIf="uploadedFile.driveUrl">
-      <a [href]="uploadedFile.driveUrl" target="_blank" class="chip-link">{{uploadedFile.name}}</a>
+    <span *ngIf="uploadedFile.downloadLink">
+      <a [href]="uploadedFile.downloadLink" target="_blank" class="chip-link">{{uploadedFile.name}}</a>
     </span>
     <button matChipRemove>
       <mat-icon>cancel</mat-icon>
