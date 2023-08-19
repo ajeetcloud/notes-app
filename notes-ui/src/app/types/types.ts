@@ -84,6 +84,7 @@ export interface DriveUploadResponse {
 }
 
 export interface FileDetails {
+  id?: string,
   name: string,
   size: string,
   downloadLink?: string,

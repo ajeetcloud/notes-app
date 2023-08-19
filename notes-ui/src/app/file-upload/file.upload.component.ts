@@ -126,6 +126,7 @@ export class FileUploadComponent implements OnInit, OnDestroy {
         if (response instanceof HttpResponse) {
           const driveResponse: DriveUploadResponse | null = response.body;
           if (driveResponse) {
+            fileDetails.id = driveResponse.id;
             fileDetails.downloadLink = driveResponse.webContentLink;
             fileDetails.viewLink = FILE_VIEW_LINK + driveResponse.id;
             console.log('fileDetails', fileDetails);
