@@ -12,3 +12,11 @@ body {
 .mat-icon {
   vertical-align: middle;
 }
+
+/**
+ * For mat-chip avatar
+ */
+.mat-mdc-standard-chip .mdc-evolution-chip__icon--primary {
+  height: 25px !important;
+  width: 25px !important;
+}
