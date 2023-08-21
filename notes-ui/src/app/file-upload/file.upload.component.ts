@@ -1,6 +1,13 @@
 import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from "@angular/core";
 import {DriveService} from "../service/drive-service";
-import {CLIENT_ID, CLIENT_SECRET, FILE_VIEW_LINK, G_DRIVE_SCOPE, REDIRECT_URI} from "../common/constants";
+import {
+  CLIENT_ID,
+  CLIENT_SECRET,
+  FILE_DOWNLOAD_LINK,
+  FILE_VIEW_LINK,
+  G_DRIVE_SCOPE,
+  REDIRECT_URI
+} from "../common/constants";
 import {
   AccessTokenRequest,
   AccessTokenResponse,
@@ -127,7 +134,7 @@ export class FileUploadComponent implements OnInit, OnDestroy {
           const driveResponse: DriveUploadResponse | null = response.body;
           if (driveResponse) {
             fileDetails.id = driveResponse.id;
-            fileDetails.downloadLink = driveResponse.webContentLink;
+            fileDetails.downloadLink = FILE_DOWNLOAD_LINK(driveResponse.id);
             fileDetails.viewLink = FILE_VIEW_LINK + driveResponse.id;
             console.log('fileDetails', fileDetails);
           }

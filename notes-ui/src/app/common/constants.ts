@@ -16,4 +16,5 @@ export const RESET_ACCESS_TOKEN_INTERVAL_MS = 3360000 // 56 minutes
  * Only what is required = https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id,name,webContentLink
  */
 export const DRIVE_FILE_UPLOAD_MULTIPART_ENDPOINT = "https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id,name,webContentLink";
+export const FILE_DOWNLOAD_LINK = (driveId: string) => `https://drive.google.com/uc?id=${driveId}&export=download`;
 export const FILE_VIEW_LINK = "https://lh3.google.com/d/";
