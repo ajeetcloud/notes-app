@@ -3,6 +3,7 @@ package com.notes.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.Set;
 
 
 @Entity
@@ -30,6 +31,9 @@ public class Note {
     @JoinColumn(name = "notebook_id", updatable = false)
     @JsonIgnore
     private Notebook notebook;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "note", cascade = CascadeType.ALL)
+    private Set<File> files;
 
     public int getNoteId() {
         return noteId;
@@ -77,6 +81,14 @@ public class Note {
 
     public void setCreatedOn(long createdOn) {
         this.createdOn = createdOn;
+    }
+
+    public Set<File> getFiles() {
+        return files;
+    }
+
+    public void setFiles(Set<File> files) {
+        this.files = files;
     }
 
     @Override

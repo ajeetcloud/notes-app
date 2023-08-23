@@ -35,7 +35,7 @@ public class Notebook {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "notebook", cascade = CascadeType.ALL)
     @JsonIgnore
-    Set<Note> notes;
+    private Set<Note> notes;
 
     public int getNotebookId() {
         return notebookId;

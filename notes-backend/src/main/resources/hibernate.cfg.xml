@@ -15,5 +15,6 @@
         <property name="hibernate.current_session_context_class">thread</property>
         <mapping class="com.notes.model.Notebook"/>
         <mapping class="com.notes.model.Note"/>
+        <mapping class="com.notes.model.File"/>
     </session-factory>
 </hibernate-configuration>
