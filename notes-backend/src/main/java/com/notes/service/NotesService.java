@@ -1,6 +1,7 @@
 package com.notes.service;
 
 import com.notes.exception.NoDataFoundException;
+import com.notes.model.File;
 import com.notes.model.Note;
 import com.notes.model.NotePage;
 import com.notes.model.Notebook;
@@ -115,6 +116,9 @@ public class NotesService {
         Notebook nb = new Notebook();
         nb.setNotebookId(note.getNotebookId());
         note.setNotebook(nb);
+        for (File file : note.getFiles()) {
+            file.setCreatedOn(currentTime);
+        }
         HibernateUtil.save(note);
     }
 
