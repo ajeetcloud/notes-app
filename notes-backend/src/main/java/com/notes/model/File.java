@@ -3,6 +3,7 @@ package com.notes.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "files")
@@ -76,7 +77,7 @@ public class File {
             return false;
         }
         File other = (File) obj;
-        return fileId == other.fileId;
+        return Objects.equals(driveId, other.driveId);
     }
 
     @Override
