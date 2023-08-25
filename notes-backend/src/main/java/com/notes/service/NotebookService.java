@@ -56,6 +56,11 @@ public class NotebookService {
         HibernateUtil.update(notebook);
     }
 
+    /**
+     * Deletes a notebook and all associated notes from the database.
+     *
+     * @param notebookId the ID of the notebook to be deleted
+     */
     public void deleteNotebook(int notebookId) {
         Transaction tx = null;
         Session session = HibernateUtil.getSessionFactory().openSession();
