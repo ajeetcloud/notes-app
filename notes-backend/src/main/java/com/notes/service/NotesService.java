@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaDelete;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.List;
@@ -129,8 +130,39 @@ public class NotesService {
     }
 
     public void deleteNote(int noteId) {
-        Note note = new Note();
+/*        Note note = new Note();
         note.setNoteId(noteId);
-        HibernateUtil.delete(note);
+        HibernateUtil.delete(note);*/
+
+
+        Transaction tx = null;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        int result = 0;
+        try {
+            tx = session.beginTransaction();
+            CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+
+            CriteriaDelete<File> deleteFiles = criteriaBuilder.createCriteriaDelete(File.class);
+            Root root = deleteFiles.from(File.class);
+            deleteFiles.where(criteriaBuilder.equal(root.get("noteId"), noteId));
+            result = session.createQuery(deleteFiles).executeUpdate();
+
+            CriteriaDelete<Note> deleteNotes = criteriaBuilder.createCriteriaDelete(Note.class);
+            Root rootNote = deleteNotes.from(Note.class);
+            deleteNotes.where(criteriaBuilder.equal(rootNote.get("noteId"), noteId));
+            result += session.createQuery(deleteNotes).executeUpdate();
+
+            session.getTransaction().commit();
+            System.out.println(result + "row(s) affected");
+        } catch (Exception e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            throw e;
+        } finally {
+            if (session.isOpen()) {
+                session.close();
+            }
+        }
     }
 }
