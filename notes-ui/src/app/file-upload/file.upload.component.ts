@@ -14,11 +14,13 @@ import {
   DriveUploadResponse,
   FileDetails,
   MediaFile,
+  Note,
   RefreshTokenResponse
 } from "../types/types";
 import {Subject, takeUntil, tap} from "rxjs";
 import {HttpEvent, HttpEventType, HttpResponse} from "@angular/common/http";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {NotesService} from "../service/notes.service";
 
 @Component({
   selector: 'file-upload',
@@ -38,12 +40,13 @@ export class FileUploadComponent implements OnInit, OnDestroy {
   @ViewChild('fileInput', {read: ElementRef})
   fileInput: ElementRef<HTMLElement>;
 
-  constructor(private driveService: DriveService, private snackBar: MatSnackBar) {
+  constructor(private driveService: DriveService, private snackBar: MatSnackBar, private notesService: NotesService) {
   }
 
   ngOnInit(): void {
     this.accessToken = this.driveService.getAccessToken();
     this.refreshToken = this.driveService.getRefreshToken();
+    this.onCreateNote();
   }
 
   uploadFiles() {
@@ -74,6 +77,12 @@ export class FileUploadComponent implements OnInit, OnDestroy {
       },
     });
     client.requestCode();
+  }
+
+  onCreateNote() {
+    this.notesService.getNoteSubject().subscribe((note: Note) => {
+      this.uploadedFiles = [];
+    });
   }
 
   removeUploadedFile(index: number) {

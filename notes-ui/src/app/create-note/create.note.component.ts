@@ -39,6 +39,7 @@ export class CreateNoteComponent implements OnInit, OnDestroy {
         if (note.noteId) {
           this.notesService.setNoteSubject(note);
           this.note = '';
+          this.mediaFiles = [];
         }
       });
   }
