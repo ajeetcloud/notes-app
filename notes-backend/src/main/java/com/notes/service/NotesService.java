@@ -118,6 +118,7 @@ public class NotesService {
         nb.setNotebookId(note.getNotebookId());
         note.setNotebook(nb);
         for (File file : note.getFiles()) {
+            file.setNote(note);
             file.setCreatedOn(currentTime);
         }
         HibernateUtil.save(note);
