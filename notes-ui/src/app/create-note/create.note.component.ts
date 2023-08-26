@@ -29,7 +29,8 @@ export class CreateNoteComponent implements OnInit, OnDestroy {
   saveNote() {
     const newNote: NewNote = {
       notebookId: this.notebookService.getSelectedNotebookId(),
-      note: this.note
+      note: this.note,
+      files: [],
     }
     this.notesService.saveNote(newNote)
       .pipe(takeUntil(this.destroyed))

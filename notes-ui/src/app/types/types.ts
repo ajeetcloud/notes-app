@@ -24,9 +24,14 @@ export interface Notebook {
   createdOn?: number,
 }
 
+export interface File {
+  driveId: string;
+}
+
 export interface NewNote {
   notebookId?: number,
   note: string,
+  files: File[],
 }
 
 export enum ActionType {
