@@ -1,5 +1,5 @@
 import {Component, ElementRef, OnDestroy, OnInit, Renderer2, ViewChild} from "@angular/core";
-import {NewNote, Note} from "../types/types";
+import {MediaFile, NewNote, Note} from "../types/types";
 import {NotesService} from "../service/notes.service";
 import {Subject, takeUntil} from "rxjs";
 import {NotebookService} from "../service/notebook.service";
@@ -16,6 +16,7 @@ export class CreateNoteComponent implements OnInit, OnDestroy {
   note = '';
   private destroyed = new Subject<void>();
   @ViewChild('pRef', {static: false}) pRef: ElementRef;
+  mediaFiles: MediaFile[] = [];
 
   constructor(private notesService: NotesService,
               private notebookService: NotebookService,
@@ -30,7 +31,7 @@ export class CreateNoteComponent implements OnInit, OnDestroy {
     const newNote: NewNote = {
       notebookId: this.notebookService.getSelectedNotebookId(),
       note: this.note,
-      files: [],
+      files: this.mediaFiles,
     }
     this.notesService.saveNote(newNote)
       .pipe(takeUntil(this.destroyed))
@@ -40,6 +41,10 @@ export class CreateNoteComponent implements OnInit, OnDestroy {
           this.note = '';
         }
       });
+  }
+
+  updateMediaFiles(mediaFile: MediaFile) {
+    this.mediaFiles.push(mediaFile);
   }
 
   setHeight() {

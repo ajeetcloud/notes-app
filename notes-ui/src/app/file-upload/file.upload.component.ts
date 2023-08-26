@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from "@angular/core";
+import {Component, ElementRef, EventEmitter, OnDestroy, OnInit, Output, ViewChild} from "@angular/core";
 import {DriveService} from "../service/drive-service";
 import {
   CLIENT_ID,
@@ -13,6 +13,7 @@ import {
   AccessTokenResponse,
   DriveUploadResponse,
   FileDetails,
+  MediaFile,
   RefreshTokenResponse
 } from "../types/types";
 import {Subject, takeUntil, tap} from "rxjs";
@@ -31,6 +32,7 @@ export class FileUploadComponent implements OnInit, OnDestroy {
   loading = false;
   selectedFiles: FileList;
   uploadedFiles: FileDetails[] = [];
+  @Output() newFileUploadedEvent = new EventEmitter<MediaFile>();
   private destroyed = new Subject<void>();
 
   @ViewChild('fileInput', {read: ElementRef})
@@ -135,6 +137,7 @@ export class FileUploadComponent implements OnInit, OnDestroy {
             fileDetails.id = driveResponse.id;
             fileDetails.downloadLink = FILE_DOWNLOAD_LINK(driveResponse.id);
             fileDetails.viewLink = FILE_VIEW_LINK + driveResponse.id;
+            this.newFileUploadedEvent.emit({'driveId': driveResponse.id});
             console.log('fileDetails', fileDetails);
           }
         }
