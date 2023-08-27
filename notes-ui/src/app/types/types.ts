@@ -5,6 +5,7 @@ export interface Note {
   noteId?: number,
   notebookId?: number,
   note?: string,
+  files?: MediaFile[],
   updatedOn?: number,
   createdOn?: number
 }
@@ -25,7 +26,9 @@ export interface Notebook {
 }
 
 export interface MediaFile {
-  driveId: string;
+  driveId: string,
+  viewLink?: string,
+  downloadLink?: string,
 }
 
 export interface NewNote {

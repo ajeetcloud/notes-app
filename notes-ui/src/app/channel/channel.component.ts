@@ -7,6 +7,7 @@ import {
   CreateEditDeleteNotebookDialogComponent
 } from "../create-edit-delete-notebook-dialog/create.edit.delete.notebook.dialog.component";
 import {MatDialog} from "@angular/material/dialog";
+import {FILE_DOWNLOAD_LINK, FILE_VIEW_LINK} from "../common/constants";
 
 @Component({
   selector: 'channel',
@@ -52,11 +53,26 @@ export class ChannelComponent implements OnInit, OnDestroy {
         this.notebookService.getNotes(notebookId, 1)
           .pipe(takeUntil(this.destroyed))
           .subscribe((res: NotesResponse) => {
-            console.log("Notes Response", res);
+            console.log("Notes Response in channel component", res);
             this.notesResponse = res;
+            this.setFileMetadata();
             this.notebookService.getNotesMap().set(notebookId, this.notesResponse);
             this.newItemEvent.emit(this.notesResponse);
           });
+      }
+    }
+  }
+
+  /**
+   * Sets the metadata for each file in the notesResponse.
+   */
+  setFileMetadata() {
+    for (const note of this.notesResponse.notes) {
+      if (note.files) {
+        for (const file of note.files) {
+          file.viewLink = FILE_VIEW_LINK + file.driveId;
+          file.downloadLink = FILE_DOWNLOAD_LINK(file.driveId);
+        }
       }
     }
   }
