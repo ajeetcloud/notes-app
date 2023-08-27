@@ -146,7 +146,7 @@ export class FileUploadComponent implements OnInit, OnDestroy {
             fileDetails.id = driveResponse.id;
             fileDetails.downloadLink = FILE_DOWNLOAD_LINK(driveResponse.id);
             fileDetails.viewLink = FILE_VIEW_LINK + driveResponse.id;
-            this.newFileUploadedEvent.emit({'driveId': driveResponse.id});
+            this.newFileUploadedEvent.emit({'driveId': driveResponse.id, 'fileName': fileDetails.name});
             console.log('fileDetails', fileDetails);
           }
         }

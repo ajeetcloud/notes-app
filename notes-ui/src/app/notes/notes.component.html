@@ -52,6 +52,10 @@
                         {{note.createdOn | date: 'h:mm a'}}
                       </div>
                       <p class="message-content">{{note.note}}</p>
+                      <div *ngFor="let file of note.files">
+                        {{file.fileName}}
+                        <img src={{file.viewLink}} height="300">
+                      </div>
                     </div>
                   </div>
                 </div>
