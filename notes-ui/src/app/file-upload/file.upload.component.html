@@ -8,7 +8,6 @@
 
 <div class="files-container" *ngIf="uploadedFiles.length">
 
-
   <mat-chip-row *ngFor="let uploadedFile of uploadedFiles; let i = index"
                 (removed)="removeUploadedFile(i)" class="chip" [ngClass]="{'chips': i == 0}">
     <span matChipAvatar [hidden]="!uploadedFile.viewLink">
@@ -26,28 +25,4 @@
     </button>
   </mat-chip-row>
 
-  <!--  <mat-chip-row *ngFor="let fruit of fruits"
-                  (removed)="remove(fruit)"
-                  [editable]="true"
-                  (edited)="edit(fruit, $event)"
-                  [aria-description]="'press enter to edit ' + fruit.name">-->
-
-
-  <!--  <mat-card class="fileInfo">
-      <mat-card-header>
-        <mat-card-title>Files uploaded to Google Drive</mat-card-title>
-        <mat-card-subtitle *ngFor="let uploadedFile of uploadedFiles">
-          <mat-icon>insert_drive_file</mat-icon>
-          <span *ngIf="!uploadedFile.driveUrl">
-            {{uploadedFile.name}} - {{uploadedFile.progress}}%
-            <mat-progress-bar mode="determinate" value="{{uploadedFile.progress}}"></mat-progress-bar>
-            </span>
-          <span *ngIf="uploadedFile.driveUrl">
-            <a [href]="uploadedFile.driveUrl" target="_blank">{{uploadedFile.name}}</a>
-          </span>
-          <br>
-        </mat-card-subtitle>
-      </mat-card-header>
-    </mat-card>
-    -->
 </div>
