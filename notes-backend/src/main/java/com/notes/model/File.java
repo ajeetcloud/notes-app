@@ -17,6 +17,9 @@ public class File {
     @Column(name = "note_id", insertable = false, updatable = false)
     private int noteId;
 
+    @Column(name = "file_name")
+    private String fileName;
+
     @Column(name = "drive_id")
     private String driveId;
 
@@ -66,6 +69,14 @@ public class File {
 
     public void setNote(Note note) {
         this.note = note;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 
     @Override
