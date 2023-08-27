@@ -4,6 +4,7 @@ import {NotesService} from "../service/notes.service";
 import {Subject, takeUntil} from "rxjs";
 import {NotebookService} from "../service/notebook.service";
 import {DriveService} from "../service/drive-service";
+import {FILE_DOWNLOAD_LINK, FILE_VIEW_LINK} from "../common/constants";
 
 
 @Component({
@@ -37,11 +38,21 @@ export class CreateNoteComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroyed))
       .subscribe((note: Note) => {
         if (note.noteId) {
+          this.setFileMetadata(note);
           this.notesService.setNoteSubject(note);
           this.note = '';
           this.mediaFiles = [];
         }
       });
+  }
+
+  setFileMetadata(note: Note) {
+    if (note.files) {
+      for (const file of note.files) {
+        file.viewLink = FILE_VIEW_LINK + file.driveId;
+        file.downloadLink = FILE_DOWNLOAD_LINK(file.driveId);
+      }
+    }
   }
 
   updateMediaFiles(mediaFile: MediaFile) {
