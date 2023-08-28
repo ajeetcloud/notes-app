@@ -145,10 +145,6 @@
   width: 300px;
 }
 
-.media-file-header {
-
-}
-
 .media-filename-container {
   width: 250px;
   overflow: hidden;
@@ -160,10 +156,6 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-
-.media-file-menu {
-
 }
 
 .flex-container {

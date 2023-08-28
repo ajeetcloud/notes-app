@@ -54,9 +54,6 @@
                       <p class="message-content">{{note.note}}</p>
                       <div *ngIf="note.files" class="flex-container">
                         <div *ngFor="let file of note.files">
-                          <!-- {{file.fileName}}
-                           <img src={{file.viewLink}} height="300">-->
-
 
                           <mat-card class="media-file-card">
                             <div class="flex-container">
@@ -64,8 +61,7 @@
                                 <mat-card-subtitle class="media-filename">{{file.fileName}}</mat-card-subtitle>
                               </div>
 
-
-                              <div class="media-file-menu">
+                              <div>
                                 <button mat-icon-button [matMenuTriggerFor]="menu"
                                         aria-label="Example icon-button with a menu">
                                   <mat-icon>more_vert</mat-icon>
