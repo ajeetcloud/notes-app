@@ -31,6 +31,7 @@ import {FileUploadComponent} from "./file-upload/file.upload.component";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {MatChipsModule} from "@angular/material/chips";
+import {MatMenuModule} from "@angular/material/menu";
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent, pathMatch: 'full'},
@@ -69,6 +70,7 @@ const appRoutes: Routes = [
     MatProgressSpinnerModule,
     MatProgressBarModule,
     MatChipsModule,
+    MatMenuModule,
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]

@@ -141,3 +141,44 @@
   border-radius: 5px;
 }
 
+.media-file-card {
+  width: 300px;
+}
+
+.media-file-header {
+
+}
+
+.media-filename-container {
+  width: 250px;
+  overflow: hidden;
+  padding-top: 13px;
+  padding-left: 10px;
+}
+
+.media-filename {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.media-file-menu {
+
+}
+
+.flex-container {
+  display: flex;
+}
+
+.flex-container > div {
+  margin-right: 10px;
+}
+
+.download-link {
+  color: #000;
+}
+
+.media-file-image {
+  height: 300px;
+  object-fit: cover;
+}

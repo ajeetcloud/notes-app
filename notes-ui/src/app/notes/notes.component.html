@@ -52,10 +52,47 @@
                         {{note.createdOn | date: 'h:mm a'}}
                       </div>
                       <p class="message-content">{{note.note}}</p>
-                      <div *ngFor="let file of note.files">
-                        {{file.fileName}}
-                        <img src={{file.viewLink}} height="300">
+                      <div *ngIf="note.files" class="flex-container">
+                        <div *ngFor="let file of note.files">
+                          <!-- {{file.fileName}}
+                           <img src={{file.viewLink}} height="300">-->
+
+
+                          <mat-card class="media-file-card">
+                            <div class="flex-container">
+                              <div class="media-filename-container">
+                                <mat-card-subtitle class="media-filename">{{file.fileName}}</mat-card-subtitle>
+                              </div>
+
+
+                              <div class="media-file-menu">
+                                <button mat-icon-button [matMenuTriggerFor]="menu"
+                                        aria-label="Example icon-button with a menu">
+                                  <mat-icon>more_vert</mat-icon>
+                                </button>
+                                <mat-menu #menu="matMenu">
+                                  <button mat-menu-item>
+                                    <mat-icon>dialpad</mat-icon>
+                                    <span><a href={{file.downloadLink}} class="download-link">Download</a></span>
+                                  </button>
+                                  <button mat-menu-item>
+                                    <mat-icon>notifications_off</mat-icon>
+                                    <span>Delete</span>
+                                  </button>
+                                </mat-menu>
+                              </div>
+                            </div>
+
+                            <img mat-card-image src={{file.viewLink}} class="media-file-image">
+                            <mat-card-actions>
+                              <button mat-button>LIKE</button>
+                              <button mat-button>SHARE</button>
+                            </mat-card-actions>
+                          </mat-card>
+
+                        </div>
                       </div>
+
                     </div>
                   </div>
                 </div>
