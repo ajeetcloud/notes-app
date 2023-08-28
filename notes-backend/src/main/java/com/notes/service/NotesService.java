@@ -17,6 +17,7 @@ import javax.persistence.criteria.CriteriaDelete;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class NotesService {
@@ -165,5 +166,9 @@ public class NotesService {
                 session.close();
             }
         }
+    }
+
+    public NotePage getSearchResults(String query, int pageNo, Optional<Integer> pageSize) {
+        return null;
     }
 }
