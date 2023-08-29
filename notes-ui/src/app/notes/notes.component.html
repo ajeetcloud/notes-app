@@ -62,8 +62,7 @@
                               </div>
 
                               <div>
-                                <button mat-icon-button [matMenuTriggerFor]="menu"
-                                        aria-label="Example icon-button with a menu">
+                                <button mat-icon-button [matMenuTriggerFor]="menu">
                                   <mat-icon>more_vert</mat-icon>
                                 </button>
                                 <mat-menu #menu="matMenu">
@@ -80,10 +79,7 @@
                             </div>
 
                             <img mat-card-image src={{file.viewLink}} class="media-file-image">
-                            <mat-card-actions>
-                              <button mat-button>LIKE</button>
-                              <button mat-button>SHARE</button>
-                            </mat-card-actions>
+
                           </mat-card>
 
                         </div>
