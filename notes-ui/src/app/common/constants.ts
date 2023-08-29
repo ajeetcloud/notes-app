@@ -1,5 +1,6 @@
 export const NOTES_API_ENDPOINT = "http://localhost:8080/notes/";
 export const NOTEBOOK_API_ENDPOINT = "http://localhost:8080/notebooks/";
+export const FILE_API_ENDPOINT = "http://localhost:8080/file/";
 export const PAGE_SIZE = 20;
 
 export const CLIENT_ID = "";

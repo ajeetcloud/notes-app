@@ -9,7 +9,7 @@ import {
   SimpleChanges,
   ViewChild
 } from '@angular/core';
-import {ActionType, Note, NotesResponse} from "../types/types";
+import {ActionType, MediaFile, Note, NotesResponse} from "../types/types";
 import {NotesService} from "../service/notes.service";
 import {Subject, takeUntil} from "rxjs";
 import {DatePipe, ViewportScroller} from "@angular/common";
@@ -20,6 +20,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {EditDeleteNoteDialogComponent} from "../edit-delete-note-dialog/edit.delete.note.dialog.component";
 import {Clipboard} from '@angular/cdk/clipboard';
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {FileService} from "../service/file.service";
 
 @Component({
   selector: 'notes',
@@ -78,13 +79,14 @@ export class NotesComponent implements OnInit, OnDestroy, OnChanges {
 
   constructor(private notesService: NotesService,
               private notebookService: NotebookService,
+              private fileService: FileService,
               private renderer: Renderer2,
               private scroller: ViewportScroller,
               private router: Router,
               private dialog: MatDialog,
               private clipboard: Clipboard,
               public datepipe: DatePipe,
-              private snackBar: MatSnackBar
+              private snackBar: MatSnackBar,
   ) {
   }
 
@@ -170,6 +172,31 @@ export class NotesComponent implements OnInit, OnDestroy, OnChanges {
         }
       })
   }
+
+  /**
+   * Deletes a file from the note's list of files and from the server.
+   *
+   * @param {Note} note - The note object.
+   * @param {MediaFile} file - The file object to be deleted.
+   */
+  deleteFile(note: Note, file: MediaFile) {
+    debugger;
+    if (file.fileId) {
+      this.fileService.deleteFile(file.fileId)
+        .pipe(takeUntil(this.destroyed))
+        .subscribe(() => {
+          if (note.files) {
+            const fileIndex = note.files.findIndex(mediaFile => mediaFile.fileId === file.fileId);
+            note.files.splice(fileIndex, 1);
+            this.snackBar.open(`${file.fileName} deleted successfully.`, 'ok');
+          }
+        }, error => {
+          this.snackBar.open(error.error.message, 'Ok');
+        });
+    }
+
+  }
+
 
   copyToClipboard(note: Note) {
     this.clipboard.copy(note.note || '');

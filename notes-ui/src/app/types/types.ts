@@ -26,6 +26,7 @@ export interface Notebook {
 }
 
 export interface MediaFile {
+  fileId?: number,
   driveId: string,
   fileName: string
   viewLink?: string,

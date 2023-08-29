@@ -70,7 +70,7 @@
                                     <mat-icon>download</mat-icon>
                                     <span><a href={{file.downloadLink}} class="download-link">Download</a></span>
                                   </button>
-                                  <button mat-menu-item>
+                                  <button mat-menu-item (click)="deleteFile(note, file)">
                                     <mat-icon>delete</mat-icon>
                                     <span>Delete</span>
                                   </button>
