@@ -16,6 +16,11 @@ import java.util.List;
 @Service
 public class NotebookService {
 
+    /**
+     * Retrieves all notebooks from the database.
+     *
+     * @return List of notebooks containing notebookId, notebookName, and createdOn
+     */
     public List<Notebook> getAllNotebooks() {
 
         List<Notebook> results = null;
