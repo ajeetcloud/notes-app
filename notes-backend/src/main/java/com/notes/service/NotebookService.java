@@ -47,6 +47,11 @@ public class NotebookService {
         return results;
     }
 
+    /**
+     * Creates a new notebook.
+     *
+     * @param notebook the notebook object to be created
+     */
     public void createNotebook(Notebook notebook) {
 
         long currentTime = System.currentTimeMillis();
@@ -55,6 +60,11 @@ public class NotebookService {
         HibernateUtil.save(notebook);
     }
 
+    /**
+     * Updates the given notebook by setting the updated timestamp and updating it in the database.
+     *
+     * @param notebook the notebook to be updated
+     */
     public void updateNotebook(Notebook notebook) {
 
         notebook.setUpdatedOn(System.currentTimeMillis());
