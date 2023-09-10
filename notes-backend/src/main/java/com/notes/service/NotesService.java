@@ -9,19 +9,35 @@ import com.notes.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
+import org.hibernate.search.engine.search.query.SearchQuery;
+import org.hibernate.search.mapper.orm.Search;
+import org.hibernate.search.mapper.orm.session.SearchSession;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaDelete;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class NotesService {
 
+    @PersistenceContext
+    EntityManager entityManager;
+
+    /**
+     * Retrieves a paginated list of notes for a given notebook ID.
+     *
+     * @param notebookId the ID of the notebook
+     * @param pageNo     the page number of the results
+     * @param pageSize   the number of notes per page
+     * @return the NotePage object containing the paginated notes
+     */
     public NotePage getPaginatedNotes(String notebookId, int pageNo, int pageSize) {
         int origPageSize = pageSize;
         List<Note> results = null;
@@ -31,7 +47,6 @@ public class NotesService {
         try {
             tx = session.beginTransaction();
             CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
-
 
             CriteriaQuery<Long> cr = criteriaBuilder.createQuery(Long.class);
             Root<Note> root = cr.from(Note.class);
@@ -111,7 +126,24 @@ public class NotesService {
         return results;
     }
 
+    @Transactional
     public void createNote(Note note) {
+
+        long currentTime = System.currentTimeMillis();
+        note.setUpdatedOn(currentTime);
+        note.setCreatedOn(currentTime);
+        Notebook nb = new Notebook();
+        nb.setNotebookId(note.getNotebookId());
+        note.setNotebook(nb);
+        for (File file : note.getFiles()) {
+            file.setNote(note);
+            file.setCreatedOn(currentTime);
+        }
+
+        entityManager.persist(note);
+
+/*        SearchSession searchSession = Search.session(entityManager);
+        SearchIndexingPlan indexingPlan = searchSession.indexingPlan();
         long currentTime = System.currentTimeMillis();
         note.setUpdatedOn(currentTime);
         note.setCreatedOn(currentTime);
@@ -123,6 +155,7 @@ public class NotesService {
             file.setCreatedOn(currentTime);
         }
         HibernateUtil.save(note);
+        indexingPlan.execute();*/
     }
 
     public void updateNote(Note note) {
@@ -168,7 +201,82 @@ public class NotesService {
         }
     }
 
-    public NotePage getSearchResults(String query, int pageNo, Optional<Integer> pageSize) {
+    @Transactional
+    public NotePage getSearchResults(String query, int pageNo, Integer pageSize) {
+        int origPageSize = pageSize;
+        List<Note> results = null;
+        int startRowNum = 0;
+        Transaction tx = null;
+        try {
+            CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+
+            CriteriaQuery<Long> cr = criteriaBuilder.createQuery(Long.class);
+            Root<Note> root = cr.from(Note.class);
+            cr.select(criteriaBuilder.count(root)).where(criteriaBuilder.like(root.get("note"), "%" + query + "%"));
+
+            Long countQuery = entityManager.createQuery(cr).getSingleResult();
+            System.out.println(query);
+
+            Long count = countQuery;
+
+            startRowNum = ((int) (count - (pageNo * pageSize)));
+            if (startRowNum < 0) {
+                pageSize = startRowNum + pageSize;
+                startRowNum = 0;
+            }
+            if (pageSize < 0) {
+                throw new NoDataFoundException(String.format(
+                        "No data found for pageNo:%d with pageSize:%d", pageNo, origPageSize));
+            }
+            CriteriaQuery<Note> criteriaQuery = criteriaBuilder
+                    .createQuery(Note.class);
+            Root<Note> from = criteriaQuery.from(Note.class);
+            CriteriaQuery<Note> select = criteriaQuery
+                    .select(from)
+                    .where(criteriaBuilder.like(from.get("note"), "%" + query + "%"));
+
+            TypedQuery<Note> typedQuery = entityManager.createQuery(select);
+            typedQuery.setFirstResult(startRowNum);
+            typedQuery.setMaxResults(pageSize);
+            results = typedQuery.getResultList();
+
+
+        } catch (Exception e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            throw e;
+        }
+
+        return getNotePage(results, startRowNum, pageNo, pageSize);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Note> start() {
+        try {
+
+/*
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            SearchSession searchSession = Search.session(session);
+
+
+            MassIndexer indexer = searchSession.massIndexer(Note.class);
+            indexer.startAndWait();*/
+
+            SearchSession searchSession = Search.session(entityManager);
+            SearchQuery<Note> query = searchSession.search(Note.class)
+                    .where(f -> f.match().field("note").matching("peach").fuzzy())
+                    .toQuery();
+
+            List<Note> results = query.fetchAllHits();
+            System.out.println(results);
+            System.out.println(results.size());
+            return results;
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
         return null;
     }
 }

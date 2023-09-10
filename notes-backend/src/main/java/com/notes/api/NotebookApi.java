@@ -2,6 +2,7 @@ package com.notes.api;
 
 import com.notes.model.NotePage;
 import com.notes.model.Notebook;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,4 +26,7 @@ public interface NotebookApi {
 
     @GetMapping("/{notebookId}/notes")
     NotePage getPaginatedNotes(@PathVariable String notebookId, @RequestParam int pageNo, @RequestParam Optional<Integer> pageSize);
+
+    @GetMapping("/{notebookId}/notes1")
+    Page<?> getPaginatedNotes1(@PathVariable String notebookId, @RequestParam int pageNo, @RequestParam Optional<Integer> pageSize);
 }

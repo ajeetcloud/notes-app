@@ -26,7 +26,7 @@ public class File {
     @Column(name = "created_on", updatable = false)
     private long createdOn;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "note_id", updatable = false)
     @JsonIgnore
     private Note note;

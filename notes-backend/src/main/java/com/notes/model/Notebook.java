@@ -33,7 +33,7 @@ public class Notebook {
     @Column(name = "created_on", updatable = false)
     private long createdOn;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "notebook", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "notebook")
     @JsonIgnore
     private Set<Note> notes;
 

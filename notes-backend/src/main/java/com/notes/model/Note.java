@@ -1,12 +1,15 @@
 package com.notes.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.search.mapper.pojo.mapping.definition.annotation.FullTextField;
+import org.hibernate.search.mapper.pojo.mapping.definition.annotation.Indexed;
 
 import javax.persistence.*;
 import java.util.Set;
 
 
 @Entity
+@Indexed
 @Table(name = "my_notes")
 public class Note {
 
@@ -18,6 +21,7 @@ public class Note {
     @Column(name = "notebook_id", insertable = false, updatable = false)
     private int notebookId;
 
+    @FullTextField(name = "note")
     @Column(name = "note")
     private String note;
 
@@ -27,7 +31,7 @@ public class Note {
     @Column(name = "created_on", updatable = false)
     private long createdOn;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "notebook_id", updatable = false)
     @JsonIgnore
     private Notebook notebook;

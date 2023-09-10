@@ -4,6 +4,7 @@ import com.notes.api.NotesApi;
 import com.notes.model.Note;
 import com.notes.model.NotePage;
 import com.notes.service.NotesService;
+import com.notes.service.NotesServiceNew;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,6 +17,9 @@ public class NotesController implements NotesApi {
     @Autowired
     private NotesService notesService;
 
+    @Autowired
+    private NotesServiceNew notesServiceNew;
+
     @Override
     public List<Note> getAllNotes() {
         return notesService.getAllNotes();
@@ -23,24 +27,30 @@ public class NotesController implements NotesApi {
 
     @Override
     public Note createNote(Note note) {
-        notesService.createNote(note);
+        notesServiceNew.createNote(note);
         return note;
     }
 
     @Override
     public Note updateNote(Note note) {
-        notesService.updateNote(note);
+        notesServiceNew.updateNote(note);
         return note;
     }
 
     @Override
     public void deleteNote(int noteId) {
-        notesService.deleteNote(noteId);
+        // notesService.deleteNote(noteId);
+        notesServiceNew.deleteNote(noteId);
     }
 
     @Override
     public NotePage getSearchResults(String query, int pageNo, Optional<Integer> pageSize) {
-        return notesService.getSearchResults(query, pageNo, pageSize);
+        return notesService.getSearchResults(query, pageNo, pageSize.orElseGet(() -> 20));
+    }
+
+    @Override
+    public List<Note> getSearchV2() {
+        return notesService.start();
     }
 
 

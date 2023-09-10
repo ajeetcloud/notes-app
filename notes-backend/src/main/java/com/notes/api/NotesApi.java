@@ -25,4 +25,7 @@ public interface NotesApi {
 
     @GetMapping("/search")
     NotePage getSearchResults(@RequestParam String query, @RequestParam int pageNo, @RequestParam Optional<Integer> pageSize);
+
+    @GetMapping("/searchv2")
+    List<Note> getSearchV2();
 }
