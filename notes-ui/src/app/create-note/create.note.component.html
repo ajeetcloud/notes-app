@@ -12,6 +12,7 @@
       <div class="col">
         <div class="input-group">
                   <textarea cdkTextareaAutoSize
+                            (paste)="onPaste($event)"
                             [(ngModel)]="note"
                             (keydown.enter)="saveNote();$event.preventDefault()"
                             #pRef (input)="setHeight()"

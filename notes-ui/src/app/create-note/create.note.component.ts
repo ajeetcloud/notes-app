@@ -64,6 +64,21 @@ export class CreateNoteComponent implements OnInit, OnDestroy {
     this.renderer.setStyle(this.pRef.nativeElement, 'height', `${this.pRef.nativeElement.scrollHeight}px`);
   }
 
+  onPaste(event: ClipboardEvent) {
+    const items = event?.clipboardData?.items;
+    let files: File[] = [];
+    debugger;
+    if (items) {
+      // @ts-ignore
+      for (const item of items) {
+        if (item.getAsFile()) {
+          files.push(item.getAsFile());
+        }
+      }
+      console.log(files);
+    }
+  }
+
   ngOnDestroy() {
     this.destroyed.next();
     this.destroyed.complete();
