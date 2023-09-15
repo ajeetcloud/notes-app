@@ -21,6 +21,7 @@ import {Subject, takeUntil, tap} from "rxjs";
 import {HttpEvent, HttpEventType, HttpResponse} from "@angular/common/http";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {NotesService} from "../service/notes.service";
+import {FileService} from "../service/file.service";
 
 @Component({
   selector: 'file-upload',
@@ -40,28 +41,43 @@ export class FileUploadComponent implements OnInit, OnDestroy {
   @ViewChild('fileInput', {read: ElementRef})
   fileInput: ElementRef<HTMLElement>;
 
-  constructor(private driveService: DriveService, private snackBar: MatSnackBar, private notesService: NotesService) {
+  constructor(private driveService: DriveService, private snackBar: MatSnackBar, private notesService: NotesService, private fileService: FileService,) {
   }
 
   ngOnInit(): void {
     this.accessToken = this.driveService.getAccessToken();
     this.refreshToken = this.driveService.getRefreshToken();
     this.onCreateNote();
+
+    if (this.refreshToken && !this.accessToken) {
+      this.getAccessTokenOnload();
+    }
+
+    this.fileService.getFilesCopiedToClipboardSubject().subscribe((files: File[]) => {
+      this.prepareFileData(files);
+    })
+
+  }
+
+  getAccessTokenOnload() {
+    this.loading = true;
+    this.driveService.refreshAccessToken()
+      .pipe(takeUntil(this.destroyed))
+      .subscribe((res: RefreshTokenResponse) => {
+        this.driveService.setAccessToken(res.access_token);
+        this.accessToken = res.access_token;
+        this.driveService.checkAccessToken();
+        this.loading = false;
+      })
   }
 
   uploadFiles() {
     if (!this.refreshToken) {
       this.authorize();
     } else {
-      this.loading = true;
-      this.driveService.refreshAccessToken()
-        .pipe(takeUntil(this.destroyed))
-        .subscribe((res: RefreshTokenResponse) => {
-          this.driveService.setAccessToken(res.access_token);
-          this.accessToken = res.access_token;
-          this.loading = false;
-          this.fileInput.nativeElement.click();
-        })
+      if (!this.accessToken) {
+        this.getAccessTokenOnload();
+      }
     }
   }
 
@@ -121,7 +137,11 @@ export class FileUploadComponent implements OnInit, OnDestroy {
     this.uploadedFiles = [];
     // @ts-ignore
     this.selectedFiles = event.target.files;
-    for (const file of Array.from(this.selectedFiles)) {
+    this.prepareFileData(Array.from(this.selectedFiles));
+  }
+
+  prepareFileData(files: File[]) {
+    for (const file of files) {
       const fileDetails: FileDetails = {
         name: file.name,
         size: (file.size / (1024 * 1024)).toFixed(2) + 'MB',

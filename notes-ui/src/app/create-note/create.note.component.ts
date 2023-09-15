@@ -5,6 +5,7 @@ import {Subject, takeUntil} from "rxjs";
 import {NotebookService} from "../service/notebook.service";
 import {DriveService} from "../service/drive-service";
 import {FILE_DOWNLOAD_LINK, FILE_VIEW_LINK} from "../common/constants";
+import {FileService} from "../service/file.service";
 
 
 @Component({
@@ -22,6 +23,7 @@ export class CreateNoteComponent implements OnInit, OnDestroy {
   constructor(private notesService: NotesService,
               private notebookService: NotebookService,
               private driveService: DriveService,
+              private fileService: FileService,
               private renderer: Renderer2) {
   }
 
@@ -76,6 +78,9 @@ export class CreateNoteComponent implements OnInit, OnDestroy {
         }
       }
       console.log(files);
+      if (files.length) {
+        this.fileService.setFilesCopiedToClipboardSubject(files);
+      }
     }
   }
 
