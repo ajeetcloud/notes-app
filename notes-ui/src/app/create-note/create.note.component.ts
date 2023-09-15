@@ -77,7 +77,6 @@ export class CreateNoteComponent implements OnInit, OnDestroy {
           files.push(item.getAsFile());
         }
       }
-      console.log(files);
       if (files.length) {
         this.fileService.setFilesCopiedToClipboardSubject(files);
       }
