@@ -69,7 +69,6 @@ export class CreateNoteComponent implements OnInit, OnDestroy {
   onPaste(event: ClipboardEvent) {
     const items = event?.clipboardData?.items;
     let files: File[] = [];
-    debugger;
     if (items) {
       // @ts-ignore
       for (const item of items) {

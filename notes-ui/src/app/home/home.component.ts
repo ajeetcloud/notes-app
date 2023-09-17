@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
-import {NotesResponse} from "../types/types";
+import {NotesPageResponse} from "../types/types";
 
 @Component({
   selector: 'home',
@@ -8,7 +8,7 @@ import {NotesResponse} from "../types/types";
 })
 export class HomeComponent implements OnInit, AfterViewInit {
 
-  notes: NotesResponse;
+  notes: NotesPageResponse;
 
   constructor() {
   }
@@ -17,7 +17,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
 
-  updateNotes(notes: NotesResponse) {
+  updateNotes(notes: NotesPageResponse) {
     this.notes = notes;
     console.log("Inside home");
     console.log(this.notes);

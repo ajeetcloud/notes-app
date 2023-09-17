@@ -9,7 +9,7 @@ import {
   SimpleChanges,
   ViewChild
 } from '@angular/core';
-import {ActionType, MediaFile, Note, NotesResponse} from "../types/types";
+import {ActionType, MediaFile, Note, NotesPageResponse} from "../types/types";
 import {NotesService} from "../service/notes.service";
 import {Subject, takeUntil} from "rxjs";
 import {DatePipe, ViewportScroller} from "@angular/common";
@@ -40,15 +40,15 @@ export class NotesComponent implements OnInit, OnDestroy, OnChanges {
   selectedNotebookId: number;
   searchValue: string = '';
   @Input() notes: Note[] = [];
-  @Input() notes1: NotesResponse;
+  @Input() notes1: NotesPageResponse;
   private destroyed = new Subject<void>();
   @ViewChild('scrollable') scrollable: NgScrollbar;
 
 
   ngOnInit(): void {
     this.selectedNotebookId = this.notebookService.getSelectedNotebookId();
-    if (this.notes1 && this.notes1.notes) {
-      this.notes = this.notes1.notes;
+    if (this.notes1 && this.notes1.content) {
+      this.notes = this.notes1.content;
     }
     this.onCreateNote();
   }
@@ -57,8 +57,8 @@ export class NotesComponent implements OnInit, OnDestroy, OnChanges {
     this.selectedNotebookId = this.notebookService.getSelectedNotebookId();
     console.log("changes", changes); // here you will get the data from parent once the input param is change
     // TODO: Fix 1st load data
-    if (changes && changes['notes1'] && changes['notes1'].currentValue.notes) {
-      this.notes = changes['notes1'].currentValue.notes;
+    if (changes && changes['notes1'] && changes['notes1'].currentValue.content) {
+      this.notes = changes['notes1'].currentValue.content;
       setTimeout(this.focusOnTheLastNote, 0);
     }
   }
@@ -102,19 +102,20 @@ export class NotesComponent implements OnInit, OnDestroy, OnChanges {
   getNextPage() {
     this.isNextPageLoading = true;
     const notesResponse = this.notebookService.getNotesMap().get(this.notebookService.getSelectedNotebookId());
-    if (notesResponse && notesResponse.nextPage != 0) {
+    debugger;
+    if (notesResponse && !notesResponse.last) {
       console.log("GETTING NEXT PAGE");
-      this.notebookService.getNotes(this.notebookService.getSelectedNotebookId(), notesResponse.nextPage)
+      this.notebookService.getNotes(this.notebookService.getSelectedNotebookId(), notesResponse.pageable.pageNumber + 1)
         .pipe(takeUntil(this.destroyed))
-        .subscribe((res: NotesResponse) => {
+        .subscribe((res: NotesPageResponse) => {
           console.log("Notes Response scrolled", res);
-          notesResponse.nextPage = res.nextPage;
-          for (const note of res.notes.reverse()) {
+          for (const note of res.content) {
             this.notes.unshift(note);
           }
-          // Updating the map.
-          notesResponse.notes = this.notes;
-          notesResponse.pageSize = res.pageSize;
+          notesResponse.content = this.notes;
+          notesResponse.pageable.pageSize = res.pageable.pageSize;
+          notesResponse.pageable.pageNumber = res.pageable.pageNumber;
+          notesResponse.last = res.last;
           this.isNextPageLoading = false;
         });
     }
@@ -180,7 +181,6 @@ export class NotesComponent implements OnInit, OnDestroy, OnChanges {
    * @param {MediaFile} file - The file object to be deleted.
    */
   deleteFile(note: Note, file: MediaFile) {
-    debugger;
     if (file.fileId) {
       this.fileService.deleteFile(file.fileId)
         .pipe(takeUntil(this.destroyed))

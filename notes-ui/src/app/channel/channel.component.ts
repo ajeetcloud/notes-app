@@ -1,6 +1,6 @@
 import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
 import {Subject, takeUntil} from "rxjs";
-import {ActionType, Note, Notebook, NotesResponse} from "../types/types";
+import {ActionType, Note, Notebook, NotesPageResponse} from "../types/types";
 import {NotebookService} from "../service/notebook.service";
 
 import {
@@ -18,10 +18,10 @@ export class ChannelComponent implements OnInit, OnDestroy {
 
   searchValue: string = '';
   notebooks: Notebook[] = [];
-  notesResponse: NotesResponse;
+  notesResponse: NotesPageResponse;
   notes: Note[] = [];
   selectedNotebookId: number;
-  @Output() newItemEvent = new EventEmitter<NotesResponse>();
+  @Output() newItemEvent = new EventEmitter<NotesPageResponse>();
   private destroyed = new Subject<void>();
 
   ngOnInit(): void {
@@ -50,10 +50,11 @@ export class ChannelComponent implements OnInit, OnDestroy {
         this.notesResponse = this.notebookService.getNotesMap().get(notebookId)!;
         this.newItemEvent.emit(this.notesResponse);
       } else {
-        this.notebookService.getNotes(notebookId, 1)
+        this.notebookService.getNotes(notebookId, 0)
           .pipe(takeUntil(this.destroyed))
-          .subscribe((res: NotesResponse) => {
+          .subscribe((res: NotesPageResponse) => {
             console.log("Notes Response in channel component", res);
+            res.content.reverse();
             this.notesResponse = res;
             this.setFileMetadata();
             this.notebookService.getNotesMap().set(notebookId, this.notesResponse);
@@ -67,7 +68,7 @@ export class ChannelComponent implements OnInit, OnDestroy {
    * Sets the metadata for each file in the notesResponse.
    */
   setFileMetadata() {
-    for (const note of this.notesResponse.notes) {
+    for (const note of this.notesResponse.content) {
       if (note.files) {
         for (const file of note.files) {
           file.viewLink = FILE_VIEW_LINK + file.driveId;

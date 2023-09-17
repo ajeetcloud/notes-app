@@ -16,6 +16,14 @@ export interface NotesResponse {
   nextPage: number;
 }
 
+export interface NotesPageResponse {
+  content: Note[],
+  pageable: { pageNumber: number, pageSize: number },
+  last: boolean,
+  totalElements: number,
+  totalPages: number,
+}
+
 /**
  * The type of Notebook.
  */
