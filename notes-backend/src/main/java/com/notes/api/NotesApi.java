@@ -2,6 +2,8 @@ package com.notes.api;
 
 import com.notes.model.Note;
 import com.notes.model.NotePage;
+import com.notes.util.SortBy;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,5 +29,5 @@ public interface NotesApi {
     NotePage getSearchResults(@RequestParam String query, @RequestParam int pageNo, @RequestParam Optional<Integer> pageSize);
 
     @GetMapping("/searchv2")
-    List<Note> getSearchV2();
+    Page<?> getPaginatedSearchResults(@RequestParam String query, @RequestParam int pageNo, @RequestParam Optional<Integer> pageSize, @RequestParam Optional<SortBy> sortBy);
 }

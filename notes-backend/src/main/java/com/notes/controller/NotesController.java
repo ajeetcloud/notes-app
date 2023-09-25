@@ -5,7 +5,9 @@ import com.notes.model.Note;
 import com.notes.model.NotePage;
 import com.notes.service.NotesService;
 import com.notes.service.NotesServiceNew;
+import com.notes.util.SortBy;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -49,9 +51,9 @@ public class NotesController implements NotesApi {
     }
 
     @Override
-    public List<Note> getSearchV2() {
-        return notesService.start();
-    }
+    public Page<Note> getPaginatedSearchResults(String query, int pageNo, Optional<Integer> pageSize, Optional<SortBy> sortBy) {
 
+        return notesServiceNew.getPaginatedSearchResults(query, pageNo, pageSize.orElseGet(() -> 20), sortBy.orElseGet(() -> SortBy.RELEVANCE));
+    }
 
 }

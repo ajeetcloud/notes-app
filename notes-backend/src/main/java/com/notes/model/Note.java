@@ -1,7 +1,9 @@
 package com.notes.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.search.engine.backend.types.Sortable;
 import org.hibernate.search.mapper.pojo.mapping.definition.annotation.FullTextField;
+import org.hibernate.search.mapper.pojo.mapping.definition.annotation.GenericField;
 import org.hibernate.search.mapper.pojo.mapping.definition.annotation.Indexed;
 
 import javax.persistence.*;
@@ -28,6 +30,7 @@ public class Note {
     @Column(name = "updated_on")
     private long updatedOn;
 
+    @GenericField(name = "created_on", sortable = Sortable.YES)
     @Column(name = "created_on", updatable = false)
     private long createdOn;
 

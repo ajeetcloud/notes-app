@@ -7,17 +7,16 @@ import com.notes.model.Notebook;
 import com.notes.repository.FileRepository;
 import com.notes.repository.NoteRepository;
 import com.notes.util.HibernateUtil;
+import com.notes.util.SortBy;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.hibernate.search.engine.search.query.SearchQuery;
+import org.hibernate.search.engine.search.query.SearchResult;
 import org.hibernate.search.mapper.orm.Search;
 import org.hibernate.search.mapper.orm.session.SearchSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -125,17 +124,41 @@ public class NotesServiceNew {
 
 
     @Transactional(readOnly = true)
-    public List<Note> start() {
+    public Page<Note> getPaginatedSearchResults(String query, int pageNo, Integer pageSize, SortBy sortBy) {
+
+        SearchSession searchSession = Search.session(entityManager);
+        SearchQuery<Note> searchQuery;
+
+        if (sortBy == SortBy.DATE) {
+            searchQuery = searchSession.search(Note.class)
+                    .where(f -> f.match().field("note").matching(query).fuzzy())
+                    .sort(f -> f.field("created_on").desc())
+                    .toQuery();
+        } else {
+            searchQuery = searchSession.search(Note.class)
+                    .where(f -> f.match().field("note").matching(query).fuzzy())
+                    .toQuery();
+        }
+        Pageable pageable = PageRequest.of(pageNo, pageSize);
+        SearchResult<Note> searchResult = searchQuery.fetch((int) pageable.getOffset(), pageable.getPageSize());
+        return new PageImpl<>(searchResult.hits(), pageable, searchResult.total().hitCount());
+    }
+
+
+    @Transactional(readOnly = true)
+    public Page<Note> start() {
 
 
         SearchSession searchSession = Search.session(entityManager);
         SearchQuery<Note> query = searchSession.search(Note.class)
-                .where(f -> f.match().field("note").matching("index").fuzzy())
+                .where(f -> f.match().field("note").matching("aple").fuzzy())
+                .sort(f -> f.field("created_on").desc())
                 .toQuery();
 
-        List<Note> results = query.fetchAllHits();
-        System.out.println(results);
-        System.out.println(results.size());
-        return results;
+        int pageNo = 0;
+        int pageSize = 10;
+        Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.Direction.DESC, "createdOn");
+        SearchResult<Note> searchResult = query.fetch((int) pageable.getOffset(), pageable.getPageSize());
+        return new PageImpl<>(searchResult.hits(), pageable, searchResult.total().hitCount());
     }
 }
