@@ -144,21 +144,4 @@ public class NotesServiceNew {
         return new PageImpl<>(searchResult.hits(), pageable, searchResult.total().hitCount());
     }
 
-
-    @Transactional(readOnly = true)
-    public Page<Note> start() {
-
-
-        SearchSession searchSession = Search.session(entityManager);
-        SearchQuery<Note> query = searchSession.search(Note.class)
-                .where(f -> f.match().field("note").matching("aple").fuzzy())
-                .sort(f -> f.field("created_on").desc())
-                .toQuery();
-
-        int pageNo = 0;
-        int pageSize = 10;
-        Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.Direction.DESC, "createdOn");
-        SearchResult<Note> searchResult = query.fetch((int) pageable.getOffset(), pageable.getPageSize());
-        return new PageImpl<>(searchResult.hits(), pageable, searchResult.total().hitCount());
-    }
 }
