@@ -32,6 +32,7 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {MatChipsModule} from "@angular/material/chips";
 import {MatMenuModule} from "@angular/material/menu";
+import {SearchDialogComponent} from "./search-dialog/search.dialog.component";
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent, pathMatch: 'full'},
@@ -48,6 +49,7 @@ const appRoutes: Routes = [
     FileUploadComponent,
     CreateEditDeleteNotebookDialogComponent,
     EditDeleteNoteDialogComponent,
+    SearchDialogComponent,
   ],
   imports: [
     NgScrollbarModule,
