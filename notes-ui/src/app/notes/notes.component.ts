@@ -102,7 +102,6 @@ export class NotesComponent implements OnInit, OnDestroy, OnChanges {
   getNextPage() {
     this.isNextPageLoading = true;
     const notesResponse = this.notebookService.getNotesMap().get(this.notebookService.getSelectedNotebookId());
-    debugger;
     if (notesResponse && !notesResponse.last) {
       console.log("GETTING NEXT PAGE");
       this.notebookService.getNotes(this.notebookService.getSelectedNotebookId(), notesResponse.pageable.pageNumber + 1)
