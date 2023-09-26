@@ -7,17 +7,17 @@
         <!-- Title -->
         <div class="col-12 col-xl-6">
           <div class="row align-items-center gx-5">
-
             <div class="input-group">
               <div class="input-group-text">
                 <div class="icon icon-lg">
                   <mat-icon>search</mat-icon>
                 </div>
               </div>
-              <input type="text" class="form-control form-control-lg ps-0" placeholder="Search messages or users"
-                     aria-label="Search for messages or users...">
+              <input type="text" [(ngModel)]="searchQuery" (keydown.enter)="search()"
+                     class="form-control form-control-lg ps-0"
+                     placeholder="Search for notes"
+                     aria-label="Search for notes">
             </div>
-
           </div>
         </div>
       </div>

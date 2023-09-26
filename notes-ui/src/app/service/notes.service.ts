@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {NewNote, Note} from "../types/types";
-import {NOTES_API_ENDPOINT} from "../common/constants";
+import {NewNote, Note, NotesPageResponse} from "../types/types";
+import {NOTES_API_ENDPOINT, PAGE_SIZE} from "../common/constants";
 import {Observable, Subject} from "rxjs";
 
 @Injectable({
@@ -24,6 +24,10 @@ export class NotesService {
 
   deleteNote(noteId: number): Observable<void> {
     return this.http.delete<void>(NOTES_API_ENDPOINT + noteId);
+  }
+
+  searchNotes(query: string, pageNumber: number, sortBy: string): Observable<NotesPageResponse> {
+    return this.http.get<NotesPageResponse>(`${NOTES_API_ENDPOINT}searchv2?query=${query}&pageNo=${pageNumber}&pageSize=${PAGE_SIZE}&sortBy=${sortBy}`);
   }
 
   getNoteSubject(): Subject<Note> {

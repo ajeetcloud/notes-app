@@ -109,3 +109,8 @@ export interface FileDetails {
   viewLink?: string,
   progress?: number,
 }
+
+export enum SortBy {
+  RELEVANCE = "Relevance",
+  DATE = "Newest",
+}
