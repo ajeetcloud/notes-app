@@ -1,9 +1,26 @@
-<div class="search">
-  <mat-form-field class="search-form-field" appearance="outline">
-    <input matInput type="text" placeholder="Search">
-    <button *ngIf="searchValue" matSuffix mat-icon-button aria-label="Clear" (click)="searchValue=''">
-      <mat-icon>close</mat-icon>
-    </button>
-  </mat-form-field>
-</div>
+<!-- Chat: Header -->
+<div class="chat-header border-bottom py-4 py-lg-7">
+  <div class="row align-items-center">
+    <!-- Content -->
+    <div class="col-8 col-xl-12">
+      <div class="row align-items-center text-center text-xl-start search-container">
+        <!-- Title -->
+        <div class="col-12 col-xl-6">
+          <div class="row align-items-center gx-5">
 
+            <div class="input-group">
+              <div class="input-group-text">
+                <div class="icon icon-lg">
+                  <mat-icon>search</mat-icon>
+                </div>
+              </div>
+              <input type="text" class="form-control form-control-lg ps-0" placeholder="Search messages or users"
+                     aria-label="Search for messages or users...">
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

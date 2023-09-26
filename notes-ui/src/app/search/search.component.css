@@ -1,18 +1,6 @@
-.search {
-  align-items: center;
-  background-color: #3f0e40;
+.search-container {
   display: flex;
-  height: 7%;
-  justify-content: center;
-  vertical-align: middle;
-}
-
-.search-form-field {
-  width: 800px;
-}
-
-/* Font color */
-input.mat-input-element {
-  color: white;
+  align-items: normal;
+  justify-content: space-around;
 }
 
