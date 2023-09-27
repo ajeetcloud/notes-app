@@ -19,8 +19,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   updateNotes(notes: NotesPageResponse) {
     this.notes = notes;
-    console.log("Inside home");
-    console.log(this.notes);
   }
 
 
