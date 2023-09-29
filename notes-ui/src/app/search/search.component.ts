@@ -20,7 +20,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   constructor(private dialog: MatDialog) {
   }
 
-  openSearch() {
+  openSearchDialog() {
     if (this.searchQuery.trim()) {
       this.dialog.open(SearchDialogComponent, {
         height: '100%',
