@@ -125,6 +125,7 @@
   background: azure;
   cursor: pointer;
   display: none;
+  color: black;
 }
 
 .message:hover .actions {
