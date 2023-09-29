@@ -37,10 +37,6 @@ export class SearchDialogComponent implements OnInit, OnDestroy {
     }
   }
 
-  onBookChange() {
-    console.log('hello123');
-  }
-
   search() {
     console.log("change");
     if (this.searchQuery.trim()) {
