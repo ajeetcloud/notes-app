@@ -27,6 +27,7 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.dialog.open(SearchDialogComponent, {
       height: '100%',
       width: '90%',
+      data: this.searchQuery
     });
 
     this.noteService.searchNotes(this.searchQuery, 0, SortBy.RELEVANCE.toUpperCase())
