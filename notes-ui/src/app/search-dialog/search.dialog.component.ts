@@ -26,11 +26,8 @@ export class SearchDialogComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.populateSortByOptions();
-
     this.searchQuery = this.data;
-    if (this.searchQuery.trim()) {
-      this.search();
-    }
+    this.search();
   }
 
 
@@ -40,13 +37,20 @@ export class SearchDialogComponent implements OnInit, OnDestroy {
     }
   }
 
+  onBookChange() {
+    console.log('hello123');
+  }
+
   search() {
-    this.noteService.searchNotes(this.searchQuery, 0, SortBy.RELEVANCE.toUpperCase())
-      .pipe(takeUntil(this.destroyed))
-      .subscribe((res: NotesPageResponse) => {
-        this.searchResults = res.content;
-        console.log("Search Response", res);
-      });
+    console.log("change");
+    if (this.searchQuery.trim()) {
+      this.noteService.searchNotes(this.searchQuery, 0, this.sortBy)
+        .pipe(takeUntil(this.destroyed))
+        .subscribe((res: NotesPageResponse) => {
+          this.searchResults = res.content;
+          console.log("Search Response", res);
+        });
+    }
   }
 
   ngOnDestroy() {

@@ -29,10 +29,10 @@
 
 
   <div mat-dialog-title class="search-header">
-    <div style="flex: 1;">Search Results</div>
+    <div style="flex: 1;">Search Results {{sortBy}}</div>
     <div>
       <mat-form-field class="sortBy-options" appearance="outline">
-        <mat-select [(ngModel)]="sortBy">
+        <mat-select [(ngModel)]="sortBy" (selectionChange)="search()">
           <mat-option *ngFor="let option of sortByOptions" [value]="option.value">
             {{option.displayValue}}
           </mat-option>
