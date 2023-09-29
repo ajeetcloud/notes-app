@@ -15,6 +15,7 @@
                   </div>
                 </div>
                 <input type="text" [(ngModel)]="searchQuery"
+                       (keydown.enter)="search()"
                        class="form-control form-control-lg ps-0"
                        placeholder="Search for notes"
                        aria-label="Search for notes">

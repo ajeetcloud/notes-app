@@ -1,7 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {NotesService} from "../service/notes.service";
-import {NotesPageResponse, SortBy} from "../types/types";
-import {Subject, takeUntil} from "rxjs";
+import {Subject} from "rxjs";
 import {MatDialog} from "@angular/material/dialog";
 import {SearchDialogComponent} from "../search-dialog/search.dialog.component";
 
@@ -19,22 +17,17 @@ export class SearchComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
   }
 
-  constructor(private noteService: NotesService, private dialog: MatDialog) {
+  constructor(private dialog: MatDialog) {
   }
 
-  search() {
-
-    this.dialog.open(SearchDialogComponent, {
-      height: '100%',
-      width: '90%',
-      data: this.searchQuery
-    });
-
-    this.noteService.searchNotes(this.searchQuery, 0, SortBy.RELEVANCE.toUpperCase())
-      .pipe(takeUntil(this.destroyed))
-      .subscribe((res: NotesPageResponse) => {
-        console.log("Search Response", res);
+  openSearch() {
+    if (this.searchQuery.trim()) {
+      this.dialog.open(SearchDialogComponent, {
+        height: '100%',
+        width: '90%',
+        data: this.searchQuery
       });
+    }
   }
 
   ngOnDestroy() {
