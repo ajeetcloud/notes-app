@@ -2,3 +2,8 @@
   margin: auto;
   width: 50%;
 }
+
+.search-container {
+  display: flex;
+  justify-content: space-around;
+}
