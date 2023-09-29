@@ -112,5 +112,7 @@ export interface FileDetails {
 
 export enum SortBy {
   RELEVANCE = "Relevance",
-  DATE = "Newest",
+  NEWEST = "Newest",
+  OLDEST = "Oldest"
 }
+

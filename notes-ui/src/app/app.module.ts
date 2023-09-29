@@ -33,6 +33,7 @@ import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {MatChipsModule} from "@angular/material/chips";
 import {MatMenuModule} from "@angular/material/menu";
 import {SearchDialogComponent} from "./search-dialog/search.dialog.component";
+import {MatSelectModule} from "@angular/material/select";
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent, pathMatch: 'full'},
@@ -73,6 +74,7 @@ const appRoutes: Routes = [
     MatProgressBarModule,
     MatChipsModule,
     MatMenuModule,
+    MatSelectModule,
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]

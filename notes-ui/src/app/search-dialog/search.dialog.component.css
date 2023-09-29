@@ -1,9 +1,24 @@
 .search-content-container {
   margin: auto;
   width: 50%;
+  height: 100%;
 }
 
 .search-container {
   display: flex;
   justify-content: space-around;
+}
+
+.search-results {
+  max-height: 80vh;
+  padding-right: 0;
+}
+
+.search-header {
+  display: flex;
+  align-items: end;
+}
+
+.sortBy-options {
+  padding-top: 10px;
 }

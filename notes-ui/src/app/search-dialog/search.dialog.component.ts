@@ -13,7 +13,9 @@ import {NotesService} from "../service/notes.service";
 export class SearchDialogComponent implements OnInit, OnDestroy {
 
   searchQuery: string = '';
-  notes: Note[] = [];
+  searchResults: Note[] = [];
+  sortBy = SortBy.RELEVANCE.toUpperCase();
+  sortByOptions: { value: string, displayValue: string }[] = [];
 
   private destroyed = new Subject<void>();
 
@@ -23,6 +25,8 @@ export class SearchDialogComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.populateSortByOptions();
+
     this.searchQuery = this.data;
     if (this.searchQuery.trim()) {
       this.search();
@@ -30,10 +34,17 @@ export class SearchDialogComponent implements OnInit, OnDestroy {
   }
 
 
+  populateSortByOptions() {
+    for (const key of Object.keys(SortBy) as (keyof typeof SortBy)[]) {
+      this.sortByOptions.push({value: key, displayValue: SortBy[key]});
+    }
+  }
+
   search() {
     this.noteService.searchNotes(this.searchQuery, 0, SortBy.RELEVANCE.toUpperCase())
       .pipe(takeUntil(this.destroyed))
       .subscribe((res: NotesPageResponse) => {
+        this.searchResults = res.content;
         console.log("Search Response", res);
       });
   }

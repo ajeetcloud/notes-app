@@ -20,3 +20,7 @@ body {
   height: 25px !important;
   width: 25px !important;
 }
+
+.mat-mdc-form-field-subscript-wrapper {
+  height: 0;
+}

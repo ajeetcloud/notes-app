@@ -28,16 +28,28 @@
   </div>
 
 
-  <h1 mat-dialog-title>
-    <ng-container cdkTrapFocus [cdkTrapFocusAutoCapture]="true">Search Results</ng-container>
-  </h1>
-  <div mat-dialog-content>
+  <div mat-dialog-title class="search-header">
+    <div style="flex: 1;">Search Results</div>
+    <div>
+      <mat-form-field class="sortBy-options" appearance="outline">
+        <mat-select [(ngModel)]="sortBy">
+          <mat-option *ngFor="let option of sortByOptions" [value]="option.value">
+            {{option.displayValue}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <!-- </div>-->
+  </div>
+
+  <div mat-dialog-content class="search-results">
 
     <div class="chat-body hide-scrollbar flex-1 h-100">
 
       <!-- Message -->
       <div id="sc-default" class="custom-scroll">
-        <div *ngFor="let note of notes; index as i" [ngClass]="{'top-message': i == 0}">
+        <div *ngFor="let note of searchResults; index as i" [ngClass]="{'top-message': i == 0}">
 
           <!--<div class="message-divider" *ngIf="isDividerVisible(i)">
             <div class="date-separator">
@@ -51,7 +63,7 @@
             </div>
           </div>-->
 
-          <div class="message" [ngClass]="{'bottom-message': i == notes.length - 1}">
+          <div class="message" [ngClass]="{'bottom-message': i == searchResults.length - 1}">
             <div class="message-inner">
               <div class="message-body">
                 <div class="message-content">
