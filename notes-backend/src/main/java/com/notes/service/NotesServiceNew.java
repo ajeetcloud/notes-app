@@ -129,10 +129,15 @@ public class NotesServiceNew {
         SearchSession searchSession = Search.session(entityManager);
         SearchQuery<Note> searchQuery;
 
-        if (sortBy == SortBy.DATE) {
+        if (sortBy == SortBy.NEWEST) {
             searchQuery = searchSession.search(Note.class)
                     .where(f -> f.match().field("note").matching(query).fuzzy())
                     .sort(f -> f.field("created_on").desc())
+                    .toQuery();
+        } else if (sortBy == SortBy.OLDEST) {
+            searchQuery = searchSession.search(Note.class)
+                    .where(f -> f.match().field("note").matching(query).fuzzy())
+                    .sort(f -> f.field("created_on"))
                     .toQuery();
         } else {
             searchQuery = searchSession.search(Note.class)
