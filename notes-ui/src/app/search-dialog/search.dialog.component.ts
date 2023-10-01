@@ -1,6 +1,6 @@
 import {Component, Inject, OnDestroy, OnInit} from "@angular/core";
 import {Subject, takeUntil} from "rxjs";
-import {Note, NotesPageResponse, SortBy} from "../types/types";
+import {SearchResults, SortBy} from "../types/types";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {NotesService} from "../service/notes.service";
 
@@ -13,7 +13,7 @@ import {NotesService} from "../service/notes.service";
 export class SearchDialogComponent implements OnInit, OnDestroy {
 
   searchQuery: string = '';
-  searchResults: Note[] = [];
+  searchResults: SearchResults;
   sortBy = SortBy.RELEVANCE.toUpperCase();
   sortByOptions: { value: string, displayValue: string }[] = [];
 
@@ -42,8 +42,8 @@ export class SearchDialogComponent implements OnInit, OnDestroy {
     if (this.searchQuery.trim()) {
       this.noteService.searchNotes(this.searchQuery, 0, this.sortBy)
         .pipe(takeUntil(this.destroyed))
-        .subscribe((res: NotesPageResponse) => {
-          this.searchResults = res.content;
+        .subscribe((res: SearchResults) => {
+          this.searchResults = res;
           console.log("Search Response", res);
         });
     }

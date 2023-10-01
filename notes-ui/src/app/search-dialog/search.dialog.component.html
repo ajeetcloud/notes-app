@@ -49,7 +49,7 @@
 
       <!-- Message -->
       <div id="sc-default" class="custom-scroll">
-        <div *ngFor="let note of searchResults; index as i" [ngClass]="{'top-message': i == 0}">
+        <div *ngFor="let note of searchResults.content; index as i" [ngClass]="{'top-message': i == 0}">
 
           <!--<div class="message-divider" *ngIf="isDividerVisible(i)">
             <div class="date-separator">
@@ -63,17 +63,15 @@
             </div>
           </div>-->
 
-          <div class="message" [ngClass]="{'bottom-message': i == searchResults.length - 1}">
+          <div class="message" [ngClass]="{'bottom-message': i == searchResults.content.length - 1}">
             <div class="message-inner">
               <div class="message-body">
                 <div class="message-content">
                   <div id="{{note.noteId}}" class="message-text">
                     <div class="message-time">
-                      {{note.createdOn | date: 'h:mm a'}}
+                      {{note.createdOn | date: 'MMM d, y, h:mm a'}}
                     </div>
                     <p class="message-content">{{note.note}}</p>
-
-
                   </div>
                 </div>
               </div>
@@ -86,10 +84,14 @@
         </div>
       </div>
 
-
     </div>
 
 
   </div>
+  <mat-paginator [length]="searchResults.totalElements"
+                 [pageSize]="10"
+                 [pageSizeOptions]="[5, 10, 25, 100]"
+                 aria-label="Select page">
+  </mat-paginator>
 </div>
 

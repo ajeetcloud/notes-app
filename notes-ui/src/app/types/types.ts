@@ -116,3 +116,10 @@ export enum SortBy {
   OLDEST = "Oldest"
 }
 
+export interface SearchResults {
+  content: Note[],
+  pageable: { pageNumber: number, pageSize: number },
+  last: boolean,
+  totalElements: number,
+  totalPages: number,
+}

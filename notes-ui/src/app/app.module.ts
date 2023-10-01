@@ -34,6 +34,7 @@ import {MatChipsModule} from "@angular/material/chips";
 import {MatMenuModule} from "@angular/material/menu";
 import {SearchDialogComponent} from "./search-dialog/search.dialog.component";
 import {MatSelectModule} from "@angular/material/select";
+import {MatPaginatorModule} from "@angular/material/paginator";
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent, pathMatch: 'full'},
@@ -75,6 +76,7 @@ const appRoutes: Routes = [
     MatChipsModule,
     MatMenuModule,
     MatSelectModule,
+    MatPaginatorModule,
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]
