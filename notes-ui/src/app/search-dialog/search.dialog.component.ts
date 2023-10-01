@@ -3,6 +3,8 @@ import {Subject, takeUntil} from "rxjs";
 import {SearchResults, SortBy} from "../types/types";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {NotesService} from "../service/notes.service";
+import {PageEvent} from "@angular/material/paginator";
+import {SEARCH_PAGE_SIZE} from "../common/constants";
 
 
 @Component({
@@ -16,6 +18,8 @@ export class SearchDialogComponent implements OnInit, OnDestroy {
   searchResults: SearchResults;
   sortBy = SortBy.RELEVANCE.toUpperCase();
   sortByOptions: { value: string, displayValue: string }[] = [];
+  pageNumber = 0;
+  pageSize = SEARCH_PAGE_SIZE;
 
   private destroyed = new Subject<void>();
 
@@ -30,6 +34,13 @@ export class SearchDialogComponent implements OnInit, OnDestroy {
     this.search();
   }
 
+  onPageChange(event: PageEvent) {
+    console.log(event.pageIndex);
+    console.log(event.pageSize);
+    this.pageNumber = event.pageIndex;
+    this.pageSize = event.pageSize;
+    this.search();
+  }
 
   populateSortByOptions() {
     for (const key of Object.keys(SortBy) as (keyof typeof SortBy)[]) {
@@ -40,7 +51,7 @@ export class SearchDialogComponent implements OnInit, OnDestroy {
   search() {
     console.log("change");
     if (this.searchQuery.trim()) {
-      this.noteService.searchNotes(this.searchQuery, 0, this.sortBy)
+      this.noteService.searchNotes(this.searchQuery, this.pageNumber, this.pageSize, this.sortBy)
         .pipe(takeUntil(this.destroyed))
         .subscribe((res: SearchResults) => {
           this.searchResults = res;

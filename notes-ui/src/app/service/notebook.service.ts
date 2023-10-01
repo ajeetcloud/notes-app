@@ -2,7 +2,7 @@ import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Notebook, NotesPageResponse} from "../types/types";
-import {NOTEBOOK_API_ENDPOINT, PAGE_SIZE} from "../common/constants";
+import {NOTEBOOK_API_ENDPOINT, NOTES_PAGE_SIZE} from "../common/constants";
 
 @Injectable({
   providedIn: 'root'
@@ -28,7 +28,7 @@ export class NotebookService {
   }
 
   getNotes(notebookId: number, pageNumber: number): Observable<NotesPageResponse> {
-    return this.http.get<NotesPageResponse>(`${NOTEBOOK_API_ENDPOINT}${notebookId}/notes1?pageNo=${pageNumber}&pageSize=${PAGE_SIZE}`);
+    return this.http.get<NotesPageResponse>(`${NOTEBOOK_API_ENDPOINT}${notebookId}/notes1?pageNo=${pageNumber}&pageSize=${NOTES_PAGE_SIZE}`);
   }
 
   createNotebook(notebook: Notebook): Observable<Notebook> {

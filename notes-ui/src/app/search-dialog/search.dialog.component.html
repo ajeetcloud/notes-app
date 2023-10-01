@@ -88,9 +88,11 @@
 
 
   </div>
+  {{pageSize}}
   <mat-paginator [length]="searchResults.totalElements"
-                 [pageSize]="10"
+                 [pageSize]="pageSize"
                  [pageSizeOptions]="[5, 10, 25, 100]"
+                 (page)="onPageChange($event)"
                  aria-label="Select page">
   </mat-paginator>
 </div>
