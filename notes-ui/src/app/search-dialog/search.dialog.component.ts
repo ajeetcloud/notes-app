@@ -35,8 +35,6 @@ export class SearchDialogComponent implements OnInit, OnDestroy {
   }
 
   onPageChange(event: PageEvent) {
-    console.log(event.pageIndex);
-    console.log(event.pageSize);
     this.pageNumber = event.pageIndex;
     this.pageSize = event.pageSize;
     this.search();
