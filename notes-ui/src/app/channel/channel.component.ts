@@ -132,9 +132,7 @@ export class ChannelComponent implements OnInit, OnDestroy {
     const notebookIdToNotebookNameMap = this.notebookService.getNotebookIdToNotebookNameMap();
     this.notebooks
       .filter(notebook => notebook.notebookId != null)
-      .forEach(notebook => {
-        notebookIdToNotebookNameMap.set(notebook.notebookId as number, notebook.notebookName);
-      });
+      .forEach(notebook => notebookIdToNotebookNameMap.set(notebook.notebookId as number, notebook.notebookName));
   }
 
   ngOnDestroy(): void {

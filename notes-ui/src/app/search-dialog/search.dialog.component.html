@@ -65,6 +65,10 @@
                 <div class="message-content">
                   <div id="{{note.noteId}}" class="message-text">
                     <div class="message-time">
+                      <mat-icon fontIcon="book"></mat-icon>
+                      {{note.notebookName}}
+                    </div>
+                    <div class="message-time">
                       {{note.createdOn | date: 'MMM d, y, h:mm a'}}
                     </div>
                     <p class="message-content">{{note.note}}</p>

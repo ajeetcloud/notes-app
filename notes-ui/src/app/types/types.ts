@@ -4,6 +4,7 @@
 export interface Note {
   noteId?: number,
   notebookId?: number,
+  notebookName?: string,
   note?: string,
   files?: MediaFile[],
   updatedOn?: number,
