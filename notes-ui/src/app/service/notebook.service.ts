@@ -11,6 +11,7 @@ export class NotebookService {
 
   private selectedNotebookId: number;
   private notesMap = new Map<number, NotesPageResponse>();
+  private notebookIdToNotebookNameMap = new Map<number, string>();
 
   constructor(private http: HttpClient) {
   }
@@ -50,4 +51,13 @@ export class NotebookService {
   setNotesMap(notesMap: Map<number, NotesPageResponse>) {
     this.notesMap = notesMap;
   }
+
+  getNotebookIdToNotebookNameMap(): Map<number, string> {
+    return this.notebookIdToNotebookNameMap;
+  }
+
+  setNotebookIdToNotebookNameMap(notebookIdToNotebookNameMap: Map<number, string>) {
+    this.notebookIdToNotebookNameMap = notebookIdToNotebookNameMap;
+  }
+
 }

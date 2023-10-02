@@ -37,7 +37,7 @@ export class ChannelComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroyed))
       .subscribe((notebooks: Notebook[]) => {
         this.notebooks = notebooks;
-        console.log(this.notebooks);
+        this.populateNotebookIdToNotebookNameMap();
       });
   }
 
@@ -126,6 +126,15 @@ export class ChannelComponent implements OnInit, OnDestroy {
       })
 
     event.stopPropagation();
+  }
+
+  populateNotebookIdToNotebookNameMap() {
+    const notebookIdToNotebookNameMap = this.notebookService.getNotebookIdToNotebookNameMap();
+    this.notebooks
+      .filter(notebook => notebook.notebookId != null)
+      .forEach(notebook => {
+        notebookIdToNotebookNameMap.set(notebook.notebookId as number, notebook.notebookName);
+      });
   }
 
   ngOnDestroy(): void {
