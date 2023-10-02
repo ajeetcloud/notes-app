@@ -22,3 +22,15 @@
 .sortBy-options {
   padding-top: 10px;
 }
+
+.note-time {
+  color: rgba(97, 96, 97, 1);
+}
+
+.note-content {
+  color: rgba(29, 28, 29, 1);
+}
+
+.notebook-icon {
+  color: black;
+}
