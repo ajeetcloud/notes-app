@@ -124,3 +124,15 @@ export interface SearchResults {
   totalElements: number,
   totalPages: number,
 }
+
+export interface JWTToken {
+  token: string,
+}
+
+export interface SignupRequest {
+  username: string,
+  password: string,
+  firstName: string,
+  lastName: string,
+  email: string,
+}

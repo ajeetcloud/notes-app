@@ -15,7 +15,7 @@ import {NotesComponent} from "./notes/notes.component";
 import {MatDividerModule} from "@angular/material/divider";
 import {CreateNoteComponent} from "./create-note/create.note.component";
 import {MatCardModule} from "@angular/material/card";
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {NgScrollbarModule} from "ngx-scrollbar";
 import {NgScrollbarReachedModule} from "ngx-scrollbar/reached-event";
 import {
@@ -35,15 +35,22 @@ import {MatMenuModule} from "@angular/material/menu";
 import {SearchDialogComponent} from "./search-dialog/search.dialog.component";
 import {MatSelectModule} from "@angular/material/select";
 import {MatPaginatorModule} from "@angular/material/paginator";
+import {LoginComponent} from "./login/login.component";
+import {AuthService} from "./service/auth.service";
+import {RegisterComponent} from "./register/register.component";
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent, pathMatch: 'full'},
+  {path: 'login', component: LoginComponent},
+  {path: 'register', component: RegisterComponent},
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
+    LoginComponent,
+    RegisterComponent,
     SearchComponent,
     ChannelComponent,
     NotesComponent,
@@ -78,7 +85,11 @@ const appRoutes: Routes = [
     MatSelectModule,
     MatPaginatorModule,
   ],
-  providers: [DatePipe],
+  providers: [
+    DatePipe,
+    {provide: HTTP_INTERCEPTORS, useClass: AuthService, multi: true},
+  ],
+
   bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -1,0 +1,35 @@
+<section>
+  <div class="form-box">
+    <div class="form-value">
+      <h2>Register</h2>
+      <div class="inputbox">
+        <input type="text" placeholder=" " [(ngModel)]="username">
+        <label>Username</label>
+      </div>
+      <div class="inputbox">
+        <input type="password" placeholder=" " [(ngModel)]="password">
+        <label>Password</label>
+      </div>
+      <div class="inputbox">
+        <input type="password" placeholder=" ">
+        <label>Confirm Password</label>
+      </div>
+      <div class="inputbox">
+        <input type="text" placeholder=" " [(ngModel)]="firstName">
+        <label>Firstname</label>
+      </div>
+      <div class="inputbox">
+        <input type="text" placeholder=" " [(ngModel)]="lastName">
+        <label>Lastname</label>
+      </div>
+      <div class="inputbox">
+        <input type="email" placeholder=" " [(ngModel)]="email">
+        <label>Email</label>
+      </div>
+      <button (click)="register()">Register</button>
+      <div class="register">
+        <p>Don't have a account <a href="#">Register</a></p>
+      </div>
+    </div>
+  </div>
+</section>
