@@ -109,6 +109,10 @@ export class ChannelComponent implements OnInit, OnDestroy {
     event.stopPropagation();
   }
 
+  logout() {
+    
+  }
+
   deleteNotebook(notebookId: number, event: MouseEvent) {
     const notebookIndex = this.notebooks.findIndex(notebook => notebook.notebookId === notebookId);
     const notebook = {...this.notebooks[notebookIndex]};
