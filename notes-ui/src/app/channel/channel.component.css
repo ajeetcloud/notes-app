@@ -16,6 +16,10 @@
   float: right;
 }
 
+.logout-btn {
+  float: right;
+}
+
 .add-notebook:hover {
   background-color: lightgrey;
   border-radius: 20px;
