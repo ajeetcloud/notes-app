@@ -8,6 +8,7 @@ import {
 } from "../create-edit-delete-notebook-dialog/create.edit.delete.notebook.dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 import {FILE_DOWNLOAD_LINK, FILE_VIEW_LINK} from "../common/constants";
+import {LoginService} from "../service/login.service";
 
 @Component({
   selector: 'channel',
@@ -29,7 +30,7 @@ export class ChannelComponent implements OnInit, OnDestroy {
     this.selectedNotebookId = this.notebookService.getSelectedNotebookId();
   }
 
-  constructor(private notebookService: NotebookService, private dialog: MatDialog) {
+  constructor(private notebookService: NotebookService, private dialog: MatDialog, private loginService: LoginService) {
   }
 
   getNotebooks() {
@@ -110,7 +111,14 @@ export class ChannelComponent implements OnInit, OnDestroy {
   }
 
   logout() {
-    
+    const jwtToken = this.loginService.getJwtToken();
+    console.log("token in logout", jwtToken);
+    this.loginService.signout(jwtToken)
+      .pipe(takeUntil(this.destroyed))
+      .subscribe(() => {
+        //TODO: do cleanup of token and redirect to login page
+        console.log("logged out");
+      })
   }
 
   deleteNotebook(notebookId: number, event: MouseEvent) {

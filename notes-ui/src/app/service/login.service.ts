@@ -23,6 +23,10 @@ export class LoginService {
     return this.http.post<SignupRequest>(BASE_API_ENDPOINT + "/user", signupRequest);
   }
 
+  signout(token: JWTToken): Observable<void> {
+    return this.http.post<void>(BASE_API_ENDPOINT + "/signout", token);
+  }
+
   getLoggedInUser(): string {
     return this.loggedInUser;
   }
