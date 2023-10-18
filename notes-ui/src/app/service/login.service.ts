@@ -15,6 +15,11 @@ export class LoginService {
   constructor(private http: HttpClient) {
   }
 
+  cleanup() {
+    this.loggedInUser = '';
+    this.jwtToken = {token: ''};
+  }
+
   login(username: string, password: string): Observable<JWTToken> {
     return this.http.post<JWTToken>(LOGIN_API_ENDPOINT, {username, password});
   }

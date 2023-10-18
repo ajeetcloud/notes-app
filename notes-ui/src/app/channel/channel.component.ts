@@ -9,6 +9,7 @@ import {
 import {MatDialog} from "@angular/material/dialog";
 import {FILE_DOWNLOAD_LINK, FILE_VIEW_LINK} from "../common/constants";
 import {LoginService} from "../service/login.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'channel',
@@ -30,7 +31,10 @@ export class ChannelComponent implements OnInit, OnDestroy {
     this.selectedNotebookId = this.notebookService.getSelectedNotebookId();
   }
 
-  constructor(private notebookService: NotebookService, private dialog: MatDialog, private loginService: LoginService) {
+  constructor(private notebookService: NotebookService,
+              private dialog: MatDialog,
+              private loginService: LoginService,
+              private router: Router) {
   }
 
   getNotebooks() {
@@ -116,8 +120,8 @@ export class ChannelComponent implements OnInit, OnDestroy {
     this.loginService.signout(jwtToken)
       .pipe(takeUntil(this.destroyed))
       .subscribe(() => {
-        //TODO: do cleanup of token and redirect to login page
-        console.log("logged out");
+        this.loginService.cleanup();
+        this.router.navigate(['/login']);
       })
   }
 

@@ -29,9 +29,8 @@ export class LoginComponent implements OnInit, OnDestroy {
       .subscribe((token: JWTToken) => {
         this.loginService.setLoggedInUser(this.username);
         this.loginService.setJwtToken(token);
-        console.log("inside login", this.loginService.getLoggedInUser());
-        console.log("inside login", this.loginService.getJwtToken());
-        this.router.navigate(['']);
+        console.log("logged in now");
+        this.router.navigate(['/']);
       });
   }
 
