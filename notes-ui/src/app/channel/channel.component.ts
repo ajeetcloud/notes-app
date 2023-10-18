@@ -116,7 +116,6 @@ export class ChannelComponent implements OnInit, OnDestroy {
 
   logout() {
     const jwtToken = this.loginService.getJwtToken();
-    console.log("token in logout", jwtToken);
     this.loginService.signout(jwtToken)
       .pipe(takeUntil(this.destroyed))
       .subscribe(() => {
