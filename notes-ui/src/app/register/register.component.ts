@@ -37,7 +37,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
     this.loginService.signup(this.signupRequest)
       .pipe(takeUntil(this.destroyed))
       .subscribe((res: SignupRequest) => {
-
+          console.log(res);
         }
       );
   }
