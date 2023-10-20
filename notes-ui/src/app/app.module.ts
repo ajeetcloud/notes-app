@@ -38,9 +38,10 @@ import {MatPaginatorModule} from "@angular/material/paginator";
 import {LoginComponent} from "./login/login.component";
 import {AuthService} from "./service/auth.service";
 import {RegisterComponent} from "./register/register.component";
+import {RouteGuardService} from "./service/route.guard.service";
 
 const appRoutes: Routes = [
-  {path: '', component: HomeComponent, pathMatch: 'full'},
+  {path: '', component: HomeComponent, pathMatch: 'full', canActivate: [RouteGuardService]},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
 ];

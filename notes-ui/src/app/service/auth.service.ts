@@ -13,7 +13,7 @@ export class AuthService implements HttpInterceptor {
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-
+    
     console.log(this.loginService.getLoggedInUser());
     if (this.loginService.getLoggedInUser()) {
       req = req.clone({
