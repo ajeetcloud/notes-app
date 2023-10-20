@@ -1,4 +1,7 @@
 <section>
+  <div *ngIf="isRegistered" class="text-msg">
+    {{registrationSuccessfulMsg}} Click <a routerLink="/login">here</a> to login.
+  </div>
   <div class="form-box">
     <div class="form-value">
       <h2>Register</h2>

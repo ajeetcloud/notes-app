@@ -6,6 +6,7 @@
 
 section {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
@@ -126,4 +127,10 @@ button {
 
 .register p a:hover {
   text-decoration: underline;
+}
+
+.text-msg {
+  margin-bottom: 10px;
+  font-size: 25px;
+  color: white;
 }
