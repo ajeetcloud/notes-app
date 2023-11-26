@@ -4,6 +4,7 @@ import {HttpClient, HttpEvent, HttpHeaders} from "@angular/common/http";
 import {
   CLIENT_ID,
   CLIENT_SECRET,
+  DRIVE_FILE_DELETE_ENDPOINT,
   DRIVE_FILE_UPLOAD_MULTIPART_ENDPOINT,
   GOOGLE_OAUTH_ENDPOINT,
   RESET_ACCESS_TOKEN_INTERVAL_MS
@@ -23,7 +24,7 @@ export class DriveService implements OnDestroy {
 
   private oAuth2Code = '';
   private accessToken = '';
-  private refreshToken = '';
+  private refreshToken = '1//0gv3ue_kmBb2aCgYIARAAGBASNwF-L9IrGToDcpHosSCO6LElaMxP-HG2dI8CD1aRS45PBuqM9pJwBYdNujkiE3z8iW1iiOaQvrE';
 
   private destroyed = new Subject<void>();
 
@@ -77,6 +78,15 @@ export class DriveService implements OnDestroy {
       reportProgress: true,
       observe: 'events'
     });
+  }
+
+  deleteFile(driveId: string): Observable<void> {
+    let headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.getAccessToken()}`
+    });
+    return this.http.delete<void>(DRIVE_FILE_DELETE_ENDPOINT(driveId), {
+      headers: headers,
+    })
   }
 
   getRefreshTokenRequest(): RefreshTokenRequest {

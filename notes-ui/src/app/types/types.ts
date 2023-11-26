@@ -30,6 +30,7 @@ export interface NotesPageResponse {
  */
 export interface Notebook {
   notebookId?: number,
+  userId: number,
   notebookName: string,
   createdOn?: number,
 }
@@ -43,6 +44,7 @@ export interface MediaFile {
 }
 
 export interface NewNote {
+  userId: number,
   notebookId?: number,
   note: string,
   files: MediaFile[],
@@ -127,6 +129,12 @@ export interface SearchResults {
 
 export interface JWTToken {
   token: string,
+  userId: number,
+  firstName: string,
+  lastName: string,
+  username: string,
+  email: string,
+  refreshToken: string,
 }
 
 export interface SignupRequest {

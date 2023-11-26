@@ -26,8 +26,12 @@ export class NotesService {
     return this.http.delete<void>(NOTES_API_ENDPOINT + noteId);
   }
 
-  searchNotes(query: string, pageNumber: number, pageSize: number, sortBy: string): Observable<NotesPageResponse> {
-    return this.http.get<NotesPageResponse>(`${NOTES_API_ENDPOINT}searchv2?query=${query}&pageNo=${pageNumber}&pageSize=${pageSize}&sortBy=${sortBy}`);
+  updateNote(note: Note): Observable<Note> {
+    return this.http.put<Note>(NOTES_API_ENDPOINT, note);
+  }
+
+  searchNotes(query: string, pageNumber: number, pageSize: number, sortBy: string, userId: number): Observable<NotesPageResponse> {
+    return this.http.get<NotesPageResponse>(`${NOTES_API_ENDPOINT}searchv2?query=${query}&pageNo=${pageNumber}&pageSize=${pageSize}&sortBy=${sortBy}&userId=${userId}`);
   }
 
   getNoteSubject(): Subject<Note> {

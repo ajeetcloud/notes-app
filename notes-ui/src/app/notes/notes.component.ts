@@ -21,6 +21,7 @@ import {EditDeleteNoteDialogComponent} from "../edit-delete-note-dialog/edit.del
 import {Clipboard} from '@angular/cdk/clipboard';
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {FileService} from "../service/file.service";
+import {DriveService} from "../service/drive-service";
 
 @Component({
   selector: 'notes',
@@ -86,6 +87,7 @@ export class NotesComponent implements OnInit, OnDestroy, OnChanges {
               private dialog: MatDialog,
               private clipboard: Clipboard,
               public datepipe: DatePipe,
+              private driveService: DriveService,
               private snackBar: MatSnackBar,
   ) {
   }
@@ -184,6 +186,7 @@ export class NotesComponent implements OnInit, OnDestroy, OnChanges {
       this.fileService.deleteFile(file.fileId)
         .pipe(takeUntil(this.destroyed))
         .subscribe(() => {
+          this.deleteFileFromDrive(file.driveId);
           if (note.files) {
             const fileIndex = note.files.findIndex(mediaFile => mediaFile.fileId === file.fileId);
             note.files.splice(fileIndex, 1);
@@ -194,6 +197,15 @@ export class NotesComponent implements OnInit, OnDestroy, OnChanges {
         });
     }
 
+  }
+
+  deleteFileFromDrive(driveId: string) {
+    this.driveService.deleteFile(driveId)
+      .pipe(takeUntil(this.destroyed))
+      .subscribe(() => {
+      }, error => {
+        this.snackBar.open(error.message, 'Ok');
+      });
   }
 
 

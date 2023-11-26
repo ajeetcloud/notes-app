@@ -2,6 +2,7 @@ package com.notes.controller;
 
 
 import com.notes.dto.TokenDTO;
+import com.notes.security.CustomUserDetails;
 import com.notes.security.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -29,6 +30,13 @@ public class AuthController {
         if (authentication.isAuthenticated()) {
             String token = jwtService.generateToken(loginRequest.getUsername());
             TokenDTO tokenDTO = new TokenDTO();
+            CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
+            tokenDTO.setUserId(userDetails.getUserId());
+            tokenDTO.setUsername(userDetails.getUsername());
+            tokenDTO.setFirstName(userDetails.getFirstName());
+            tokenDTO.setLastName(userDetails.getLastName());
+            tokenDTO.setEmail(userDetails.getEmail());
+            tokenDTO.setRefreshToken(userDetails.getRefreshToken());
             tokenDTO.setToken(token);
             return tokenDTO;
         }

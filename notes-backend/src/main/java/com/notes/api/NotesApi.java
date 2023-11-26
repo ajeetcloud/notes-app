@@ -29,5 +29,5 @@ public interface NotesApi {
     NotePage getSearchResults(@RequestParam String query, @RequestParam int pageNo, @RequestParam Optional<Integer> pageSize);
 
     @GetMapping("/searchv2")
-    Page<?> getPaginatedSearchResults(@RequestParam String query, @RequestParam int pageNo, @RequestParam Optional<Integer> pageSize, @RequestParam Optional<SortBy> sortBy);
+    Page<?> getPaginatedSearchResults(@RequestParam String query, @RequestParam int pageNo, @RequestParam Optional<Integer> pageSize, @RequestParam Optional<SortBy> sortBy, @RequestParam int userId);
 }

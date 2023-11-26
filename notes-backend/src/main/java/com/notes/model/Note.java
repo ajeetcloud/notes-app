@@ -27,6 +27,10 @@ public class Note {
     @Column(name = "note")
     private String note;
 
+    @GenericField(name = "user_id")
+    @Column(name = "user_id")
+    private int userId;
+
     @Column(name = "updated_on")
     private long updatedOn;
 
@@ -114,5 +118,13 @@ public class Note {
     public int hashCode() {
         final int prime = 31;
         return prime * noteId;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 }

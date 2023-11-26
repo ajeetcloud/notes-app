@@ -9,6 +9,7 @@ import {JWTToken, SignupRequest} from "../types/types";
 })
 export class LoginService {
 
+  private userId: number;
   private loggedInUser: string;
   private jwtToken: JWTToken;
 
@@ -17,7 +18,7 @@ export class LoginService {
 
   cleanup() {
     this.loggedInUser = '';
-    this.jwtToken = {token: ''};
+    this.jwtToken = {token: '', userId: 0, firstName: '', lastName: '', username: '', email: '', refreshToken: ''};
   }
 
   login(username: string, password: string): Observable<JWTToken> {
@@ -46,5 +47,13 @@ export class LoginService {
 
   setJwtToken(jwtToken: JWTToken) {
     this.jwtToken = jwtToken;
+  }
+
+  getUserId(): number {
+    return this.userId;
+  }
+
+  setUserId(userId: number) {
+    this.userId = userId;
   }
 }

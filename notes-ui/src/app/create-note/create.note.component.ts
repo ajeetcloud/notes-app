@@ -6,6 +6,7 @@ import {NotebookService} from "../service/notebook.service";
 import {DriveService} from "../service/drive-service";
 import {FILE_DOWNLOAD_LINK, FILE_VIEW_LINK} from "../common/constants";
 import {FileService} from "../service/file.service";
+import {LoginService} from "../service/login.service";
 
 
 @Component({
@@ -24,6 +25,7 @@ export class CreateNoteComponent implements OnInit, OnDestroy {
               private notebookService: NotebookService,
               private driveService: DriveService,
               private fileService: FileService,
+              private loginService: LoginService,
               private renderer: Renderer2) {
   }
 
@@ -32,6 +34,7 @@ export class CreateNoteComponent implements OnInit, OnDestroy {
 
   saveNote() {
     const newNote: NewNote = {
+      userId: this.loginService.getUserId(),
       notebookId: this.notebookService.getSelectedNotebookId(),
       note: this.note,
       files: this.mediaFiles,

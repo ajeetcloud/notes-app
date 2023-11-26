@@ -34,3 +34,11 @@
 .notebook-icon {
   color: black;
 }
+
+.search-box {
+  color: black;
+}
+
+.message:hover .message-text {
+  background-color: #d8dde0;
+}

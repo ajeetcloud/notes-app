@@ -18,6 +18,7 @@ import {Router} from "@angular/router";
 })
 export class ChannelComponent implements OnInit, OnDestroy {
 
+  loggedInUser: string = '';
   searchValue: string = '';
   notebooks: Notebook[] = [];
   notesResponse: NotesPageResponse;
@@ -27,6 +28,7 @@ export class ChannelComponent implements OnInit, OnDestroy {
   private destroyed = new Subject<void>();
 
   ngOnInit(): void {
+    this.loggedInUser = this.loginService.getLoggedInUser();
     this.getNotebooks();
     this.selectedNotebookId = this.notebookService.getSelectedNotebookId();
   }
@@ -38,7 +40,7 @@ export class ChannelComponent implements OnInit, OnDestroy {
   }
 
   getNotebooks() {
-    this.notebookService.getNotebooks()
+    this.notebookService.getNotebooksForUserId(this.loginService.getUserId())
       .pipe(takeUntil(this.destroyed))
       .subscribe((notebooks: Notebook[]) => {
         this.notebooks = notebooks;

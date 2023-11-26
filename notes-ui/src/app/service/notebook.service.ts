@@ -28,6 +28,10 @@ export class NotebookService {
     return this.http.get<Notebook[]>(NOTEBOOK_API_ENDPOINT);
   }
 
+  getNotebooksForUserId(userId: number): Observable<Notebook[]> {
+    return this.http.get<Notebook[]>(`${NOTEBOOK_API_ENDPOINT}user/${userId}`);
+  }
+
   getNotes(notebookId: number, pageNumber: number): Observable<NotesPageResponse> {
     return this.http.get<NotesPageResponse>(`${NOTEBOOK_API_ENDPOINT}${notebookId}/notes1?pageNo=${pageNumber}&pageSize=${NOTES_PAGE_SIZE}`);
   }

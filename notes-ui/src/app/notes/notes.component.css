@@ -67,6 +67,10 @@
   margin-right: 12px;
 }
 
+.message:hover .message-text {
+  background-color: #d8dde0;
+}
+
 .date-separator {
   width: 100%;
   display: flex;

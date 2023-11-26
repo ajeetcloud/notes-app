@@ -51,8 +51,8 @@ public class NotesController implements NotesApi {
     }
 
     @Override
-    public Page<Note> getPaginatedSearchResults(String query, int pageNo, Optional<Integer> pageSize, Optional<SortBy> sortBy) {
-        return notesServiceNew.getPaginatedSearchResults(query, pageNo, pageSize.orElseGet(() -> 20), sortBy.orElseGet(() -> SortBy.RELEVANCE));
+    public Page<Note> getPaginatedSearchResults(String query, int pageNo, Optional<Integer> pageSize, Optional<SortBy> sortBy, int userId) {
+        return notesServiceNew.getPaginatedSearchResults(query, pageNo, pageSize.orElseGet(() -> 20), sortBy.orElseGet(() -> SortBy.RELEVANCE), userId);
     }
 
 }

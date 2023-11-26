@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface NotebookRepository extends JpaRepository<Notebook, Integer> {
 
@@ -18,4 +20,5 @@ public interface NotebookRepository extends JpaRepository<Notebook, Integer> {
     @Query("DELETE FROM Notebook notebook WHERE notebook.notebookId = :notebookId")
     void deleteNotebookByNotebookId(int notebookId);
 
+    List<Notebook> findAllByUserId(int userId);
 }

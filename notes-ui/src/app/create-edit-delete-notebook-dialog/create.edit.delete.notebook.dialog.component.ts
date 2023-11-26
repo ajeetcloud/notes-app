@@ -4,6 +4,7 @@ import {ActionType, Notebook, NotebookDialogData} from "../types/types";
 import {NotebookService} from "../service/notebook.service";
 import {Subject, takeUntil} from "rxjs";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {LoginService} from "../service/login.service";
 
 @Component({
   selector: 'create-edit-delete-notebook-dialog',
@@ -21,6 +22,7 @@ export class CreateEditDeleteNotebookDialogComponent implements OnInit, OnDestro
   constructor(private dialogRef: MatDialogRef<CreateEditDeleteNotebookDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: NotebookDialogData,
               private notebookService: NotebookService,
+              private loginService: LoginService,
               private snackBar: MatSnackBar) {
     dialogRef.disableClose = true;
   }
@@ -37,6 +39,7 @@ export class CreateEditDeleteNotebookDialogComponent implements OnInit, OnDestro
   createEditNotebook() {
     if (this.actionLabel === ActionType.CREATE) {
       const notebook: Notebook = {
+        userId: this.loginService.getUserId(),
         notebookName: this.notebookName,
       }
       this.notebookService.createNotebook(notebook)

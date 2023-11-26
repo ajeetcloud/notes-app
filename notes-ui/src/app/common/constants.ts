@@ -20,5 +20,10 @@ export const RESET_ACCESS_TOKEN_INTERVAL_MS = 3360000 // 56 minutes
  * Only what is required = https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id,name,webContentLink
  */
 export const DRIVE_FILE_UPLOAD_MULTIPART_ENDPOINT = "https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id,name,webContentLink";
+export const DRIVE_FILE_DELETE_ENDPOINT = (driveId: string) => `https://www.googleapis.com/drive/v3/files/${driveId}`;
+
 export const FILE_DOWNLOAD_LINK = (driveId: string) => `https://drive.google.com/uc?id=${driveId}&export=download`;
-export const FILE_VIEW_LINK = "https://lh3.google.com/d/";
+export const SIGNUP_SUCCESSFUL_MSG = (firstName: string) => `${firstName}, your account has been created successfully.`;
+// export const FILE_VIEW_LINK = "https://lh3.google.com/d/";
+//export const FILE_VIEW_LINK = "https://lh3.google.com/u/0/d/";
+export const FILE_VIEW_LINK = "https://drive.google.com/uc?id=";

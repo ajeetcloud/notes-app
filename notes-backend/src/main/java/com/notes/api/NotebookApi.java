@@ -15,6 +15,9 @@ public interface NotebookApi {
     @GetMapping("/")
     List<Notebook> getAllNotebooks();
 
+    @GetMapping("/user/{userId}")
+    List<Notebook> getAllNotebooksForUserId(@PathVariable int userId);
+
     @PostMapping("/")
     Notebook createNotebook(@RequestBody Notebook notebook);
 

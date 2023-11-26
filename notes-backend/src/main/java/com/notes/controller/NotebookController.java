@@ -35,6 +35,11 @@ public class NotebookController implements NotebookApi {
     }
 
     @Override
+    public List<Notebook> getAllNotebooksForUserId(int userId) {
+        return notebookServiceNew.getAllNotebooksForUserId(userId);
+    }
+
+    @Override
     public Notebook createNotebook(Notebook notebook) {
         notebookServiceNew.createNotebook(notebook);
         return notebook;

@@ -37,6 +37,12 @@ public class NotebookServiceNew {
         return notebookRepository.findAll();
     }
 
+    public List<Notebook> getAllNotebooksForUserId(int userId) {
+
+        return notebookRepository.findAllByUserId(userId);
+    }
+
+
     /**
      * Creates a new notebook.
      *

@@ -1,20 +1,26 @@
-package com.notes.dto;
+package com.notes.security;
 
-public class TokenDTO {
-    private String token;
-    private int userId;
-    private String firstName;
-    private String lastName;
-    private String username;
-    private String email;
-    private String refreshToken;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 
-    public String getToken() {
-        return token;
-    }
+import java.util.Collection;
 
-    public void setToken(String token) {
-        this.token = token;
+public class CustomUserDetails extends User {
+
+    int userId;
+
+    String firstName;
+
+    String lastName;
+
+    String username;
+
+    String email;
+
+    String refreshToken;
+
+    public CustomUserDetails(String username, String password, Collection<? extends GrantedAuthority> authorities) {
+        super(username, password, authorities);
     }
 
     public int getUserId() {
@@ -41,6 +47,7 @@ public class TokenDTO {
         this.lastName = lastName;
     }
 
+    @Override
     public String getUsername() {
         return username;
     }

@@ -26,6 +26,9 @@ public class Notebook {
     @Column(name = "notebook_name")
     private String notebookName;
 
+    @Column(name = "user_id")
+    private int userId;
+
     @Column(name = "updated_on")
     @JsonIgnore
     private long updatedOn;
@@ -67,5 +70,21 @@ public class Notebook {
 
     public void setCreatedOn(long createdOn) {
         this.createdOn = createdOn;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public Set<Note> getNotes() {
+        return notes;
+    }
+
+    public void setNotes(Set<Note> notes) {
+        this.notes = notes;
     }
 }

@@ -3,7 +3,6 @@ package com.notes.security;
 import com.notes.model.UserInfo;
 import com.notes.repository.UserInfoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -22,8 +21,20 @@ public class UserInfoUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<UserInfo> userInfo = repository.findByUsername(username);
 
-        return new User(userInfo.get().getUsername(), userInfo.get().getPassword(),
-                new ArrayList<>());
+        if (!userInfo.isPresent()) {
+            throw new UsernameNotFoundException("User not found");
+        }
+        UserInfo userInfoObj = userInfo.get();
 
+        CustomUserDetails customUserDetails = new CustomUserDetails(userInfoObj.getUsername(), userInfoObj.getPassword(),
+                new ArrayList<>());
+        customUserDetails.setUsername(userInfoObj.getUsername());
+        customUserDetails.setUserId(userInfoObj.getUserId());
+        customUserDetails.setFirstName(userInfoObj.getFirstName());
+        customUserDetails.setLastName(userInfoObj.getLastName());
+        customUserDetails.setEmail(userInfoObj.getEmail());
+        customUserDetails.setRefreshToken(userInfoObj.getRefreshToken());
+
+        return customUserDetails;
     }
 }

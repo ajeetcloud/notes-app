@@ -6,6 +6,7 @@ import {NotesService} from "../service/notes.service";
 import {PageEvent} from "@angular/material/paginator";
 import {SEARCH_PAGE_SIZE} from "../common/constants";
 import {NotebookService} from "../service/notebook.service";
+import {LoginService} from "../service/login.service";
 
 
 @Component({
@@ -28,7 +29,8 @@ export class SearchDialogComponent implements OnInit, OnDestroy {
   constructor(private dialogRef: MatDialogRef<SearchDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: string,
               private noteService: NotesService,
-              private notebookService: NotebookService) {
+              private notebookService: NotebookService,
+              private loginService: LoginService) {
   }
 
   ngOnInit(): void {
@@ -53,7 +55,7 @@ export class SearchDialogComponent implements OnInit, OnDestroy {
   search() {
     console.log("change");
     if (this.searchQuery.trim()) {
-      this.noteService.searchNotes(this.searchQuery, this.pageNumber, this.pageSize, this.sortBy)
+      this.noteService.searchNotes(this.searchQuery, this.pageNumber, this.pageSize, this.sortBy, this.loginService.getUserId())
         .pipe(takeUntil(this.destroyed))
         .subscribe((res: SearchResults) => {
           this.populateNotebookName(res);
