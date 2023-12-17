@@ -29,6 +29,7 @@
 
 .note-content {
   color: rgba(29, 28, 29, 1);
+  white-space: pre-wrap;
 }
 
 .notebook-icon {
@@ -41,4 +42,8 @@
 
 .message:hover .message-text {
   background-color: #d8dde0;
+}
+
+.notebook {
+  margin-left: -5px;
 }

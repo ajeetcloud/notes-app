@@ -33,10 +33,8 @@
                 <div class="message-body">
                   <div class="message-content">
                     <div id="{{note.noteId}}" class="message-text">
-                      <div class="message-time">
-                        {{note.createdOn | date: 'h:mm a'}}
-                      </div>
-                      <p class="message-content">{{note.note}}</p>
+                      <div class="message-time">{{note.createdOn | date: 'h:mm a'}}</div>
+                      <span class="message-content">{{note.note}}</span>
                       <div *ngIf="note.files" class="flex-container">
                         <div *ngFor="let file of note.files">
 
