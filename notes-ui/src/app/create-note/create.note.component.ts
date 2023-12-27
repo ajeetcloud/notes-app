@@ -1,12 +1,13 @@
 import {Component, ElementRef, OnDestroy, OnInit, Renderer2, ViewChild} from "@angular/core";
 import {MediaFile, NewNote, Note} from "../types/types";
 import {NotesService} from "../service/notes.service";
-import {Subject, takeUntil} from "rxjs";
+import {forkJoin, Subject, takeUntil} from "rxjs";
 import {NotebookService} from "../service/notebook.service";
 import {DriveService} from "../service/drive-service";
 import {FILE_DOWNLOAD_LINK, FILE_VIEW_LINK, LINK_REGEX} from "../common/constants";
 import {FileService} from "../service/file.service";
 import {LoginService} from "../service/login.service";
+import {MetaService} from "../service/meta-service";
 
 
 @Component({
@@ -20,26 +21,20 @@ export class CreateNoteComponent implements OnInit, OnDestroy {
   private destroyed = new Subject<void>();
   @ViewChild('pRef', {static: false}) pRef: ElementRef;
   mediaFiles: MediaFile[] = [];
-  hyperlinks: string[] = [];
 
   constructor(private notesService: NotesService,
               private notebookService: NotebookService,
               private driveService: DriveService,
               private fileService: FileService,
               private loginService: LoginService,
-              private renderer: Renderer2) {
+              private renderer: Renderer2,
+              private metaService: MetaService) {
   }
 
   ngOnInit(): void {
   }
 
-
-
   saveNote() {
-
-    this.hyperlinks = this.note.match(LINK_REGEX) || [];
-    console.log(this.hyperlinks);
-
     const newNote: NewNote = {
       userId: this.loginService.getUserId(),
       notebookId: this.notebookService.getSelectedNotebookId(),

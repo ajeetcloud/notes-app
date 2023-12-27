@@ -151,6 +151,23 @@
   width: 300px;
 }
 
+.link-flex-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.link-card {
+  width: 1000px;
+}
+
+.title {
+  color: black;
+}
+
+.title:hover {
+  text-decoration: underline;
+}
+
 .media-filename-container {
   width: 250px;
   overflow: hidden;

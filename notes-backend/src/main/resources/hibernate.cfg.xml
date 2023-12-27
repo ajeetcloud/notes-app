@@ -17,5 +17,6 @@
         <mapping class="com.notes.model.Note"/>
         <mapping class="com.notes.model.File"/>
         <mapping class="com.notes.model.UserInfo"/>
+        <mapping class="com.notes.model.Link"/>
     </session-factory>
 </hibernate-configuration>

@@ -7,6 +7,7 @@ export interface Note {
   notebookName?: string,
   note?: string,
   files?: MediaFile[],
+  links?: Link[],
   updatedOn?: number,
   createdOn?: number
 }
@@ -33,6 +34,14 @@ export interface Notebook {
   userId: number,
   notebookName: string,
   createdOn?: number,
+}
+
+export interface Link {
+  linkId: number,
+  noteId: number,
+  url: string,
+  title: string
+  description?: string,
 }
 
 export interface MediaFile {

@@ -68,6 +68,18 @@
                         </div>
                       </div>
 
+                      <div *ngIf="note.links" class="link-flex-container">
+                        <div *ngFor="let link of note.links">
+                          <mat-card class="link-card">
+                            <mat-card-header>
+                              <mat-card-title><a href="{{link.url}}" target="_blank">{{link.url}}</a></mat-card-title>
+                              <mat-card-subtitle><a class="title" href="{{link.url}}" target="_blank">{{link.title}}</a></mat-card-subtitle>
+                            </mat-card-header>
+                            <mat-card-content>{{link.description}}</mat-card-content>
+                          </mat-card>
+                        </div>
+                      </div>
+
                     </div>
                   </div>
                 </div>
