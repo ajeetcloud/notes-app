@@ -28,4 +28,4 @@ export const SIGNUP_SUCCESSFUL_MSG = (firstName: string) => `${firstName}, your 
 //export const FILE_VIEW_LINK = "https://lh3.google.com/u/0/d/";
 export const FILE_VIEW_LINK = "https://drive.google.com/uc?id=";
 
-export const LINK_REGEX= "/(?:https?):\/\/[^\s/$.?#].[^\s]*/g";
+export const LINK_REGEX = /(?:https?):\/\/[^\s/$.?#].[^\s]*/g;

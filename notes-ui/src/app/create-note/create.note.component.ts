@@ -4,7 +4,7 @@ import {NotesService} from "../service/notes.service";
 import {Subject, takeUntil} from "rxjs";
 import {NotebookService} from "../service/notebook.service";
 import {DriveService} from "../service/drive-service";
-import {FILE_DOWNLOAD_LINK, FILE_VIEW_LINK} from "../common/constants";
+import {FILE_DOWNLOAD_LINK, FILE_VIEW_LINK, LINK_REGEX} from "../common/constants";
 import {FileService} from "../service/file.service";
 import {LoginService} from "../service/login.service";
 
@@ -20,6 +20,7 @@ export class CreateNoteComponent implements OnInit, OnDestroy {
   private destroyed = new Subject<void>();
   @ViewChild('pRef', {static: false}) pRef: ElementRef;
   mediaFiles: MediaFile[] = [];
+  hyperlinks: string[] = [];
 
   constructor(private notesService: NotesService,
               private notebookService: NotebookService,
@@ -32,7 +33,13 @@ export class CreateNoteComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
   }
 
+
+
   saveNote() {
+
+    this.hyperlinks = this.note.match(LINK_REGEX) || [];
+    console.log(this.hyperlinks);
+
     const newNote: NewNote = {
       userId: this.loginService.getUserId(),
       notebookId: this.notebookService.getSelectedNotebookId(),
