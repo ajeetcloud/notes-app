@@ -46,6 +46,9 @@ public class Note {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "note", cascade = CascadeType.ALL)
     private Set<File> files;
 
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "note", cascade = CascadeType.ALL)
+    private Set<Link> links;
+
     public int getNoteId() {
         return noteId;
     }
@@ -100,6 +103,14 @@ public class Note {
 
     public void setFiles(Set<File> files) {
         this.files = files;
+    }
+
+    public Set<Link> getLinks() {
+        return links;
+    }
+
+    public void setLinks(Set<Link> links) {
+        this.links = links;
     }
 
     @Override

@@ -1,9 +1,8 @@
 package com.notes.service;
 
-import com.notes.model.File;
-import com.notes.model.Note;
-import com.notes.model.NotePage;
-import com.notes.model.Notebook;
+import com.notes.model.*;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import com.notes.repository.FileRepository;
 import com.notes.repository.NoteRepository;
 import com.notes.util.HibernateUtil;
@@ -15,6 +14,7 @@ import org.hibernate.search.engine.search.query.SearchQuery;
 import org.hibernate.search.engine.search.query.SearchResult;
 import org.hibernate.search.mapper.orm.Search;
 import org.hibernate.search.mapper.orm.session.SearchSession;
+import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.data.jpa.domain.Specification;
@@ -26,7 +26,12 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.regex.Matcher;
 
 @Service
 public class NotesServiceNew {
@@ -94,8 +99,57 @@ public class NotesServiceNew {
         return results;
     }
 
+    private List<String> getLinks(String content) {
+        List<String> links = new ArrayList<>();
+        Matcher matcher = HibernateUtil.pattern.matcher(content);
+        while(matcher.find()) {
+            links.add(matcher.group());
+        }
+        return links;
+    }
+
+    private Set<Link> getMetadata(List<String> links) {
+        Set<Link> metadatas = new HashSet<>();
+        for (String link: links) {
+            Link metadata = new Link();
+            try {
+                Document document = Jsoup.connect(link)
+                        .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.207.132.170 Safari/537.36")
+                        .referrer("https://www.google.com")
+                        .get();
+                String title = document.title();
+                String url = link;
+                if (title.length() > 200) {
+                    title = title.substring(0, 200);
+                }
+                if (url.length() > 200) {
+                    url = url.substring(0, 200);
+                }
+                metadata.setUrl(url);
+                metadata.setTitle(title);
+                String description;
+                Elements descriptionMetaTags = document.select("meta[name=description]");
+                if (!descriptionMetaTags.isEmpty()) {
+                    description = descriptionMetaTags.get(0).attr("content");
+                    if (description.length() > 500) {
+                        description = description.substring(0, 500);
+                    }
+                    metadata.setDescription(description);
+                }
+            } catch (IOException e) {
+                System.out.println("Error: " + e.getMessage());
+            }
+            metadatas.add(metadata);
+        }
+        return metadatas;
+    }
 
     public void createNote(Note note) {
+        List<String> links = getLinks(note.getNote());
+        Set<Link>metadatas = null;
+        if (links.size() > 0) {
+            metadatas = getMetadata(links);
+        }
 
         long currentTime = System.currentTimeMillis();
         note.setUpdatedOn(currentTime);
@@ -106,6 +160,13 @@ public class NotesServiceNew {
         for (File file : note.getFiles()) {
             file.setNote(note);
             file.setCreatedOn(currentTime);
+        }
+        note.setLinks(metadatas);
+        if (note.getLinks() != null) {
+            for (Link link : note.getLinks()) {
+                link.setNote(note);
+                link.setCreatedOn(currentTime);
+            }
         }
         noteRepository.save(note);
     }

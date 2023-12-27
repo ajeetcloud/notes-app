@@ -6,7 +6,12 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
+import java.util.regex.Pattern;
+
 public class HibernateUtil<T> {
+
+    public static String urlPattern = "(?i)\\b(?:https?):\\/\\/\\S+(?:\\b|$)";
+    public static Pattern pattern = Pattern.compile(urlPattern);
     private static final SessionFactory sessionFactory = buildSessionFactory();
 
     private static SessionFactory buildSessionFactory() {
