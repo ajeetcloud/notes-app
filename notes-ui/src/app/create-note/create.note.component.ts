@@ -7,7 +7,6 @@ import {DriveService} from "../service/drive-service";
 import {FILE_DOWNLOAD_LINK, FILE_VIEW_LINK, LINK_REGEX} from "../common/constants";
 import {FileService} from "../service/file.service";
 import {LoginService} from "../service/login.service";
-import {MetaService} from "../service/meta-service";
 
 
 @Component({
@@ -27,8 +26,7 @@ export class CreateNoteComponent implements OnInit, OnDestroy {
               private driveService: DriveService,
               private fileService: FileService,
               private loginService: LoginService,
-              private renderer: Renderer2,
-              private metaService: MetaService) {
+              private renderer: Renderer2) {
   }
 
   ngOnInit(): void {
